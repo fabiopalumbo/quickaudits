@@ -1,0 +1,81 @@
+<?php /* @var $bottomScoringQuestions \Zend\Db\ResultSet\ResultSet */ ?>
+<div class="widget">
+    <div class="widget-advanced widget-advanced-alt">
+        <!-- Widget Header -->
+        <div class="widget-header text-center ">
+        <?php if ($this->layout()->getVariable('role')->hasPermission('organization_manage-dashboard')) {?>
+        <div class="widget-options">
+            <div class="btn-group btn-group-xs">
+                <a data-original-title="<?php echo $this->translate('Manage Dashboards'); ?>" href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-dashboard'));?>" class="btn btn-xs btn-default" data-toggle="tooltip" title="<?php echo $this->translate('Manage Dashboards'); ?>"><i class="fa fa-cog"></i></a>
+            </div>
+        </div>    
+        <?php } ?>        
+            <h3 class="text-left pull-left animation-pullDown">
+                <strong><?php echo $this->translate('Bottom 5 scoring questions (weekly)'); ?></strong><br>
+                <small><?php echo $this->translate('Last 7 Days'); ?></small>
+            </h3>
+            
+        </div>
+        <!-- END Widget Header -->
+        <?php if ($bottomScoringQuestions->count()) { ?>
+        <div id="chart-bottom-scoring-questions-weekly" class="chart"></div>
+        <div>&nbsp;</div>
+        <ol class="list-group">
+            <?php foreach ($this->bottomScoringQuestions as $key => $item) { ?>
+            <li class="list-group-item">
+                <span class="badge label-success"><?php echo $item->score;?>%</span>
+                <?php echo ($key+1).') '.$item->question; ?>
+            </li>
+            <?php } ?>
+        </ol>
+        <?php } else { ?>
+        <div class="row-fluid clearfix">
+        	<div class="col-md-12"><div class="alert alert-warning"><?php echo $this->translate('There is no data to display this report.'); ?></div></div>
+        </div>
+        <?php } ?>
+    </div>
+</div>
+
+<?php if ($bottomScoringQuestions->count()) { ?>
+<script type="text/javascript">
+<!--
+$(function(){
+    // Bottom 5 Scoring Questions (Weekly)
+	<?php $data = array(); ?>
+    <?php foreach ($this->bottomScoringQuestions as $key=>$item) { ?>
+    <?php array_push($data, '["'.($key+1).'", '.$item->score.']'); ?>
+    <?php } ?>
+	var data = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-bottom-scoring-questions-weekly'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 1, 
+                fillColor: {
+                   colors: [{opacity: 0.3}, {opacity: 0.3}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#84BF4F'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	},
+    	yaxis: {show: false},
+    });
+});
+//-->
+</script>
+<?php } ?>
+<script type="text/javascript">
+<!--
+$(function(){
+$('[data-toggle="tooltip"], .enable-tooltip').tooltip({container: 'body', animation: false});
+});
+//-->
+</script>

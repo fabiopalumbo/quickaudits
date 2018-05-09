@@ -1,0 +1,291 @@
+<div class="block">
+    <form class="form-horizontal" method="get" action="<?php echo $this->url('application/default', array('controller'=>'report','action'=>'agent-overview'));?>">
+        <div class="form-group">
+            <div class="col-md-12">
+           <select class="form-control input-sm select-chosen" name="agent[]" data-placeholder="<?php echo $this->translate('All Agents'); ?>" multiple>
+                <option value="">Select an Agent</option>
+			<?php foreach ($agents as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['agent']) && in_array($item->id, $this->filter['agent']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+            </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+            <select class="form-control input-sm select-chosen" name="project[]" data-placeholder="All Projects" multiple>
+                <?php foreach ($projects as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['project']) && in_array($item->id, $this->filter['project']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-2">
+            <select class="form-control input-sm select-chosen" name="channel[]" data-placeholder="All Channels" multiple>
+                <?php foreach ($channels as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['channel']) && in_array($item->id, $this->filter['channel']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-2">
+            <select class="form-control input-sm select-chosen" name="language[]" data-placeholder="All Languages" multiple>
+                <?php foreach ($languages as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['language']) && in_array($item->id, $this->filter['language']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-3">
+            <div class="input-group input-daterange" data-date-format="mm/dd/yyyy">
+                <input type="text" id="date_from" name="date_from" class="form-control text-center" placeholder="From" value="<?php echo $this->filter['date_from']; ?>">
+                <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+                <input type="text" id="date_to" name="date_to" class="form-control text-center" placeholder="To" value="<?php echo $this->filter['date_to']; ?>">
+            </div>
+            </div>
+
+            <div class="col-md-1">
+            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> Search</button>
+            </div>
+        </div>
+    </form>    
+</div>
+
+<?php if ($this->filter['agent']) { ?>
+
+<?php $projectsScores = array(); ?>
+<?php foreach ($agentProjectsScores as $item) { ?>
+<?php $projectsScores[$item->id_project] = array('score'=>$item->score,'samples'=>$item->samples); ?>
+<?php } ?>
+
+<div class="block full">
+    <!-- Bars Chart Content -->
+    <!-- Flot Charts (initialized in js/pages/compCharts.js), for more examples you can check out http://www.flotcharts.org/ -->
+    <div id="chart-bars" class="chart"></div>
+    <!-- END Bars Chart Content -->
+</div>
+
+<div class="block full">
+    <!-- Responsive Full Content -->
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th>Project / Group</th>
+                    <?php foreach ($questionsGroups as $questionGroup){ ?>
+                    <th><?php echo $questionGroup->name; ?></th>
+                    <?php } ?>
+                    <th>Samples</th>
+                    <th>Grand Total</th>
+                    <th class="text-center" style="width: 50px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <?php $newProjectsGroupsScores = $projectsGroupsScores->current(); ?>
+                
+                <?php while ($newProjectsGroupsScores) { ?>
+                <?php $oldProjectsGroupsScores = $newProjectsGroupsScores; ?>
+                <tr>
+                    <td><?php echo $newProjectsGroupsScores->project; ?></td>
+                    <?php while ($newProjectsGroupsScores && $newProjectsGroupsScores->id_project==$oldProjectsGroupsScores->id_project) { ?>
+                    <td><?php echo $newProjectsGroupsScores->score; ?></td>
+                    <?php $projectsGroupsScores->next(); ?>
+                    <?php $newProjectsGroupsScores = $projectsGroupsScores->current(); ?>
+                    <?php } ?>
+                    <td><?php echo $projectsScores[$oldProjectsGroupsScores->id_project]['samples']; ?></td>
+                    <td><?php echo $projectsScores[$oldProjectsGroupsScores->id_project]['score']; ?></td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-xs">
+                            <?php $newFilter = $filter;?>
+                            <?php $newFilter['project'] = $oldProjectsGroupsScores->id_project; ?>
+                            <?php unset($newFilter['organization']); ?>
+                            <a class="btn btn-default" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'report','action'=>'agent-project-detail'));?>?<?php echo http_build_query($newFilter); ?>" data-original-title="View"><i class="fa fa-search"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+                
+            </tbody>
+        </table>
+    </div>
+    <!-- END Responsive Full Content -->
+</div>
+
+<div class="block full">
+    <div class="table-responsive">
+        <table class="table table-vcenter table-stripped report">
+            <thead>
+                <tr>
+                    <th class="col-md-7">Weeks</th>
+                    <?php foreach ($weeksGrandTotal as $week) { ?>
+                    <th class="text-right"><?php echo $week->week; ?></th>
+                    <?php } ?>
+                    <th class="text-right">Grand Total</th>
+                </tr>
+                <tr>
+                    <th>Samples</th>
+                    <?php $totalSamples = 0; ?>
+                    <?php foreach ($weeksGrandTotal as $week) { ?>
+                    <?php $totalSamples+=$week->samples; ?>
+                    <th class="text-right"><?php echo $week->samples; ?></th>
+                    <?php } ?>
+                    <th class="text-right"><?php echo $totalSamples; ?></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <?php $newWeekGroupScoreAvg = $weekGroupScoreAvg->current(); ?>
+                
+                <?php while ($newWeekGroupScoreAvg) { ?>
+                <?php $oldWeekGroupScoreAvg = $newWeekGroupScoreAvg; ?>
+                <tr>
+                    <td><?php echo $newWeekGroupScoreAvg->question_group; ?></td>
+                    <?php while ($newWeekGroupScoreAvg && $newWeekGroupScoreAvg->id_group==$oldWeekGroupScoreAvg->id_group) { ?>
+                    <td class="text-right"><?php echo $newWeekGroupScoreAvg->score; ?>%</td>
+                    <?php $weekGroupScoreAvg->next(); ?>
+                    <?php $newWeekGroupScoreAvg = $weekGroupScoreAvg->current(); ?>
+                    <?php } ?>
+                    <td class="text-right"><?php echo $groupScoreTotal[$oldWeekGroupScoreAvg->id_group]; ?>%</td>
+                </tr>
+                <?php } ?>
+            </tbody>
+            
+            <thead>
+                <tr class="success">
+                    <th>Total Score</th>
+                    <?php foreach ($weeksGrandTotal as $week) { ?>
+                    <th class="text-right"><?php echo $week->score; ?>%</th>
+                    <?php } ?>
+                    <th class="text-right"><?php echo $groupScoreGrandTotal->current()->score; ?>%</th>
+                </tr>
+            </thead>
+            
+            <?php $newWeekQuestionScoreAvg = $weekQuestionScoreAvg->current(); ?>
+            <?php while ($newWeekQuestionScoreAvg) { ?>
+            <?php $oldGroup = $newWeekQuestionScoreAvg->id_group; ?>
+            <thead>
+                <tr>
+                    <th colspan="100%"><?php echo $newWeekQuestionScoreAvg->question_group; ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($newWeekQuestionScoreAvg && $newWeekQuestionScoreAvg->id_group==$oldGroup) { ?>
+                <?php $oldQuestion = $newWeekQuestionScoreAvg->id_question; ?>
+                <tr>
+                    <td><?php echo $newWeekQuestionScoreAvg->question; ?></td>
+                    <?php while ($newWeekQuestionScoreAvg && $newWeekQuestionScoreAvg->id_group==$oldGroup && $newWeekQuestionScoreAvg->id_question==$oldQuestion) { ?>
+                    <td class="text-right"><?php echo $newWeekQuestionScoreAvg->score ? $newWeekQuestionScoreAvg->score.'%' : 'N/A'; ?></td>                    
+                    <?php $weekQuestionScoreAvg->next(); ?>
+                    <?php $newWeekQuestionScoreAvg = $weekQuestionScoreAvg->current(); ?>
+                    <?php } ?>
+                    <td class="text-right"><?php echo $questionScoreTotal[$oldQuestion]; ?>%</td>    
+                </tr>
+                <?php } ?>
+            </tbody>
+            
+            <?php } ?>
+            
+            <tfoot>
+                <tr class="success">
+                    <th>Total Score</th>
+                    <?php foreach ($weeksGrandTotal as $week) { ?>
+                    <th class="text-right"><?php echo $week->score; ?>%</th>
+                    <?php } ?>
+                    <th class="text-right"><?php echo $groupScoreGrandTotal->current()->score; ?>%</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Last 12 Weeks Rolling</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <?php foreach ($weekRollingScoreTotal as $item) { ?>
+                    <th><?php echo $item->week; ?></th>
+                    <?php } ?>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Score</td>
+                    <?php foreach ($weekRollingScoreTotal as $item) { ?>
+                    <td><?php echo $item->score; ?></td>
+                    <?php } ?>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Last 6 Months Rolling</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <?php foreach ($monthRollingScoreTotal as $item) { ?>
+                    <th><?php echo date('F', mktime(0, 0, 0, $item->month, 10)); ?></th>
+                    <?php } ?>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Score</td>
+                    <?php foreach ($monthRollingScoreTotal as $item) { ?>
+                    <td><?php echo $item->score; ?></td>
+                    <?php } ?>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<?php } ?>
+
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li ul li a.agents-overview').addClass('active');
+    
+	<?php $data = array(); ?>
+	<?php if (!empty($agentProjectsScores)) { ?>
+        <?php foreach ($agentProjectsScores as $item) { ?>
+        <?php array_push($data, '["'.$item->project.'", '.$item->score.']'); ?>
+        <?php } ?>
+    <?php } ?>
+    
+    var data = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-bars'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+    
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>

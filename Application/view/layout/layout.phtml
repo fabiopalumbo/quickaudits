@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         
+<html class="no-js lt-ie9">
+<![endif]-->
+<!--[if IE 9]>         
+<html class="no-js lt-ie10">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+    <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>Quick Audits</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" href="<?=$this->basePath('/modules/application/')?>img/favicon.ico">
+    <link rel="apple-touch-icon" href="<?=$this->basePath('/modules/application/')?>img/icon57.png" sizes="57x57">
+    <link rel="apple-touch-icon" href="<?=$this->basePath('/modules/application/')?>img/icon72.png" sizes="72x72">
+    <link rel="apple-touch-icon" href="<?=$this->basePath('/modules/application/')?>img/icon76.png" sizes="76x76">
+    <link rel="apple-touch-icon" href="<?=$this->basePath('/modules/application/')?>img/icon114.png" sizes="114x114">
+    <link rel="apple-touch-icon" href="<?=$this->basePath('/modules/application/')?>img/icon120.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="<?=$this->basePath('/modules/application/')?>img/icon144.png" sizes="144x144">
+    <link rel="apple-touch-icon" href="<?=$this->basePath('/modules/application/')?>img/icon152.png" sizes="152x152">
+    <!-- END Icons -->
+    <!-- Stylesheets -->
+    <!-- Bootstrap is included in its original form, unaltered -->
+    <link rel="stylesheet" href="<?=$this->basePath('/modules/application/')?>css/bootstrap.min.css">
+    <!-- Related styles of various icon packs and plugins -->
+    <link rel="stylesheet" href="<?=$this->basePath('/modules/application/')?>css/plugins.css">
+    <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+    <link rel="stylesheet" href="<?=$this->basePath('/modules/application/')?>css/main.css">
+    <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
+    <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+    <link rel="stylesheet" href="<?=$this->basePath('/modules/application/')?>css/themes.css">
+    <link rel="stylesheet" href="<?=$this->basePath('/modules/application/')?>css/custom.css">
+    
+    <?php if ($this->layout()->getVariable('wizard') !== null) { ?>
+    <link rel="stylesheet" href="<?=$this->basePath('/modules/application/')?>css/joyride-2.1.css">
+    <?php } ?>
+    <!-- END Stylesheets -->
+    <!-- Modernizr (browser feature detection library) & Respond.js (Enable responsive CSS code on browsers that don't support it, eg IE8) -->
+    <script src="<?=$this->basePath('/modules/application/')?>js/vendor/modernizr-2.7.1-respond-1.4.2.min.js"></script>
+    
+    <script type="text/javascript">
+    var baseUrl = '<?php echo $this->url('home'); ?>';
+    </script>
+</head>
+<!-- In the PHP version you can set the following options from inc/config file -->
+<!--
+    Available body classes:
+    
+    'page-loading'      enables page preloader
+    -->
+<body>
+    <!-- Page Container -->
+    <!-- In the PHP version you can set the following options from inc/config file -->
+    <!--
+        Available #page-container classes:
+        
+        '' (None)                                       for a full main and alternative sidebar hidden by default (> 991px)
+        
+        'sidebar-visible-lg'                            for a full main sidebar visible by default (> 991px)
+        'sidebar-partial'                               for a partial main sidebar which opens on mouse hover, hidden by default (> 991px)
+        'sidebar-partial sidebar-visible-lg'            for a partial main sidebar which opens on mouse hover, visible by default (> 991px)
+        
+        'sidebar-alt-visible-lg'                        for a full alternative sidebar visible by default (> 991px)
+        'sidebar-alt-partial'                           for a partial alternative sidebar which opens on mouse hover, hidden by default (> 991px)
+        'sidebar-alt-partial sidebar-alt-visible-lg'    for a partial alternative sidebar which opens on mouse hover, visible by default (> 991px)
+        
+        'sidebar-partial sidebar-alt-partial'           for both sidebars partial which open on mouse hover, hidden by default (> 991px)
+        
+        'sidebar-no-animations'                         add this as extra for disabling sidebar animations on large screens (> 991px) - Better performance with heavy pages!
+        
+        'style-alt'                                     for an alternative main style (without it: the default style)
+        'footer-fixed'                                  for a fixed footer (without it: a static footer)
+        
+        'disable-menu-autoscroll'                       add this to disable the main menu auto scrolling when opening a submenu
+        
+        'header-fixed-top'                              has to be added only if the class 'navbar-fixed-top' was added on header.navbar
+        'header-fixed-bottom'                           has to be added only if the class 'navbar-fixed-bottom' was added on header.navbar
+        -->
+    <div id="page-container" class="header-fixed-top sidebar-partial sidebar-visible-lg">
+        <!-- Main Sidebar -->
+        <div id="sidebar">
+            <!-- Wrapper for scrolling functionality -->
+            <div class="sidebar-scroll">
+                <!-- Sidebar Content -->
+                <div class="sidebar-content">
+                    <!-- Brand -->
+                    <!--
+                    <a href="<?php echo $this->url('home');?>"
+                        class="sidebar-brand"> <i class="fa fa-check"></i><strong>Quick</strong>Audits
+                    </a>
+                    -->
+                    <!-- END Brand -->
+                    <!-- User Info -->
+                    <div class="sidebar-section sidebar-user clearfix">
+                        <div class="sidebar-user-avatar">
+                            <a href="<?php echo $this->url('home');?>">
+                            <img src="<?=$this->basePath('/')?>img/qa-logo-vert-sm.png" alt="avatar">
+                            </a>
+                        </div>
+                        <div class="sb-welcome-text"><?php echo $this->translate('Welcome'); ?>,<br/><?php echo $this->layout()->getVariable('role')->user->name;?></div>
+                    </div>
+                    <!-- END User Info -->
+                    <!-- Sidebar Navigation -->
+                    <ul class="sidebar-nav">
+                        <li>
+                            <a href="<?php echo $this->url('basic/default', array('controller'=>'index','action'=>'index'));?>" class="dashboard"><i class="gi gi-stopwatch sidebar-nav-icon"></i><?php echo $this->translate('Dashboard'); ?></a>
+                        </li>
+                        
+                        <?php if(   $this->layout()->getVariable('role')->hasPermission('project_index') ||
+                                    $this->layout()->getVariable('role')->hasPermission('question_index') ||
+                                    $this->layout()->getVariable('role')->hasPermission('question-group_index') ||
+                                    $this->layout()->getVariable('role')->hasPermission('form_index') ||
+                                    $this->layout()->getVariable('role')->hasPermission('subject_index')
+                                    ){?>
+                        
+                        <li class="active">
+                            <a class="sidebar-nav-menu">
+				<?php $org_id_test = $this->layout()->getVariable('subscription')->id_organization; ?>
+                            <i class="hi hi-tasks sidebar-nav-icon"></i><?php if ($org_id_test == 177) { echo $this->translate('Stores'); } else { echo $this->translate('Projects');} ?>
+                            </a>
+                            <ul>
+                                                       
+                            <?php if($this->layout()->getVariable('role')->hasPermission('question-group_index')){?>
+                                <li><a href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'index'));?>" class="question-groups"><?php echo $this->translate('Question Groups'); ?></a></li>
+                            <?php }?>
+                            
+                            <?php if($this->layout()->getVariable('role')->hasPermission('question_index')){?>
+                                <li><a href="<?php echo $this->url('application/default', array('controller'=>'question','action'=>'index'));?>" class="questions"><?php echo $this->translate('Questions'); ?></a></li>
+                            <?php }?>
+                            
+                            <?php if($this->layout()->getVariable('role')->hasPermission('form_index')){?>
+                                <li><a href="<?php echo $this->url('application/default', array('controller'=>'form','action'=>'index'));?>" class="forms"><?php echo $this->translate('QA Form Builder'); ?></a></li>
+                            <?php }?>
+                            
+                            <?php if($this->layout()->getVariable('role')->hasPermission('project_index')){?>
+                                <li><a href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'index'));?>" class="projects"><?php if ($org_id_test == 177) { echo $this->translate('Store'); } else { echo $this->translate('Projects');} ?></a></li>
+                            <?php }?>
+                            
+                            <?php if($this->layout()->getVariable('role')->hasPermission('subject_index') && 1==0){?>
+                                <li><a href="<?php echo $this->url('application/default', array('controller'=>'subject','action'=>'index'));?>" class="subjects"><?php echo $this->translate('Subjects'); ?></a></li>
+                            <?php }?>
+                                
+                            </ul>
+                        </li>
+                        <?php }?>
+                        <?php if(   $this->layout()->getVariable('role')->hasPermission('listening_add') ||
+                                    $this->layout()->getVariable('role')->hasPermission('listening_index')
+                                    ){?>
+                        <li class="active">
+                            <a class="sidebar-nav-menu">
+                            <i class="gi gi-ok sidebar-nav-icon"></i><?php echo $this->translate('Quality Assurance'); ?>
+                            </a>
+                            <ul>
+
+                                <?php if($this->layout()->getVariable('role')->hasPermission('listening_add')){?>
+                                <li><a href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'add'));?>" class="perform-qa"><?php echo $this->translate('Perform QA'); ?></a></li>
+                                <?php }?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('listening_index')){?>
+                                <li><a href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'index'));?>" class="listenings"><?php echo $this->translate('Evaluations'); ?></a></li>
+                                <?php }?>
+                            </ul>
+                        </li>
+                        <?php }?>
+                        <?php if(   
+                                    $this->layout()->getVariable('role')->hasPermission('report_project-overview') ||
+//                                     $this->layout()->getVariable('role')->hasPermission('report_agent-overview') ||
+//                                     $this->layout()->getVariable('role')->hasPermission('report_agent-ranking') ||
+//                                     $this->layout()->getVariable('role')->hasPermission('report_global-ranking') ||
+//                                     $this->layout()->getVariable('role')->hasPermission('report_project-interval') ||
+//                                     $this->layout()->getVariable('role')->hasPermission('report_agent-interval') ||
+//                                     $this->layout()->getVariable('role')->hasPermission('report_qa-agent') ||
+//                                     $this->layout()->getVariable('role')->hasPermission('report_fatals')
+                                    $this->layout()->getVariable('role')->hasPermission('report_global-weekly-progress') ||
+                                    $this->layout()->getVariable('role')->hasPermission('report_global-daily-progress') ||
+                                    $this->layout()->getVariable('role')->hasPermission('report_question-weekly-progress') ||
+                                    $this->layout()->getVariable('role')->hasPermission('report_sample-daily-overview')
+                                    ){?>
+                        <li class="active">
+                            <a class="sidebar-nav-menu">
+                            <i class="gi gi-charts sidebar-nav-icon"></i><?php echo $this->translate('Reports'); ?>
+                            </a>
+                            <ul>
+                            
+                            <?php if ($this->layout()->getVariable('role')->membership->package == 'basic') { ?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_global-weekly-progress')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'global-weekly-progress'));?>" class="global-weekly-progress"><?php echo $this->translate('Global Weekly Progress'); ?></a></li>
+                                <?php }?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_global-daily-progress')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'global-daily-progress'));?>" class="global-daily-progress"><?php echo $this->translate('Question Daily Progress'); ?></a></li>
+                                <?php }?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_question-weekly-progress')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'question-weekly-progress'));?>" class="question-weekly-progress"><?php echo $this->translate('Question Weekly Progress'); ?></a></li>
+                                <?php }?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_sample-daily-overview')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'sample-daily-overview'));?>" class="sample-daily-overview"><?php echo $this->translate('Sample Daily Overview'); ?></a></li>
+                                <?php }?>
+                            <?php } elseif ($this->layout()->getVariable('role')->membership->package == 'pro' 
+                                            || $this->layout()->getVariable('role')->membership->package == 'hotel'
+                                            || $this->layout()->getVariable('role')->membership->package == 'restaurant'
+                                            || $this->layout()->getVariable('role')->membership->package == 'contact_center'
+                                ) { ?>
+
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_project-overview')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'project-overview'));?>" class="projects-overview"><?php if ($org_id_test == 177) { echo $this->translate('Stores Overview'); } else { echo $this->translate('Projects Overview');} ?></a></li>
+                                <?php }?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_global-weekly-progress')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'global-weekly-progress'));?>" class="global-weekly-progress"><?php echo $this->translate('Global Weekly Progress'); ?></a></li>
+                                <?php }?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_global-daily-progress')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'global-daily-progress'));?>" class="global-daily-progress"><?php echo $this->translate('Question Daily Progress'); ?></a></li>
+                                <?php }?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_question-weekly-progress')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'question-weekly-progress'));?>" class="question-weekly-progress"><?php echo $this->translate('Question Weekly Progress'); ?></a></li>
+                                <?php }?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_sample-daily-overview')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'sample-daily-overview'));?>" class="sample-daily-overview"><?php echo $this->translate('Sample Daily Overview'); ?></a></li>
+                                <?php }?>
+                            <?php } else { ?>
+                                <!--
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_project-overview')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'project-overview'));?>" class="projects-overview">Projects Overview</a></li>
+                                <?php }?>
+                                
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_agent-ranking')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'agent-ranking'));?>" class="agent-ranking">Agent Ranking</a></li>
+                                <?php }?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_global-ranking')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'global-ranking'));?>" class="global-ranking">Global Ranking</a></li>
+                                <?php }?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_project-interval')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'project-interval'));?>" class="project-interval-report">Project Interval Report</a></li>
+                                <?php }?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_agent-interval')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'agent-interval'));?>" class="agent-interval-report">Agent Interval Report</a></li>
+                                <?php }?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_qa-agent')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'qa-agent'));?>" class="qa-agent-report">QA Agent Report</a></li>
+                                <?php }?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('report_fatals')){?>
+                                    <li><a href="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'fatals'));?>" class="fatals-report">Fatals Report</a></li>
+                                <?php }?>
+                                -->
+                             <?php } ?>
+                            </ul>
+                        </li>
+                        <?php }?>
+                        <?php if(   $this->layout()->getVariable('role')->hasPermission('user_index') ||
+                                    $this->layout()->getVariable('role')->hasPermission('role_index')
+                            ){?>                           
+                        
+                        <li class="active">
+                            <a class="sidebar-nav-menu">
+                            <i class="gi gi-nameplate sidebar-nav-icon"></i><?php echo $this->translate('Access Management'); ?>
+                            </a>
+                            <ul>
+                            <?php if($this->layout()->getVariable('role')->hasPermission('user_index')){?>
+                                <li><a href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'index'));?>" class="users"><?php echo $this->translate('Users'); ?></a></li>
+                            <?php }?>
+                            <?php if($this->layout()->getVariable('role')->hasPermission('role_index')){?>
+                                <li><a href="<?php echo $this->url('application/default', array('controller'=>'role','action'=>'index'));?>" class="roles"><?php echo $this->translate('Roles'); ?></a></li>
+                            <?php }?>
+                            </ul>
+                        </li>
+                        <?php }?>
+                        <?php if($this->layout()->getVariable('role')->hasPermission('organization_index')){?>
+                        <li><a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'index'));?>" class="organizations"><i class="fa fa-building sidebar-nav-icon"></i><?php echo $this->translate('Organizations'); ?></a></li>
+                        <?php }?>
+                        <?php if(   $this->layout()->getVariable('role')->hasPermission('organization_manage-billing-details') || 
+                                    $this->layout()->getVariable('role')->hasPermission('organization_manage-subscription')){?>
+                        <li class="active">
+                            <a class="sidebar-nav-menu">
+                            <i class="fa fa-credit-card sidebar-nav-icon"></i><?php echo $this->translate('Plans & Billing'); ?>
+                            </a>
+                            <ul>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('organization_manage-subscription')){?>
+                                <li><a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-subscription'));?>" class="subscription-details"><?php echo $this->translate('Plan Details'); ?></a></li>
+                                <?php } ?>
+                                <?php if($this->layout()->getVariable('role')->hasPermission('organization_manage-billing-details')){?>
+                                <li><a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-billing-details'));?>" class="billing-details"><?php echo $this->translate('Billing Details'); ?></a></li>
+                                <?php } ?>        
+                            </ul>
+                        </li>
+                        <?php } ?>
+                    </ul>
+                    <!-- END Sidebar Navigation -->
+                    <!-- Sidebar Notifications -->
+                    <!-- END Sidebar Notifications -->                    
+                </div>
+                <!-- END Sidebar Content -->
+            </div>
+            <!-- END Wrapper for scrolling functionality -->
+        </div>
+        <!-- END Main Sidebar -->
+        <!-- Main Container -->
+        <div id="main-container">
+            <!-- Header -->
+            <!-- In the PHP version you can set the following options from inc/config file -->
+            <!--
+                Available header.navbar classes:
+                
+                'navbar-default'            for the default light header
+                'navbar-inverse'            for an alternative dark header
+                
+                'navbar-fixed-top'          for a top fixed header (fixed sidebars with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar())
+                    'header-fixed-top'      has to be added on #page-container only if the class 'navbar-fixed-top' was added
+                
+                'navbar-fixed-bottom'       for a bottom fixed header (fixed sidebars with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar()))
+                    'header-fixed-bottom'   has to be added on #page-container only if the class 'navbar-fixed-bottom' was added
+                -->
+            <header class="navbar navbar-default navbar-fixed-top">
+                <!-- Left Header Navigation -->
+                <ul class="nav navbar-nav-custom">
+                    <!-- Main Sidebar Toggle Button -->
+                    <li>
+                        <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');"> <i class="fa fa-bars fa-fw"></i></a>
+                    </li>
+                    <?php if (  $this->layout()->getVariable('role')->hasPermission('organization_manage-subscription') && 
+                                $this->layout()->getVariable('role')->membership->package=='basic') { ?>
+                    <li class="hidden-xs">
+                        <a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-subscription'));?>"><?php echo sprintf($this->translate('You\'re using the %s plan. <strong>Upgrade Now</strong>'), $this->layout()->getVariable('role')->membership->membership); ?></a>
+                    </li>
+                    <?php } ?>
+                    <!-- END Main Sidebar Toggle Button -->
+                </ul>
+                <!-- END Left Header Navigation -->
+                <ul class="nav navbar-nav-custom pull-right">
+                <ul class="nav navbar-nav-custom" style=" margin-top: 11px;">
+                <div class="btn-group dropdown">
+                        <button type="button" class="btn btn-default dropdown-toggle" style="background:transparent; border: none;" data-toggle="dropdown">
+                        <?php 
+				$locale = Locale::getDefault();
+				if ($locale == 'es_AR') {
+                                $flag = 'Spanish';
+                                } else if ($locale == 'pl_PL') {
+                                $flag = 'Polish';
+                                } else {
+                                $flag = 'English';
+                                };
+                        ?>
+
+                        <span class="lang-xs" lang="en"><img  alt='<?php echo $flag; ?>' src='<?=$this->basePath('/')?>flags/<?php echo $flag; ?>.png' class="img-responsive"></span><b class="caret" style="border-top:4px solid black;";></b></span> 
+                        </button>
+                        <ul class="dropdown-menu" style="min-width: 40px; background: solid white" role="menu">
+                                <li><a href="?locale=en-US"><span class="lang-xs" lang="en"><img  alt="English" src="<?=$this->basePath('/')?>flags/English.png" class="img-responsive"></span></a></li>
+                                <li><a href="?locale=es-AR"><span class="lang-xs" lang="es"><img  alt="Spanish" src="<?=$this->basePath('/')?>flags/Spanish.png" class="img-responsive"></span></a></li>
+                                <li><a href="?locale=pl-PL"><span class="lang-xs" lang="pl"><img  alt="Polish" src="<?=$this->basePath('/')?>flags/Polish.png" class="img-responsive"></span></a></li>
+                        </ul>
+                </div>
+
+
+		           
+		<li>
+                <?php if ($this->layout()->getVariable('subscription')->in_trial) { ?>
+                        <?php if ($this->layout()->getVariable('role')->hasPermission('organization_manage-subscription')) { ?>
+                        <a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-subscription'));?>" class="themed-color-spring"><?php echo $this->translate('Upgrade your plan'); ?></a></li>
+                <?php }else{?>
+                        <?php echo $this->translate('Upgrade your plan'); ?>
+                        <?php } ?>
+                        <li><small class="text-danger" style="padding: 5px 7px; line-height: 50px; text-align: center; vertical-align: middle;" ><?php echo sprintf($this->translate('Trial expires in %s days!'), $this->layout()->getVariable('subscription')->getTrialRemainingDays());  ?></small>
+                    <?php } ?>
+
+                    <?php if($this->layout()->getVariable('role')->hasPermission('listening_add')){?>
+                    <li class="open"><a href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'add'));?>" data-toggle="tooltip" data-placement="bottom" title="<?php echo $this->translate('Perform QA'); ?>"><i class="gi gi-ok"></i></a></li>
+                    <?php }?>
+                    <li><a href="<?php echo $this->url('application/default', array('controller'=>'user', 'action'=>'manage-profile'));?>" data-toggle="tooltip" data-placement="bottom" title="<?php echo $this->translate('Profile'); ?>"><i class="gi gi-user"></i></a></li>
+                    <?php if($this->layout()->getVariable('role')->hasPermission('organization_manage-profile')){?>
+                    <li><a href="<?php echo $this->url('application/default', array('controller'=>'organization', 'action'=>'manage-profile'));?>" data-toggle="tooltip" data-placement="bottom" title="<?php echo $this->translate('Organization Profile'); ?>"><i class="gi gi-building"></i></a></li>
+                    <?php } ?>
+                    <?php if ($this->layout()->getVariable('wizard') !== null && $this->layout()->getVariable('wizard_complete')) { ?>                    
+                    <li><li><a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="<?php echo $this->translate('Restart Wizard'); ?>" id="restart-wizard"><i class="hi hi-question-sign"></i></a></li></li>
+                    <?php } ?>
+                    <li><a href="<?php echo $this->url('application/default', array('controller'=>'auth', 'action'=>'logout'));?>" data-toggle="tooltip" data-placement="bottom" title="<?php echo $this->translate('Logout'); ?>"><i class="gi gi-power"></i></a></li>
+                </ul>
+            </header>
+            <!-- END Header -->
+            <!-- Page content -->
+            <div id="page-content">
+            
+                <!-- Static Layout Header -->
+                <?php if ($this->resolver($this->layout()->getVariable('role')->membership->module.'/'.$this->controller.'/header')) { ?>
+                <?php echo $this->render($this->layout()->getVariable('role')->membership->module.'/'.$this->controller.'/header'); ?>
+                <?php ?>
+				<?php } elseif ($this->resolver('application/'.$this->controller.'/header')) { ?>
+
+                <?php echo $this->render('application/'.$this->controller.'/header'); ?>
+                <?php } ?>
+				<!-- END Static Layout Header -->
+ 
+                <?php if ($this->layout()->getVariable('remove_users_needed') || $this->layout()->getVariable('subscription_expired') || $this->layout()->getVariable('trial_expired')) { ?>
+                <div class="block">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-offset-4">
+                            <div class="block-section">
+                                <h3 class="sub-header text-center"><strong><i class="fa fa-alert"></i> <?php echo $this->translate('Upgrade your plan!'); ?></strong></h3>
+                                <p class="text-center text-warning">
+                                    <?php if ($this->layout()->getVariable('remove_users_needed')) { ?>
+                                    <?php echo sprintf($this->translate('Your subscription for the %s plan allows you to have up to %s active users. Please <a href="%s">Disable %s User Accounts</a> or <a href="%s">Upgrade Now</a> to continue using Quick Audits.'),$this->layout()->getVariable('role')->membership->membership, $this->layout()->getVariable('total_allowed_users'), $this->url('application/default', array('controller'=>'user','action'=>'index')),($this->layout()->getVariable('total_active_users')-$this->layout()->getVariable('total_allowed_users')), $this->url('application/default', array('controller'=>'organization','action'=>'manage-subscription'))); ?>
+                                    <?php } ?>
+                                    <?php if ($this->layout()->getVariable('subscription_expired')) { ?>
+                                    <?php echo sprintf($this->translate('Your subscription for the %s plan expired. Please <a href="%s">Upgrade Now</a> to continue using Quick Audits.'),$this->layout()->getVariable('role')->membership->membership, $this->url('application/default', array('controller'=>'organization','action'=>'manage-subscription'))); ?>
+                                    <?php } ?>
+                                    <?php if ($this->layout()->getVariable('trial_expired')) { ?>
+                                    <?php echo sprintf($this->translate('Your free trial period for the %s plan expired. Please <a href="%s">Upgrade Now</a> to continue using Quick Audits.'),$this->layout()->getVariable('role')->membership->membership, $this->url('application/default', array('controller'=>'organization','action'=>'manage-subscription'))); ?>
+                                    <?php } ?>
+                                </p>
+                                <p>
+                                    <a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-subscription'));?>" class="btn btn-lg btn-primary btn-block"><?php echo $this->translate('Upgrade Now')?></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php } ?>
+                 
+                <?php if ($this->layout()->getVariable('wizard') !== null && !$this->layout()->getVariable('wizard_complete')) { ?>
+                <?php $wizard = $this->layout()->getVariable('wizard'); ?>
+                <!-- Modal -->
+                <div class="modal fade" id="dismiss-wizard-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <?php echo $this->translate('Are you sure you want to skip the wizard?'); ?>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><?php echo $this->translate('Close'); ?></button>
+                        <button type="button" class="btn btn-primary btn-sm" id="skip-wizard">
+                            <span class="main-text"><?php echo $this->translate('Skip Wizard'); ?></span>
+                            <span class="loading-text" style="display:none;"><i class="fa fa-spin fa-spinner"></i> <?php echo $this->translate('Saving'); ?>...</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="modal fade" id="reset-wizard-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <?php echo $this->translate('Are you sure you want to do the wizard again?'); ?>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><?php echo $this->translate('Close'); ?></button>
+                        <a href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'reset-wizard'));?>" class="btn btn-primary btn-sm"><?php echo $this->translate('Confirm'); ?></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Startup Wizard -->
+                <div class="block" id="wizard">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <div class="block-section">
+                                <h3 class="sub-header text-center"><strong><?php echo $this->translate($wizard->title); ?></strong></h3>
+                                <?php if ($wizard->description) { ?>
+                                <p class="clearfix text-center"><?php echo $this->translate($wizard->description); ?></p>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <?php foreach ($wizard->steps as $key=>$step) { ?>
+                        <div class="col-xs-12 col-sm-12 col-md-2 <?php echo $key===0 ? 'col-md-offset-1' : ''; ?>">
+                            <a href="<?php echo $this->url($step->module.'/default', array('controller'=>$step->controller,'action'=>$step->action));?>">
+                                <span class="test-circle startup-wizard-circle themed-border-spring themed-<?php echo $step->completed ? 'background' : 'color'; ?>-spring" data-toggle="tooltip" title=""><?php echo $step->completed ? '<i class="fa fa-check"></i>' : ($key+1).'.'; ?> <?php echo $this->translate($step->name); ?></span>
+                            </a>
+                        </div>
+                        <?php } ?>
+                    </div>
+                    <?php if ($wizard->areStepsCompleted()) { ?>
+                        <h4 class="text-center"><?php echo $this->translate('Congratulations! You have completed successfully your setup!')?></h4>
+                        <p class="text-center">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-primary" id="finish-wizard">
+                                <span class="main-text"><?php echo $this->translate('Finish Wizard'); ?></span>
+                                <span class="loading-text" style="display:none;"><i class="fa fa-spin fa-spinner"></i> <?php echo $this->translate('Saving'); ?>...</span>
+                            </a>
+                            <!-- 
+                            &nbsp;
+                            <a href="javascript:void(0)" class="themed-color-spring" data-toggle="modal" data-target="#reset-wizard-modal"><?php echo $this->translate('Repeat Wizard'); ?></a>
+                            -->
+                        </p>
+                    <?php }else{ ?>
+			<p class="text-center"><?php echo $this->translate('Check out our set up guide or watch our instructional videos'); ?></p>
+			<div class="text-center">
+			<?php if ($this->layout()->getVariable('role')->membership->package == 'pro') { echo "<div class='btn-group'><label class='btn btn-info'>Pro</label><label class='btn btn-info'><a href='/guides/"; echo $this->translate('User guide_Pro.pdf'); echo "' target='_blank' >";  echo $this->translate('USER GUIDE'); echo "</a></label><label class='btn btn-info'>VIDEOS</label></div>"; }
+                                            elseif ($this->layout()->getVariable('role')->membership->package == 'hotel') { echo "<div class='btn-group'><label class='btn btn-info'>Hotel</label><label class='btn btn-info'><a href='/guides/"; echo $this->translate('User guide_Hotel.pdf'); echo "' target='_blank' >";  echo $this->translate('USER GUIDE'); echo "</a></label><label class='btn btn-info'>VIDEOS</label></div>"; }
+                                            elseif ($this->layout()->getVariable('role')->membership->package == 'restaurant') { echo "<div class='btn-group'><label class='btn btn-info'>Restaurant</label><label class='btn btn-info'><a href='/guides/"; echo $this->translate('User guide_Restaurant.pdf'); echo "' target='_blank' >";  echo $this->translate('USER GUIDE'); echo "</a></label><label class='btn btn-info'>VIDEOS</label></div>"; }
+                                            elseif ($this->layout()->getVariable('role')->membership->package == 'contact_center') { echo "<div class='btn-group'><label class='btn btn-info'>Contact Center</label><label class='btn btn-info'><a href='/guides/"; echo $this->translate('User guide_Contact Center.pdf'); echo "' target='_blank' >";  echo $this->translate('USER GUIDE'); echo "</a></label><label class='btn btn-info'>VIDEOS</label></div>"; }
+
+			?></div>
+
+                    <p class="text-center"><a href="javascript:void(0)" class="themed-color-fire" data-toggle="modal" data-target="#dismiss-wizard-modal"><?php echo $this->translate('Skip Wizard'); ?></a></p>
+                    <?php } ?>
+                </div>
+                <!-- END Startup Wizard -->
+                <?php } ?>
+                
+                <?php if ($this->layout()->getVariable('wizard') !== null && $this->layout()->getVariable('wizard_complete')) { ?>
+                <!-- Modal -->
+                <div class="modal fade" id="restart-wizard-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <?php echo $this->translate('Are you sure you want to restart the wizard?'); ?>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><?php echo $this->translate('Close'); ?></button>
+                        <a href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'reset-wizard'));?>" class="btn btn-primary btn-sm"><?php echo $this->translate('Restart Wizard'); ?></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <?php } ?>
+                
+                <!-- Content -->
+                <?php echo $this->content; ?>
+                <!-- END Content -->
+            </div>
+            <!-- END Page Content -->
+            <!-- Footer -->
+            <footer class="clearfix">
+                <div class="pull-right">
+                    <?php echo $this->translate('Developed by'); ?> <a
+                        href="https://www.quickaudits.io/" target="_blank">Quick Audits</a>
+                </div>
+                <div class="pull-left">
+                    <span id="year-copy"></span> &copy; <a href="https://www.quickaudits.io"
+                        target="_blank">Quick Audits</a>
+                </div>
+            </footer>
+            <!-- END Footer -->
+        </div>
+        <!-- END Main Container -->
+    </div>
+    <!-- END Page Container -->
+    <!-- Scroll to top link, initialized in js/app.js - scrollToTop() -->
+    <a href="#" id="to-top"><i class="fa fa-angle-double-up"></i></a>
+    <!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file (Remove 'https:' if you have SSL) -->
+    <script src="<?=$this->basePath('/modules/application/js/vendor/jquery-1.11.1.min.js')?>"></script>
+    
+    <script>!window.jQuery && document.write(decodeURI('%3Cscript src="js/vendor/jquery-1.11.1.min.js"%3E%3C/script%3E'));</script>
+    <!-- Bootstrap.js, Jquery plugins and Custom JS code -->
+    <?php
+    echo $this->inlineScript()->prependFile($this->basePath('/modules/application/js/vendor/bootstrap.min.js'))
+                              ->prependFile($this->basePath('/modules/application/js/plugins.js'))
+                              ->prependFile($this->basePath('/modules/application/js/app.js'))
+                              ->prependFile($this->basePath('/modules/application/js/functions.js'));
+    ?>
+    
+    <?php if ($this->layout()->getVariable('wizard') !== null) { ?>
+    <script src="<?=$this->basePath('/modules/application/js/joyride/jquery.cookie.js')?>"></script>
+    <script src="<?=$this->basePath('/modules/application/js/joyride/modernizr.mq.js')?>"></script>
+    <script src="<?=$this->basePath('/modules/application/js/joyride/jquery.joyride-2.1.js')?>"></script>
+    <script src="<?=$this->basePath('/js/jquery.keyvalueeditor.js')?>"></script>
+    <script type="text/javascript">
+    $(function(){
+
+        $('button#skip-wizard').click(function(){
+
+        	$('button#skip-wizard').addClass('disabled');
+        	$('button#skip-wizard').find('span.main-text').hide();
+        	$('button#skip-wizard').find('span.loading-text').show();
+            
+        	$.ajax({
+                url: baseUrl + "application/user/dismiss-wizard",
+                method: "POST",
+                dataType: "json"
+            }).done(function( data, textStatus, jqXHR ) {
+            	        	
+                if (data.success)
+                {
+//                     $('div#wizard').hide();
+
+//                     $('div#dismiss-wizard-modal').modal('hide');
+                	window.location = baseUrl;
+                }
+                else
+                {
+                	showGrowlError(data.message);    
+                }
+                            
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+            
+                showGrowlError(errorThrown);
+            
+            }).always(function( jqXHR, textStatus, errorThrown ) {
+
+            	$('button#skip-wizard').removeClass('disabled');
+            	$('button#skip-wizard').find('span.main-text').show();
+            	$('button#skip-wizard').find('span.loading-text').hide(); 
+            
+            });    
+        });
+
+        $('a#finish-wizard').click(function(){
+
+            var button = $(this);
+        	
+            button.addClass('disabled');
+            button.find('span.main-text').hide();
+            button.find('span.loading-text').show();
+            
+        	$.ajax({
+                url: baseUrl + "application/user/dismiss-wizard",
+                method: "POST",
+                dataType: "json"
+            }).done(function( data, textStatus, jqXHR ) {
+            	        	
+                if (data.success)
+                {
+                    $('div#wizard').hide();
+//                     $('div#dismiss-wizard-modal').modal('hide');             
+                }
+                else
+                {
+                	showGrowlError(data.message);    
+                }
+                            
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+            
+                showGrowlError(errorThrown);
+            
+            }).always(function( jqXHR, textStatus, errorThrown ) {
+
+            	button.removeClass('disabled');
+            	button.find('span.main-text').show();
+            	button.find('span.loading-text').hide(); 
+            
+            });    
+        });
+
+        $('a#restart-wizard').click(function(){
+        	$('div#restart-wizard-modal').modal('show');     
+        });
+    	
+    });
+    </script>
+    <?php } ?>
+    
+    </body>
+</html>

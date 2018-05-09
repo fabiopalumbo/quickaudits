@@ -1,0 +1,95 @@
+<div class="block">
+    <?php if ($m==='1') { ?>
+        <div class="alert alert-success alert-dismissable">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <i class="fa fa-check-circle"></i> <?php echo $this->translate('Organization profile updated successfully!'); ?> 
+        </div>
+    <?php } ?>
+
+    <!-- Horizontal Form Content -->
+    <?php $form->prepare(); ?>
+    <?php echo $this->form()->openTag($form); ?>
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Organization'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <?php echo $this->formInput($form->get('name')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('name'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Contact First Name'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <?php echo $this->formInput($form->get('firstname')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('firstname'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Contact Last Name'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <?php echo $this->formInput($form->get('lastname')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('lastname'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Contact Phone'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <?php echo $this->formInput($form->get('phone')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('phone'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Contact Email'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <?php echo $this->formInput($form->get('email')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('email'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Dashboard'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <p class="form-control-static"><a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-dashboard'));?>"><?php echo $this->translate('Manage Dashboards'); ?></a> <?php echo $this->translate('(Will discard unsaved data)'); ?></p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Product Type'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <p class="form-control-static"><?php echo $membership->membership; ?></p>
+            </div>
+        </div>
+        
+        <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3">
+                <?php echo $this->formSubmit($form->get('submit'));?>
+                <a class="btn btn-sm btn-warning" href="<?php echo $this->url('home');?>"><i class="fa fa-repeat"></i> <?php echo $this->translate('Go To Dashboard'); ?></a>
+            </div>
+        </div>
+    <?php echo $this->form()->closeTag(); ?>
+    <!-- END Horizontal Form Content -->
+</div>

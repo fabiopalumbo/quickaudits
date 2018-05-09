@@ -1,0 +1,107 @@
+<?php $org_id_test = $this->layout()->getVariable('subscription')->id_organization; ?>
+
+<div class="block">
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Project'); ?></strong></td>
+                <td><?php echo $this->entity->name; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Minimum required performance'); ?></strong></td>
+                <td><?php echo $this->entity->min_performance_required; ?></td>
+            </tr>
+            <!--
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Languages'); ?></strong></td>
+                <td>
+                    <?php echo $this->entity->getLanguagesString(); ?>
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Public evaluations'); ?></strong></td>
+                <td><?php echo $this->entity->enable_public ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Status'); ?></strong></td>
+                <td><?php echo $this->entity->active ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<?php if ($this->entity->enable_public) { ?>
+<div class="block">
+    <div class="block-title"><h2><?php echo $this->translate('Public options'); ?></h2></div>
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Public short subtitle'); ?></strong></td>
+                <td><?php echo $entity->public_description?:'N/A'; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('By agents'); ?></strong></td>
+                <td><?php echo $this->entity->public_by_agents ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Enable form selector'); ?></strong></td>
+                <td><?php echo $this->entity->enable_form_selector ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+            <?php if($this->entity->enable_form_selector) { ?>
+                <tr>
+                    <td style="width: 20%;"><strong><?php echo $this->translate('Form selection question'); ?></strong></td>
+                    <td><?php echo $entity->form_selector_question; ?></td>
+                </tr>
+            <?php } ?>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Require enter names'); ?></strong></td>
+                <td><?php echo $this->entity->require_public_names ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Language'); ?></strong></td>
+                <td><?php echo $entity->locale?:'N/A'; ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+<?php } ?>
+
+<div class="block">
+    
+    <div class="block-title"><h2><?php echo $this->translate('Project Channels'); ?></h2></div>
+
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <?php foreach ($this->entity->projects_channels as $project_channel) { ?>
+            <?php if($org_id_test==177 && $project_channel->id_channel < 5) continue; ?>
+            <?php if($org_id_test!=177 && $project_channel->id_channel >= 5) continue; ?>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate($project_channel->channel); ?></strong></td>
+                <td><?php echo $project_channel->form?:'N/A'; ?></td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<div class="block">
+    <form method="post" class="form-horizontal">
+        <div class="form-group form-actions">
+			<div class="col-md-12">
+                <?php if ($this->entity->active) { ?>
+                <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-times"></i> <?php echo $this->translate('Disable'); ?></button>
+                <?php } else { ?>
+				<button class="btn btn-sm btn-success" type="submit"><i class="fa fa-check"></i> <?php echo $this->translate('Enable'); ?></button>
+				<?php } ?>
+				<a href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'index'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+			</div>
+		</div>
+    </form>        
+</div>

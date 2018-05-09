@@ -1,0 +1,56 @@
+<div class="block">
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Question'); ?></strong></td>
+                <td><?php echo $this->entity->name; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Question Group'); ?></strong></td>
+                <td><a href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'view','id'=>$this->entity->id_group));?>"><?php echo $this->entity->question_group; ?></a></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Type'); ?></strong></td>
+                <td><?php echo ucfirst($this->translate($this->entity->type)); ?></td>
+            </tr>
+<?php if($this->entity->type=='options') { ?>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Options'); ?></strong></td>
+                <td>
+                    <dl class="dl-horizontal">
+                        <?php
+                            $opts = json_decode($this->entity->options);
+                            foreach ($opts as $opt) {
+                                echo '<dt style="text-align: left;">'.$opt->key.'</dt><dd>'.$opt->value.'</dd>';
+                            };
+                        ?>
+                    </dl>                    
+                </td>
+            </tr>
+<?php } ?>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Status'); ?></strong></td>
+                <td><?php echo $this->entity->active ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Blocked'); ?></strong></td>
+                <td><?php echo $this->entity->blocked ? $this->translate('Blocked') : $this->translate('Unblocked'); ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<div class="block full">
+	<div class="row">
+		<div class="col-md-12">
+		<?php if($this->layout()->getVariable('role')->hasPermission('question_edit')){?>
+			<a href="<?php echo $this->url('application/default', array('controller'=>'question','action'=>'edit','id'=>$this->entity->id));?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> <?php echo $this->translate('Edit'); ?></a>
+	    <?php }?>
+	    <?php if($this->layout()->getVariable('role')->hasPermission('question_index')){?>
+		  <a href="<?php echo $this->url('application/default', array('controller'=>'question','action'=>'index'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+		<?php }?>
+		</div>
+	</div>
+</div>

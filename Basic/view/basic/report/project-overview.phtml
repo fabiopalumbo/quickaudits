@@ -1,0 +1,200 @@
+<?php /* @var $paginator \Zend\Paginator\Paginator */ ?>
+<div class="block ">
+    <form class="form-horizontal" method="get" action="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'project-overview'));?>">
+        <div class="form-group">
+            <div class="col-md-3">
+                <select class="form-control input-sm select-chosen" name="project[]" data-placeholder="<?php echo $this->translate('All Projects'); ?>" multiple>
+                    <?php foreach ($projects as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['project']) && in_array($item->id, $this->filter['project']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            
+            <div class="col-md-2">
+                <select class="form-control input-sm select-chosen" name="auditor[]" data-placeholder="<?php echo $this->translate('All Auditors'); ?>" multiple>
+                    <?php foreach ($auditors as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['qa_agent']) && in_array($item->id, $this->filter['qa_agent']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <?php if ($hasAgents) { ?>
+            <div class="col-md-2">
+                <select class="form-control input-sm select-chosen" name="operator[]" data-placeholder="<?php echo $this->translate('All Agents'); ?>" multiple>
+                    <?php foreach ($agents as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['agent']) && in_array($item->id, $this->filter['agent']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <?php } ?>
+            <div class="col-md-2">
+                <select class="form-control input-sm select-chosen" name="channel[]" data-placeholder="<?php echo $this->translate('All Channels'); ?>" multiple>
+                    <?php foreach ($channels as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['channel']) && in_array($item->id, $this->filter['channel']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group input-daterange" data-date-format="mm/dd/yyyy">
+                    <input type="text" id="date_from" name="date_from" class="form-control text-center" placeholder="<?php echo $this->translate('From'); ?>" value="<?php echo $this->filter['date_from']; ?>">
+                    <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+                    <input type="text" id="date_to" name="date_to" class="form-control text-center" placeholder="<?php echo $this->translate('To'); ?>" value="<?php echo $this->filter['date_to']; ?>">
+                </div>
+            </div>
+            
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> <?php echo $this->translate('Search'); ?></button>
+                <button class="btn btn-sm btn-info" type="submit" name="excel" value="1"><i class="fa fa-file-excel-o"></i> <?php echo $this->translate('Export to Excel'); ?></button>
+            </div>
+        </div>
+    </form>    
+</div>
+
+<div class="block">
+    <div class="widget">
+        <div class="widget-advanced widget-advanced-alt">
+            <?php if ($paginator->count() > 0){ ?>
+            <div id="chart-bars" class="chart"></div>
+            <?php } else { ?>
+            <p><?php echo $this->translate('We couldn\'t find any data that matches your search criteria. Please try a different filter.'); ?></p>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+
+<div class="block full">
+    <!-- Responsive Full Content -->
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th><?php echo $this->translate('Project / Group'); ?></th>
+                    <?php foreach ($questionGroups as $item) { ?>
+                    <th ><?php echo $item->name; ?></th>
+                    <?php } ?>
+                    <th><?php echo $this->translate('Samples'); ?></th>
+                    <th><?php echo $this->translate('Score'); ?></th>
+                    <th class="text-center" style="width: 50px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>                
+                
+                <?php $newProjectsGroupsScores = $projectsGroupsScores->current(); ?>
+                <?php while ($newProjectsGroupsScores) { ?>
+                <?php $oldProject = $newProjectsGroupsScores->id_project; ?>
+                <tr>
+                    <td><?php echo $newProjectsGroupsScores->project; ?></td>
+                    <?php while ($newProjectsGroupsScores && $newProjectsGroupsScores->id_project==$oldProject) { ?>
+                    <td><?php echo number_format($newProjectsGroupsScores->score,2); ?>%</td>                    
+                    <?php $projectsGroupsScores->next(); ?>
+                    <?php $newProjectsGroupsScores = $projectsGroupsScores->current(); ?>
+                    <?php } ?>
+                    <td><?php echo number_format($projectsGroupsTotals[$oldProject]['samples']); ?></td>
+                    <td><?php echo number_format($projectsGroupsTotals[$oldProject]['score'],2); ?>%</td>
+                    <td class="text-center ">
+                        <div class="btn-group btn-group-xs" style="min-width: 45px">
+                            <?php $newFilter = $filter; ?>
+                            <?php $newFilter['project'] = $oldProject; ?>
+                            <?php unset($newFilter['organization']); ?>
+                            <a class="btn btn-default"
+                                title="" 
+                                data-toggle="tooltip" 
+                                href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'index'), array('query'=>$newFilter));?>"
+                                data-original-title="<?php echo $this->translate('View Details'); ?>">
+                                <i class="fa fa-search"></i>
+                            </a>
+                            <?php $excFilter = $filter;
+                                $excFilter['pid'] = $oldProject;
+                                ?>
+                            <a class="btn btn-info" 
+                                title=""
+                                data-original-title="<?= $this->translate('Export answers') ?>"
+                                data-toggle="tooltip"
+                                href="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'export', 'id'=>$oldProject), []);?>"
+                                download="pr_<?= $oldProject?>_answers.csv"
+                                >
+                                <i class="fa fa-file-excel-o"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+                
+            </tbody>
+        </table>
+    </div>
+    <!-- END Responsive Full Content -->
+    <div class="text-right">
+        <?php 
+            echo $this->paginationControl(
+                // the paginator object
+                $this->paginator,
+                // the scrolling style
+                'sliding',
+                // the partial to use to render the control
+                'partial/paginator.phtml',
+                // the route to link to when a user clicks a control link
+                array('query' => $this->filter)
+            );
+        ?>
+    </div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li ul li a.projects-overview').addClass('active');
+    
+    <?php $data = array(); ?>
+    <?php foreach ($this->paginator as $item) { ?>
+    <?php array_push($data, '["'.$item->project.'", '.$item->score.']'); ?>
+    <?php } ?>
+    
+    <?php $data1 = array(); ?>
+    <?php foreach ($this->paginator as $item) { ?>
+    <?php array_push($data1, '["'.$item->project.'", '.$item->samples.']'); ?>
+    <?php } ?>
+	    
+	var data = [ <?php echo implode(', ', $data); ?> ];
+	var data1 = [ <?php echo implode(', ', $data1); ?> ];
+    
+	$.plot($('#chart-bars'), 
+       [ 
+            {
+    	       //label: "Scores", 
+    	       data: data,
+    	       bars: {
+                    show: true, 
+                    barWidth: 0.6, 
+                    align: "center", 
+                    lineWidth: 1, 
+                    fillColor: {
+                       colors: [{opacity: 0.3}, {opacity: 0.3}]
+                    }
+                },
+                valueLabels: { show: true } 
+           }, 
+    	   { 
+    	       //label: "Sample Size",
+    	       data: data1,
+    	       lines: {
+                    show: true, 
+                    align: "center", 
+                },
+                valueLabels: { show: true } 
+           } 
+       ], 
+       {
+    	grid: {borderWidth: 0},
+    	colors: ['#84BF4F'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	},
+    	yaxis: {show: false},
+    });
+    
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>

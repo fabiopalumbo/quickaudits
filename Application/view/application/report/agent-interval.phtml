@@ -1,0 +1,67 @@
+<div class="block">
+    <!-- Bars Chart Title -->
+    <div class="block-title">
+        <h2>Agent Interval</h2>
+    </div>
+    <!-- END Bars Chart Title -->
+    
+    <form class="form-horizontal" method="get" action="<?php echo $this->url('application/default', array('controller'=>'report','action'=>'agent-interval'));?>">
+        <div class="form-group">
+            <div class="col-md-3">
+            <select class="form-control input-sm select-chosen" name="agent">
+                <option value="">Select an Agent</option>
+                <?php foreach ($agents as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['agent']) && $item->id==$filter['agent'] ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-1">
+            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<?php if ($report) { ?>
+<div class="block">
+<div class="table-responsive">
+<table class="table table-vcenter table-striped report">
+    <thead>
+        <tr>
+            <th>Interval / Group</th>
+            <?php foreach ($questionsGroups as $item) { ?>
+            <th><?php echo $item->name; ?></th>
+            <?php } ?>
+            <th>Grand Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($report as $item) { ?>
+        <tr>
+            <td><?php echo $item['name']; ?></td>
+            <?php if ($item['groups']->count() > 0) { ?>
+            <?php foreach ($item['groups'] as $group) { ?>
+            <td><?php echo $group->score; ?></td>
+            <?php } ?>
+            <?php } else { ?>
+            <?php for ($i=0;$i<$questionsGroups->count();$i++) { ?>
+            <td>N/A</td>
+            <?php } ?>
+            <?php } ?>
+            <td><?php echo $item['total']->current()->score; ?></td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>
+</div>
+</div>
+<?php } // end if report?>
+
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li ul li a.agent-interval-report').addClass('active');
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>

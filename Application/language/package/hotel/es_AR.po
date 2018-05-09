@@ -1,0 +1,3392 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Quick Audits\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-07 16:13-0300\n"
+"PO-Revision-Date: 2018-02-02 17:26-0300\n"
+"Last-Translator: Gerardo Grinman <ggrinman@gmail.com>\n"
+"Language-Team: Clickway Software IT <ggrinman@clickwayit.com>\n"
+"Language: es_AR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate;_\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: Application\n"
+"X-Poedit-SearchPath-1: Basic\n"
+
+#: Application/language/resources.php:39
+#: Basic/view/basic/dashboard/bottom-scoring-questions-global.phtml:14
+msgid "Bottom 5 global scoring questions (weekly)"
+msgstr "Preguntas con peor desempeño de la organización (semanal)"
+
+#: Application/language/resources.php:40
+msgid "Bottom 5 scoring questions (weekly) "
+msgstr "Preguntas con peor desempeño (semanal)"
+
+#: Application/language/resources.php:41
+#: Basic/view/basic/dashboard/global-daily-progress.phtml:15
+msgid "Global daily progress"
+msgstr "Progreso diario global"
+
+#: Application/language/resources.php:42
+msgid "Highest intraweek drop global group (weekly)"
+msgstr "Grupo con mayor descenso en el resultado global (semanal)"
+
+#: Application/language/resources.php:43
+msgid "Highest intraweek drop global question (weekly)"
+msgstr "Pregunta con mayor descenso en el resultado global (semanal)"
+
+#: Application/language/resources.php:44
+msgid "Highest intraweek drop group (weekly)"
+msgstr "Grupo con mayor descenso en el resultado (semanal)"
+
+#: Application/language/resources.php:45
+msgid "Highest intraweek drop project (weekly)"
+msgstr "Proyecto con mayor descenso en el resultado (semanal)"
+
+#: Application/language/resources.php:46
+msgid "Highest intraweek drop question (weekly)"
+msgstr "Pregunta con mayor descenso en el resultado (semanal)"
+
+#: Application/language/resources.php:47
+msgid "Highest intraweek rise global group (weekly)"
+msgstr "Grupo con mayor ascenso en el resultado global (semanal)"
+
+#: Application/language/resources.php:48
+msgid "Highest intraweek rise global question (weekly)"
+msgstr "Pregunta con mayor ascenso en el resultado global (semanal)"
+
+#: Application/language/resources.php:49
+msgid "Highest intraweek rise group (weekly)"
+msgstr "Grupo con mayor ascenso en el resultado (semanal)"
+
+#: Application/language/resources.php:50
+msgid "Highest intraweek rise project (weekly)"
+msgstr "Proyecto con mayor ascenso en el resultado (semanal)"
+
+#: Application/language/resources.php:51
+msgid "Highest intraweek rise question (weekly)"
+msgstr "Pregunta con mayor ascenso en el resultado (semanal)"
+
+#: Application/language/resources.php:52
+#: Basic/view/basic/dashboard/mtd-score-global.phtml:20
+#: Basic/view/basic/dashboard/number-samples-mtd-global.phtml:21
+msgid "MTD global score"
+msgstr "Resultado parcial del mes global"
+
+#: Application/language/resources.php:53
+#: Basic/view/basic/dashboard/mtd-score.phtml:20
+#: Basic/view/basic/dashboard/number-samples-mtd.phtml:21
+msgid "MTD score"
+msgstr "Resultado parcial del mes"
+
+#: Application/language/resources.php:54
+#: Basic/view/basic/dashboard/mtd-score-per-question-group.phtml:19
+msgid "MTD score per group"
+msgstr "Resultado parcial del mes por grupo"
+
+#: Application/language/resources.php:55
+#: Basic/view/basic/dashboard/mtd-score-per-project.phtml:19
+msgid "MTD score per project"
+msgstr "Resultado parcial del mes por proyecto"
+
+#: Application/language/resources.php:56
+msgid "Number of global samples MTD"
+msgstr "Muestra parcial global del mes"
+
+#: Application/language/resources.php:57
+msgid "Number of samples MTD"
+msgstr "Muestra"
+
+#: Application/language/resources.php:58
+msgid "Number of samples MTD per project"
+msgstr "Muestra parcial del mes por proyecto"
+
+#: Application/language/resources.php:59
+#: Basic/view/basic/dashboard/project-overview.phtml:14
+msgid "Projects overview"
+msgstr "Vista general de proyectos"
+
+#: Application/language/resources.php:60
+#: Basic/view/basic/dashboard/question-performance-ranking.phtml:14
+msgid "Questions performance ranking"
+msgstr "Ranking de preguntas"
+
+#: Application/language/resources.php:61
+msgid "Score needed to reach target"
+msgstr "Resultado necesario para alcanzar el objetivo"
+
+#: Application/language/resources.php:62
+#: Basic/view/basic/dashboard/today-score-global.phtml:19
+msgid "Today's global score"
+msgstr "Resultado de hoy global"
+
+#: Application/language/resources.php:63
+#: Basic/view/basic/dashboard/today-score.phtml:19
+msgid "Today's score"
+msgstr "Resultado de hoy"
+
+#: Application/language/resources.php:64
+#: Basic/view/basic/dashboard/today-score-per-question-group.phtml:19
+msgid "Today's score per group"
+msgstr "Resultado de hoy por grupo"
+
+#: Application/language/resources.php:65
+#: Basic/view/basic/dashboard/today-score-per-project.phtml:19
+msgid "Today's score per project"
+msgstr "Resultado de hoy por proyecto"
+
+#: Application/language/resources.php:66
+#: Basic/view/basic/dashboard/top-scoring-questions-global.phtml:14
+msgid "Top 5 global scoring questions (weekly)"
+msgstr "Preguntas con mejor desempeño de la organización (semanal)"
+
+#: Application/language/resources.php:67
+#: Basic/view/basic/dashboard/top-scoring-questions.phtml:14
+msgid "Top 5 scoring questions (weekly)"
+msgstr "Preguntas con mejor desempeño (semanal)"
+
+#: Application/language/resources.php:68
+msgid "Ranks and displays the 5 questions with the lowest results in the past seven days for all projects"
+msgstr "Muestra las cinco peores preguntas en orden ascendente según sus resultados en los últimos siete días "
+
+#: Application/language/resources.php:69
+msgid "Ranks and displays the 5 questions with the lowest results in the past seven days"
+msgstr "Muestra las cinco peores preguntas en orden ascendente según sus resultados en los últimos siete días "
+
+#: Application/language/resources.php:70
+msgid "Shows how the global result has behaved in each of the last seven days"
+msgstr "Muestra el comportamiento del resultado global en los últimos siete días"
+
+#: Application/language/resources.php:71
+msgid "Shows group with the highest negative change and quantifies the drop in score compared to the previous week for all projects"
+msgstr "Muestra el Grupo con la mayor variación negativa y cuantifica la caída en la puntuación en comparación con la semana anterior para todos los proyectos"
+
+#: Application/language/resources.php:72
+msgid "Shows question with the highest negative change and quantifies the drop in score compared to the previous week for all projects"
+msgstr "Muestra la Pregunta con la mayor variación negativa y cuantifica la caída en la puntuación en comparación con la semana anterior para todos los proyectos"
+
+#: Application/language/resources.php:73
+msgid "Shows group with the highest negative change and quantifies the drop in score compared to the previous week"
+msgstr "Muestra el Grupo con la mayor variación negativa y cuantifica la caída en la puntuación en comparación con la semana anterior"
+
+#: Application/language/resources.php:74
+msgid "Shows project with the highest negative change and quantifies the drop in score compared to the previous week"
+msgstr "Muestra el Proyecto con la mayor variación negativa y cuantifica la caída en la puntuación en comparación con la semana anterior"
+
+#: Application/language/resources.php:75
+msgid "Shows question with the highest negative change and quantifies the drop in score compared to the previous week"
+msgstr "Muestra la pregunta con mayor descenso en el resultado y cuantifica ese descenso comparándolo con los resultados de la semana previa"
+
+#: Application/language/resources.php:76
+msgid "Shows group with the highest positive change and quantifies the increase in score compared to the previous week for all projects"
+msgstr "Muestra el Grupo con el mayor cambio positivo y cuantifica el aumento en la puntuación en comparación con la semana anterior para todos los proyectos"
+
+#: Application/language/resources.php:77
+msgid "Shows question with the highest positive change and quantifies the increase in score compared to the previous week for all projects"
+msgstr "Muestra la Pregunta con el mayor cambio positivo y cuantifica el aumento en la puntuación en comparación con la semana anterior para todos los proyectos"
+
+#: Application/language/resources.php:78
+msgid "Shows group with the highest positive change and quantifies the increase in score compared to the previous week"
+msgstr "Muestra el Grupo con el mayor cambio positivo y cuantifica el aumento en la puntuación en comparación con la semana anterior"
+
+#: Application/language/resources.php:79
+msgid "Shows project with the highest positive change and quantifies the increase in score compared to the previous week"
+msgstr "Muestra el Proyecto con el mayor cambio positivo y cuantifica el aumento en la puntuación en comparación con la semana anterior"
+
+#: Application/language/resources.php:80
+msgid "Shows question with the highest positive change and quantifies the increase in score compared to the previous week"
+msgstr "Muestra la pregunta con mayor ascenso en el resultado y cuantifica ese acenso comparándolo con los resultados de la semana previa"
+
+#: Application/language/resources.php:81
+msgid "Displays the current global score of the month, contemplating evaluations done from the first of the month until today for all groups"
+msgstr "Muestra los resultados globales, tomando evaluaciones desde el primer día del mes hasta el día de hoy para todos los grupos"
+
+#: Application/language/resources.php:82
+msgid "Displays the current global score of the month, contemplating evaluations done from the first of the month until today"
+msgstr "Muestra los resultados globales, tomando evaluaciones desde el primer día del mes hasta el día de hoy"
+
+#: Application/language/resources.php:83
+msgid "Displays the current global score of the month, contemplating evaluations done from the first of the month until today for each group"
+msgstr "Muestra los resultados globales, tomando evaluaciones desde el primer día del mes hasta el día de hoy de cada grupo"
+
+#: Application/language/resources.php:84
+msgid "Displays the current global score of the month, contemplating evaluations done from the first of the month until today for each project"
+msgstr "Muestra los resultados globales, tomando evaluaciones desde el primer día del mes hasta el día de hoy de cada proyecto"
+
+#: Application/language/resources.php:85
+msgid "Displays the total number of evaluations, contemplating evaluations done from the first of the month until today for all projects"
+msgstr "Muestra el número total de evaluaciones, tomando evaluaciones desde el primer día del mes hasta el día de hoy de todos los proyectos"
+
+#: Application/language/resources.php:86
+msgid "Displays the total number of evaluations, contemplating evaluations done from the first of the month until today"
+msgstr "Muestra el número total de evaluaciones, tomando evaluaciones desde el primer día del mes hasta el día de hoy"
+
+#: Application/language/resources.php:87
+msgid "Displays the total number of evaluations, contemplating evaluations done from the first of the month until today for each project"
+msgstr "Muestra el número total de evaluaciones, tomando evaluaciones desde el primer día del mes hasta el día de hoy de cada proyecto"
+
+#: Application/language/resources.php:88
+msgid "Displays all projects assigned to the profile, they global score and MTD sample size"
+msgstr "Muestra todos los proyectos asignados al perfil, sus resultados globales y el tamaño parcial del mes de la muestra"
+
+#: Application/language/resources.php:89
+msgid "Ranks and displays all questions in the past seven days"
+msgstr "Muestra las preguntas en orden, según sus resultados en los últimos siete días"
+
+#: Application/language/resources.php:90
+msgid "Extrapolates the number of evaluations to be performed by the end of the month and calculates the score they will need to reach a given target"
+msgstr "Extrapola el número de evaluaciones que sucederán hasta fin de mes y calcula el resultado que necesitaran las evaluaciones futuras para alcanzar un objetivo"
+
+#: Application/language/resources.php:91
+msgid "Displays the global result of evaluations performed today for all projects"
+msgstr "Muestra le resultado de las evaluaciones del día de todos los proyectos"
+
+#: Application/language/resources.php:92
+msgid "Displays the global result of evaluations performed today"
+msgstr "Muestra el  resultado de las evaluaciones del día"
+
+#: Application/language/resources.php:93
+msgid "Displays the global result of evaluations performed today for each group"
+msgstr "Muestra el  resultado de las evaluaciones del día de cada grupo"
+
+#: Application/language/resources.php:94
+msgid "Displays the global result of evaluations performed today for each projects"
+msgstr "Muestra le resultado de las evaluaciones del día por cada proyecto"
+
+#: Application/language/resources.php:95
+msgid "Ranks and displays the 5 questions with the highest results in the past seven days for all projects"
+msgstr "Muestra las cinco mejores preguntas en orden descendente según sus resultados en los últimos siete días de todos los proyectos"
+
+#: Application/language/resources.php:96
+msgid "Ranks and displays the 5 questions with the highest results in the past seven days"
+msgstr "Muestra las cinco mejores preguntas en orden descendente según sus resultados en los últimos siete días "
+
+#: Application/language/resources.php:97
+#: Basic/view/basic/dashboard/top-agents.phtml:14
+msgid "Top 10 Agents"
+msgstr "Agentes con mejores resultados (10)"
+
+#: Application/language/resources.php:98
+#: Basic/view/basic/dashboard/bottom-agents.phtml:14
+msgid "Bottom 10 Agents"
+msgstr "Agentes con más necesidad de mejora (10)"
+
+#: Application/language/resources.php:99
+msgid "Ranks and displays the 10 agents with the highest results in the current month"
+msgstr "Muestra los agentes con mejores resultados parciales del mes"
+
+#: Application/language/resources.php:100
+msgid "Ranks and displays the 10 agents with the lowest results in the current month"
+msgstr "Muestra los agentes con peores resultados parciales del mes"
+
+#: Application/language/resources.php:103
+msgid "Phone"
+msgstr "Teléfono"
+
+#: Application/language/resources.php:104
+msgid "Chat"
+msgstr "Chat"
+
+#: Application/language/resources.php:105
+#: Application/view/application/auth/index.phtml:40
+#: Application/view/application/auth/register.phtml:50
+#: Application/view/application/user/add.phtml:25
+#: Application/view/application/user/change-status.phtml:13
+#: Application/view/application/user/edit.phtml:21
+#: Application/view/application/user/index.phtml:38
+#: Application/view/application/user/index.phtml:112
+#: Application/view/application/user/manage-profile.phtml:25
+#: Application/view/application/user/view.phtml:25
+msgid "Email"
+msgstr "Correo eléctronico"
+
+#: Application/language/resources.php:106
+msgid "Mobile Device"
+msgstr "Dispositivo móvil"
+
+#: Application/language/resources.php:109
+msgid "Get started with 5 easy steps!"
+msgstr "Comience con 5 sencillos pasos!"
+
+#: Application/language/resources.php:110
+msgid "This wizard will walk you through Quick Audits' set up process."
+msgstr "Este asistente te guiará a través del proceso de configuración de Quick Audits."
+
+#: Application/language/resources.php:111
+msgid "Forms"
+msgstr "Formularios"
+
+#: Application/src/Application/Controller/AuthController.php:101
+msgid "nonexistent identity"
+msgstr "Identidad inexistente"
+
+#: Application/src/Application/Controller/AuthController.php:106
+msgid "invalid credential"
+msgstr "Credenciales inválidas"
+
+#: Application/src/Application/Controller/AuthController.php:163
+msgid "unknown failure"
+msgstr "Error desconocido"
+
+#: Application/src/Application/Controller/AuthController.php:169
+#: Application/src/Application/Controller/AuthController.php:191
+msgid "An unknown error has occurred. Please verify your data and try again."
+msgstr "Se ha producido un error desconocido. Por favor verificar sus datos y vuelva a intentarlo."
+
+#: Application/src/Application/Controller/AuthController.php:188
+msgid "Please verify your email to get the new password"
+msgstr "Por favor verifique su correo electrónico para obtener la nueva contraseña"
+
+#: Application/src/Application/Controller/FormController.php:84
+msgid "Forms List"
+msgstr "Lista de formas"
+
+#: Application/src/Application/Controller/FormController.php:116
+msgid "Form Details"
+msgstr "Detalles del formulario"
+
+#: Application/src/Application/Controller/FormController.php:181
+msgid "Add new Form"
+msgstr "Agregar Nuevo Formulario"
+
+#: Application/src/Application/Controller/FormController.php:263
+msgid "Edit Form"
+msgstr "Editar Formulario"
+
+#: Application/src/Application/Controller/FormController.php:318
+msgid "Change Form Status"
+msgstr "Cambiar el estado del formulario"
+
+#: Application/src/Application/Controller/FormController.php:351
+msgid "An unknown error happened. Please verify your data and try again."
+msgstr "Se ha producido un error desconocido. Por favor verifique sus datos y vuelva a intentarlo"
+
+#: Application/src/Application/Controller/FormController.php:366
+msgid "Each selected group must have a score bigger than 0."
+msgstr "Cada grupo selaccionado debe poseer un valor mayor a 0"
+
+#: Application/src/Application/Controller/FormController.php:373
+msgid "Question groups must sum a total of 100%"
+msgstr "Los grupos de preguntas deben sumar un total de 100%"
+
+#: Application/src/Application/Controller/FormController.php:404
+msgid "All checked questions must have answers."
+msgstr "Todas las preguntas seleccionadas deben tener respuestas"
+
+#: Application/src/Application/Controller/FormController.php:409
+msgid "Answers must be higher than 1."
+msgstr "las respuestas deben ser mayor a 1"
+
+#: Application/src/Application/Controller/FormController.php:418
+msgid "You have to check at least one question and select its amount of answers."
+msgstr "Debe seleccionar al menos una pregunta y la cantidad de respuestas posibles"
+
+#: Application/src/Application/Controller/FormController.php:423
+msgid "You have to select at least one question for each group."
+msgstr "Debe seleccionar al menos una pregunta por grupo"
+
+#: Application/src/Application/Controller/FormController.php:449
+msgid "All questions except for fatals groups must be higher than 0%"
+msgstr "Todas las preguntas, excepto los grupos fatales deben ser mayor a 0%"
+
+#: Application/src/Application/Controller/FormController.php:459
+#, php-format
+msgid "The group %s has a weight percentage of %s%%"
+msgstr "El grupo %s tiene un porcentaje de peso de %s%%"
+
+#: Application/src/Application/Controller/FormController.php:552
+msgid "Copy Form"
+msgstr "Copiar Formulario"
+
+#: Application/src/Application/Controller/OrganizationController.php:111
+msgid "Manage Profile"
+msgstr "Administrar Perfil"
+
+#: Application/src/Application/Controller/OrganizationController.php:127
+msgid "Manage Dashboard"
+msgstr "Administrar tablero de control"
+
+#: Application/src/Application/Controller/OrganizationController.php:150
+#, php-format
+msgid "<strong>%s</strong> was added to <strong>%s</strong> successfully!"
+msgstr "<strong>%s</strong> ha sido añadido a <strong>%s</strong> con éxito!"
+
+#: Application/src/Application/Controller/OrganizationController.php:157
+#, php-format
+msgid "<strong>%s</strong> was removed from <strong>%s</strong> successfully!"
+msgstr "Se elimino a <strong>%s</strong> de <strong>%s</strong> con éxito!"
+
+#: Application/src/Application/Controller/OrganizationController.php:179
+msgid "Dashboard was sorted successfully!"
+msgstr "El tablero de control se ordeno exitosamente!"
+
+#: Application/src/Application/Controller/OrganizationController.php:202
+#: Application/view/application/organization/billing-details-fieldset.phtml:2
+#: Application/view/application/organization/manage-billing-details.phtml:13
+#: Application/view/layout/layout.phtml:285
+msgid "Billing Details"
+msgstr "Detalles de Facturación"
+
+#: Application/src/Application/Controller/OrganizationController.php:235
+#: Application/view/application/organization/manage-billing-details.phtml:72
+msgid "Add New Billing Details"
+msgstr "Añadir nuevos detalles de facturación"
+
+#: Application/src/Application/Controller/OrganizationController.php:262
+#: Application/view/application/organization/edit-subscription.phtml:20
+#: Application/view/layout/layout.phtml:282
+msgid "Plan Details"
+msgstr "Detalles del plan"
+
+#: Application/src/Application/Controller/OrganizationController.php:321
+#: Application/view/application/organization/edit-subscription.phtml:145
+#: Application/view/application/organization/manage-subscription.phtml:76
+msgid "Change Plan"
+msgstr "Cambiar el plan"
+
+#: Application/src/Application/Controller/OrganizationController.php:422
+#: Application/view/application/organization/cancel-subscription.phtml:58
+#: Application/view/application/organization/manage-subscription.phtml:81
+msgid "Cancel Subscription"
+msgstr "Cancelar la Suscripción"
+
+#: Application/src/Application/Controller/ProjectController.php:83
+msgid "Projects List"
+msgstr "Lista proyectos"
+
+#: Application/src/Application/Controller/ProjectController.php:109
+msgid "Project Details"
+msgstr "Detalles del proyecto"
+
+#: Application/src/Application/Controller/ProjectController.php:157
+msgid "Add new Project"
+msgstr "Agregar un proyecto nuevo"
+
+#: Application/src/Application/Controller/ProjectController.php:218
+msgid "Edit Project"
+msgstr "Editar proyecto"
+
+#: Application/src/Application/Controller/ProjectController.php:259
+msgid "Change Project Status"
+msgstr "Cambiar el estado del proyecto"
+
+#: Application/src/Application/Controller/QuestionController.php:91
+msgid "Questions List"
+msgstr "Lista de reguntas"
+
+#: Application/src/Application/Controller/QuestionController.php:115
+msgid "Question Details"
+msgstr "Detalles de las preguntas"
+
+#: Application/src/Application/Controller/QuestionController.php:169
+msgid "Add new Question"
+msgstr "Agregar una pregunta nueva"
+
+#: Application/src/Application/Controller/QuestionController.php:228
+msgid "Edit Question"
+msgstr "Editar pregunta"
+
+#: Application/src/Application/Controller/QuestionController.php:272
+#: Application/src/Application/Controller/QuestionController.php:308
+msgid "Change Question Status"
+msgstr "Cambiar el estado de la pregunta"
+
+#: Application/src/Application/Controller/QuestionGroupController.php:55
+msgid "Question Groups List"
+msgstr "Lista de grupos de preguntas"
+
+#: Application/src/Application/Controller/QuestionGroupController.php:91
+msgid "Question Groups Details"
+msgstr "Detalles de grupos de preguntas"
+
+#: Application/src/Application/Controller/QuestionGroupController.php:121
+msgid "Add new Question Group"
+msgstr "Agregar un grupo de preguntas nuevo"
+
+#: Application/src/Application/Controller/QuestionGroupController.php:157
+msgid "Edit Question Group"
+msgstr "Editar grupo de preguntas"
+
+#: Application/src/Application/Controller/QuestionGroupController.php:211
+msgid "Change Question Group Status"
+msgstr "Cambiar el estado del grupo de  preguntas"
+
+#: Application/src/Application/Controller/QuestionGroupController.php:257
+msgid "Delete Question Group"
+msgstr "Eliminar grupo"
+
+#: Application/src/Application/Controller/UserController.php:88
+msgid "Users List"
+msgstr "Lista de usuarios"
+
+#: Application/src/Application/Controller/UserController.php:117
+msgid "User Details"
+msgstr "Detalles del usuario"
+
+#: Application/src/Application/Controller/UserController.php:166
+msgid "Add new User"
+msgstr "Agregar un usuario nuevo"
+
+#: Application/src/Application/Controller/UserController.php:224
+msgid "Edit User"
+msgstr "Editar usuario"
+
+#: Application/src/Application/Controller/UserController.php:257
+msgid "Change User Status"
+msgstr "Cambiar el estado del usuario"
+
+#: Application/src/Application/Controller/UserController.php:302
+msgid "Change User Password"
+msgstr "Cambiar la contraseña del usuario"
+
+#: Application/src/Application/Controller/UserController.php:377
+msgid "Add new User Project"
+msgstr "Agregar un proyecto de usuario"
+
+#: Application/src/Application/Controller/UserController.php:408
+msgid "Change User Project Status"
+msgstr "Cambiar el estado del proyecto del usuario"
+
+#: Application/src/Application/Controller/UserController.php:443
+msgid "Delete User Project"
+msgstr "Borrar el proyecto del usuario"
+
+#: Application/src/Application/Controller/UserController.php:506
+msgid "My Profile"
+msgstr "Mi Perfil"
+
+#: Application/src/Application/Controller/UserController.php:551
+#: Application/view/application/user/edit.phtml:49
+#: Application/view/application/user/manage-profile.phtml:60
+#: Application/view/application/user/view.phtml:43
+msgid "Change Password"
+msgstr "Cambiar la contraseña"
+
+#: Application/src/Application/Filter/SubscriptionFilter.php:112
+#, php-format
+msgid "The minimal amount of users for the selected Product is %s."
+msgstr "La cantidad mínima de usuarios para el producto seleccionado es %s."
+
+#: Application/src/Application/Filter/SubscriptionFilter.php:114
+msgid "Please contact our sales department at support@quickaudits.io to set a lower amount of users."
+msgstr "Por favor, póngase en contacto con nuestro Departamento de ventas en las support@quickaudits.io para establecer una menor cantidad de usuarios."
+
+#: Application/src/Application/Filter/SubscriptionFilter.php:124
+msgid "If you want to downgrade your subscription to a monthly billing period, please contact our sales department at support@quickaudits.io"
+msgstr "Si desea rebajar su subscripción a un periodo de facturación mensual, por favor porngase en contacto con nuestro departamento de ventas a support@quickaudits.io"
+
+#: Application/src/Application/Filter/SubscriptionFilter.php:132
+msgid "The password you entered does not match with your current password. Please verify your details and try again."
+msgstr "La contraseña ingresada no concuerda con su contraseña actual. Por favor verifique sus datos e intente nuevamente."
+
+#: Application/src/Application/Filter/SubscriptionFilter.php:141
+msgid "You have to change at least one value from your plan details to update it."
+msgstr "Tienes que cambiar al menos un valor de tus detalles del plan para actualizarlo."
+
+#: Application/src/Application/Form/QuestionForm.php:68
+msgid "Please choose a Question Group"
+msgstr "Por favor, seleccione un grupo de preguntas"
+
+#: Application/src/Application/Form/QuestionForm.php:79
+#: Application/view/application/form/add.phtml:27
+#: Application/view/application/form/add.phtml:217
+#: Application/view/application/form/edit.phtml:27
+#: Application/view/application/form/edit.phtml:215
+#: Basic/view/basic/listening/add.phtml:78
+#: Basic/view/basic/listening/edit.phtml:119
+msgid "Save Changes"
+msgstr "Guardar cambios"
+
+#: Application/src/Application/Form/QuestionForm.php:88
+msgid "Save Changes & Add New"
+msgstr "Guardar Cambios y Agregar Nuevo"
+
+#: Application/src/Application/Form/SubscriptionForm.php:97
+msgid "Monthly"
+msgstr "Mensualmente"
+
+#: Application/src/Application/Form/SubscriptionForm.php:97
+msgid "Yearly"
+msgstr "Anualmente"
+
+#: Application/src/Application/Helper/ExcelReports.php:64
+#: Application/view/application/project/change-status.phtml:6
+#: Application/view/application/project/view.phtml:27
+#: Application/view/application/user/add-user-project.phtml:14
+#: Application/view/application/user/add.phtml:53
+#: Application/view/application/user/change-status-user-project.phtml:13
+#: Application/view/application/user/delete-user-project.phtml:13
+#: Basic/view/basic/listening/change-status.phtml:9
+#: Basic/view/basic/listening/index.phtml:107
+#: Basic/view/basic/listening/index.phtml:222
+#: Basic/view/basic/listening/view.phtml:6
+msgid "Project"
+msgstr "Proyecto"
+
+#: Application/src/Application/Helper/ExcelReports.php:65
+#: Basic/src/Basic/Form/ListeningForm.php:64
+#: Basic/view/basic/listening/change-status.phtml:13
+#: Basic/view/basic/listening/index.phtml:108
+#: Basic/view/basic/listening/index.phtml:227
+#: Basic/view/basic/listening/view.phtml:10
+msgid "Channel"
+msgstr "Canal"
+
+#: Application/src/Application/Helper/ExcelReports.php:66
+#: Basic/view/basic/listening/change-status.phtml:17
+#: Basic/view/basic/listening/view.phtml:14
+msgid "QA Agent"
+msgstr "Auditor"
+
+#: Application/src/Application/Helper/ExcelReports.php:67
+#: Application/src/Application/Helper/ExcelReports.php:127
+#: Application/src/Application/Helper/ExcelReports.php:355
+#: Application/src/Application/Helper/ExcelReports.php:414
+#: Basic/view/basic/dashboard/question-performance-ranking.phtml:25
+#: Basic/view/basic/listening/change-status.phtml:46
+#: Basic/view/basic/listening/edit.phtml:43
+#: Basic/view/basic/listening/index.phtml:114
+#: Basic/view/basic/listening/index.phtml:241
+#: Basic/view/basic/listening/questions.phtml:15
+#: Basic/view/basic/listening/view.phtml:43
+#: Basic/view/basic/report/global-weekly-progress.phtml:73
+#: Basic/view/basic/report/project-overview.phtml:77
+#: Basic/view/basic/report/sample-daily-overview.phtml:74
+msgid "Score"
+msgstr "Resultado"
+
+#: Application/src/Application/Helper/ExcelReports.php:68
+#: Basic/view/basic/listening/index.phtml:115
+msgid "Created"
+msgstr "Creado"
+
+#: Application/src/Application/Helper/ExcelReports.php:69
+#: Application/view/application/form/change-status.phtml:19
+#: Application/view/application/form/index.phtml:38
+#: Application/view/application/form/index.phtml:128
+#: Application/view/application/form/view.phtml:18
+#: Application/view/application/organization/manage-subscription.phtml:69
+#: Application/view/application/project/change-status.phtml:26
+#: Application/view/application/project/index.phtml:40
+#: Application/view/application/project/index.phtml:120
+#: Application/view/application/project/view.phtml:47
+#: Application/view/application/question-group/change-status.phtml:27
+#: Application/view/application/question-group/delete.phtml:31
+#: Application/view/application/question-group/index.phtml:51
+#: Application/view/application/question-group/index.phtml:149
+#: Application/view/application/question-group/view.phtml:20
+#: Application/view/application/question-group/view.phtml:58
+#: Application/view/application/question/change-status.phtml:17
+#: Application/view/application/question/delete.phtml:17
+#: Application/view/application/question/index.phtml:59
+#: Application/view/application/question/index.phtml:148
+#: Application/view/application/question/view.phtml:14
+#: Application/view/application/user/change-status-user-project.phtml:21
+#: Application/view/application/user/change-status.phtml:29
+#: Application/view/application/user/delete-user-project.phtml:21
+#: Application/view/application/user/index.phtml:40
+#: Application/view/application/user/index.phtml:120
+#: Application/view/application/user/view.phtml:47
+#: Basic/view/basic/listening/change-status.phtml:21
+#: Basic/view/basic/listening/index.phtml:116
+#: Basic/view/basic/listening/index.phtml:245
+#: Basic/view/basic/listening/view.phtml:18
+msgid "Status"
+msgstr "Estado"
+
+#: Application/src/Application/Helper/ExcelReports.php:70
+#: Basic/view/basic/listening/add-public.phtml:112
+#: Basic/view/basic/listening/add.phtml:66
+#: Basic/view/basic/listening/change-status.phtml:94
+#: Basic/view/basic/listening/edit.phtml:107
+#: Basic/view/basic/listening/view.phtml:91
+msgid "Comments"
+msgstr "Comentarios"
+
+#: Application/src/Application/Helper/ExcelReports.php:94
+#: Application/view/application/form/change-status.phtml:20
+#: Application/view/application/form/index.phtml:9
+#: Application/view/application/form/index.phtml:55
+#: Application/view/application/form/index.phtml:131
+#: Application/view/application/form/view.phtml:19
+#: Application/view/application/project/change-status.phtml:23
+#: Application/view/application/project/change-status.phtml:27
+#: Application/view/application/project/change-status.phtml:46
+#: Application/view/application/project/index.phtml:9
+#: Application/view/application/project/index.phtml:53
+#: Application/view/application/project/index.phtml:56
+#: Application/view/application/project/index.phtml:123
+#: Application/view/application/project/view.phtml:44
+#: Application/view/application/project/view.phtml:48
+#: Application/view/application/project/view.phtml:67
+#: Application/view/application/question-group/change-status.phtml:28
+#: Application/view/application/question-group/delete.phtml:32
+#: Application/view/application/question-group/index.phtml:9
+#: Application/view/application/question-group/index.phtml:66
+#: Application/view/application/question-group/index.phtml:152
+#: Application/view/application/question-group/view.phtml:21
+#: Application/view/application/question-group/view.phtml:69
+#: Application/view/application/question/change-status.phtml:18
+#: Application/view/application/question/delete.phtml:18
+#: Application/view/application/question/index.phtml:20
+#: Application/view/application/question/index.phtml:71
+#: Application/view/application/question/index.phtml:151
+#: Application/view/application/question/view.phtml:15
+#: Application/view/application/user/change-status-user-project.phtml:22
+#: Application/view/application/user/change-status.phtml:30
+#: Application/view/application/user/delete-user-project.phtml:22
+#: Application/view/application/user/edit.phtml:91
+#: Application/view/application/user/index.phtml:9
+#: Application/view/application/user/index.phtml:52
+#: Application/view/application/user/index.phtml:123
+#: Application/view/application/user/manage-profile.phtml:98
+#: Application/view/application/user/view.phtml:48
+#: Application/view/application/user/view.phtml:82
+#: Basic/view/basic/listening/change-status.phtml:22
+#: Basic/view/basic/listening/index.phtml:70
+#: Basic/view/basic/listening/index.phtml:136
+#: Basic/view/basic/listening/index.phtml:248
+#: Basic/view/basic/listening/view.phtml:19
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: Application/src/Application/Helper/ExcelReports.php:94
+#: Application/view/application/form/change-status.phtml:20
+#: Application/view/application/form/index.phtml:10
+#: Application/view/application/form/index.phtml:57
+#: Application/view/application/form/index.phtml:133
+#: Application/view/application/form/view.phtml:19
+#: Application/view/application/project/change-status.phtml:23
+#: Application/view/application/project/change-status.phtml:27
+#: Application/view/application/project/change-status.phtml:46
+#: Application/view/application/project/index.phtml:10
+#: Application/view/application/project/index.phtml:53
+#: Application/view/application/project/index.phtml:58
+#: Application/view/application/project/index.phtml:125
+#: Application/view/application/project/view.phtml:44
+#: Application/view/application/project/view.phtml:48
+#: Application/view/application/project/view.phtml:67
+#: Application/view/application/question-group/change-status.phtml:28
+#: Application/view/application/question-group/delete.phtml:32
+#: Application/view/application/question-group/index.phtml:10
+#: Application/view/application/question-group/index.phtml:68
+#: Application/view/application/question-group/index.phtml:154
+#: Application/view/application/question-group/view.phtml:21
+#: Application/view/application/question-group/view.phtml:71
+#: Application/view/application/question/change-status.phtml:18
+#: Application/view/application/question/delete.phtml:18
+#: Application/view/application/question/index.phtml:21
+#: Application/view/application/question/index.phtml:73
+#: Application/view/application/question/index.phtml:153
+#: Application/view/application/question/view.phtml:15
+#: Application/view/application/user/change-status-user-project.phtml:22
+#: Application/view/application/user/change-status.phtml:30
+#: Application/view/application/user/delete-user-project.phtml:22
+#: Application/view/application/user/index.phtml:10
+#: Application/view/application/user/index.phtml:54
+#: Application/view/application/user/index.phtml:125
+#: Application/view/application/user/view.phtml:48
+#: Basic/view/basic/listening/change-status.phtml:22
+#: Basic/view/basic/listening/index.phtml:72
+#: Basic/view/basic/listening/index.phtml:138
+#: Basic/view/basic/listening/index.phtml:250
+#: Basic/view/basic/listening/view.phtml:19
+msgid "Disabled"
+msgstr "Inhabilitado"
+
+#: Application/src/Application/Helper/ExcelReports.php:115
+msgid "Listenings"
+msgstr "Evaluaciones"
+
+#: Application/src/Application/Helper/ExcelReports.php:126
+#: Basic/view/basic/report/global-weekly-progress.phtml:72
+msgid "Week"
+msgstr "Semana"
+
+#: Application/src/Application/Helper/ExcelReports.php:128
+#: Application/src/Application/Helper/ExcelReports.php:188
+#: Application/src/Application/Helper/ExcelReports.php:249
+#: Application/src/Application/Helper/ExcelReports.php:356
+#: Application/src/Application/Helper/ExcelReports.php:413
+#: Basic/view/basic/dashboard/global-daily-progress.phtml:14
+#: Basic/view/basic/dashboard/number-samples-mtd-global.phtml:20
+#: Basic/view/basic/dashboard/number-samples-mtd.phtml:20
+#: Basic/view/basic/report/global-daily-progress.phtml:64
+#: Basic/view/basic/report/global-weekly-progress.phtml:74
+#: Basic/view/basic/report/project-overview.phtml:76
+#: Basic/view/basic/report/question-weekly-progress.phtml:65
+#: Basic/view/basic/report/sample-daily-overview.phtml:75
+msgid "Samples"
+msgstr "Muestras"
+
+#: Application/src/Application/Helper/ExcelReports.php:169
+#: Basic/src/Basic/Controller/ReportController.php:42
+#: Application/view/layout/layout.phtml:191
+#: Application/view/layout/layout.phtml:211
+msgid "Global Weekly Progress"
+msgstr "Progreso semanal global"
+
+#: Application/src/Application/Helper/ExcelReports.php:180
+#: Application/src/Application/Helper/ExcelReports.php:354
+#: Basic/view/basic/report/global-daily-progress.phtml:58
+#: Basic/view/basic/report/sample-daily-overview.phtml:73
+msgid "Date"
+msgstr "Fecha"
+
+#: Application/src/Application/Helper/ExcelReports.php:240
+#: Basic/view/basic/report/question-weekly-progress.phtml:58
+msgid "Weeks"
+msgstr "Semana"
+
+#: Application/src/Application/Helper/ExcelReports.php:245
+#: Basic/view/basic/report/question-weekly-progress.phtml:62
+msgid "Grand Total"
+msgstr "Total"
+
+#: Application/src/Application/Helper/ExcelReports.php:286
+#: Application/src/Application/Helper/ExcelReports.php:321
+#: Basic/view/basic/report/question-weekly-progress.phtml:90
+#: Basic/view/basic/report/question-weekly-progress.phtml:124
+msgid "Total Score"
+msgstr "Resultado total"
+
+#: Application/src/Application/Helper/ExcelReports.php:397
+#: Basic/src/Basic/Controller/ReportController.php:235
+#: Application/view/layout/layout.phtml:200
+#: Application/view/layout/layout.phtml:220
+msgid "Sample Daily Overview"
+msgstr "Vista diaria de la muestra"
+
+#: Application/src/Application/Helper/ExcelReports.php:408
+#: Basic/view/basic/report/project-overview.phtml:72
+msgid "Project / Group"
+msgstr "Proyecto / Grupo"
+
+#: Application/src/Application/Helper/ExcelReports.php:451
+#: Application/view/layout/layout.phtml:208
+msgid "Projects Overview"
+msgstr "Resumen de Proyectos"
+
+#: Application/src/Application/Helper/PayPal.php:140
+#: Application/src/Application/Model/OrganizationTable.php:748
+msgid "An error ocurred processing your credit card. Please check the credit card details and try again."
+msgstr "Se ha producido un error en el procesamiento de su tarjeta de crédito. Por favor, compruebe los detalles de la tarjeta de crédito y vuelva a intentarlo."
+
+#: Application/src/Application/Model/DashboardReportTable.php:198
+#, php-format
+msgid "Your organization is allowed to display up to %s reports for each role."
+msgstr "Su organización puede mostrar hasta %s reportes para cada rol."
+
+#: Application/src/Application/Model/OrganizationTable.php:317
+#: Application/src/Application/Model/UserTable.php:277
+msgid "Quick Audits welcomes you aboard!"
+msgstr "Quick Audits le da la bienvenida!"
+
+#: Application/src/Application/Model/OrganizationTable.php:359
+msgid "Question Group 1"
+msgstr "Grupo de Pregunta 1"
+
+#: Application/src/Application/Model/OrganizationTable.php:376
+#, php-format
+msgid "Question %s"
+msgstr "Pregunta %s"
+
+#: Application/src/Application/Model/OrganizationTable.php:391
+msgid "Form 1"
+msgstr "Formulario 1"
+
+#: Application/src/Application/Model/OrganizationTable.php:403
+msgid "Project 1"
+msgstr "Proyecto 1"
+
+#: Application/src/Application/Model/OrganizationTable.php:680
+#, php-format
+msgid "New subscription for %s users per %s."
+msgstr "Nueva subscripción para %s usuarios por %s."
+
+#: Application/src/Application/Model/OrganizationTable.php:702
+#, php-format
+msgid "Charge for %s aditional users."
+msgstr "Cargo por %s usuarios adicionales."
+
+#: Application/src/Application/Model/OrganizationTable.php:723
+#, php-format
+msgid "New subscription for %s users per %s with discount for %s remaining days."
+msgstr "Nueva suscripción para %s usuarios por %s con descuento para %s días restantes."
+
+#: Application/src/Application/Model/OrganizationTable.php:742
+msgid "Your credit card wasn't approved. Please verify your details and try again."
+msgstr "Su tarjeta de crédito no fue aprobada. Por favor verifique sus detalles y vuelta a intentar."
+
+#: Application/src/Application/Model/OrganizationTable.php:964
+#, php-format
+msgid "Subscription payment for %s users per %s."
+msgstr "Pago por %s usuarios por %s."
+
+#: Application/src/Application/Model/OrganizationTable.php:1028
+msgid "Quick Audits - Transaction Failed!"
+msgstr "Quick Audits - La transacción ha fallado!"
+
+#: Application/src/Application/Model/UserTable.php:547
+msgid "Role is already assigned for current project"
+msgstr "El rol ya se encuentra asignado a este proyecto"
+
+#: Basic/src/Basic/Controller/ListeningController.php:150
+msgid "Evaluations List"
+msgstr "Listado de Evaluaciones"
+
+#: Basic/src/Basic/Controller/ListeningController.php:213
+msgid "Evaluation Details"
+msgstr "Detalles de la Evaluación"
+
+#: Basic/src/Basic/Controller/ListeningController.php:224
+#: Application/view/layout/layout.phtml:161
+#: Application/view/layout/layout.phtml:334
+msgid "Perform QA"
+msgstr "Evaluar"
+
+#: Basic/src/Basic/Controller/ListeningController.php:288
+msgid "Edit Evaluation"
+msgstr "Editar Evaluación"
+
+#: Basic/src/Basic/Controller/ListeningController.php:423
+msgid "Change Evaluation Status"
+msgstr "Modificar Estado"
+
+#: Basic/src/Basic/Controller/ReportController.php:145
+#: Application/view/layout/layout.phtml:197
+#: Application/view/layout/layout.phtml:217
+msgid "Question Weekly Progress"
+msgstr "Progreso semanal por pregunta"
+
+#: Basic/src/Basic/Controller/ReportController.php:338
+msgid "Global Daily Progress"
+msgstr "Progreso Global Diario"
+
+#: Basic/src/Basic/Controller/ReportController.php:405
+msgid "Project Overview"
+msgstr "Resumen de Proyectos"
+
+#: Basic/src/Basic/Form/ListeningForm.php:65
+msgid "Choose a Channel"
+msgstr "Elija un canal"
+
+#: Basic/src/Basic/Form/ListeningForm.php:84
+#: Basic/view/basic/listening/index.phtml:111
+#: Basic/view/basic/listening/index.phtml:236
+msgid "Agent"
+msgstr "Agente"
+
+#: Basic/src/Basic/Form/ListeningForm.php:85
+msgid "Choose an Agent"
+msgstr "Elija un agente"
+
+#: Application/view/application/auth/confirm-token.phtml:3
+#: Application/view/application/auth/register.phtml:3
+msgid "Sign Up"
+msgstr "Registrese"
+
+#: Application/view/application/auth/confirm-token.phtml:4
+msgid "Set your password to start working!"
+msgstr "Ingrese su contraseña para comenzar a trabajar!"
+
+#: Application/view/application/auth/confirm-token.phtml:49
+#: Application/view/application/user/change-password-profile.phtml:21
+#: Application/view/application/user/change-password.phtml:21
+msgid "Confirm Password"
+msgstr "Confirmar la contraseña"
+
+#: Application/view/application/auth/confirm-token.phtml:55
+msgid "Already have a password? Login"
+msgstr "Ya posee una contraseña?  Ingresar"
+
+#: Application/view/application/auth/index.phtml:3
+#: Application/view/application/auth/index.phtml:66
+#: Application/view/application/auth/index.phtml:115
+#: Application/view/application/auth/register.phtml:100
+#: Application/view/application/auth/reset-password.phtml:3
+msgid "Login"
+msgstr "Ingresar"
+
+#: Application/view/application/auth/index.phtml:4
+#: Application/view/application/auth/reset-password.phtml:4
+msgid "Start working towards excellence!"
+msgstr "Y comience su camino a la excelencia!"
+
+#: Application/view/application/auth/index.phtml:32
+msgid "Your subscription was updated!"
+msgstr "La subscripción se actualizo exitosamente!"
+
+#: Application/view/application/auth/index.phtml:50
+#: Application/view/application/organization/edit-subscription.phtml:134
+#: Application/view/application/user/change-password-profile.phtml:10
+#: Application/view/application/user/change-password.phtml:10
+#: Application/view/application/user/edit.phtml:47
+#: Application/view/application/user/manage-profile.phtml:58
+#: Application/view/application/user/view.phtml:41
+msgid "Password"
+msgstr "Contraseña"
+
+#: Application/view/application/auth/index.phtml:60
+msgid "Remember Me?"
+msgstr "Recordarme?"
+
+#: Application/view/application/auth/index.phtml:71
+msgid "Forgot password?"
+msgstr "Olvidó su contraseña?"
+
+#: Application/view/application/auth/index.phtml:73
+msgid "Create a new account"
+msgstr "Crear una cuenta nueva"
+
+#: Application/view/application/auth/index.phtml:94
+#: Application/view/application/auth/register.phtml:16
+#: Application/view/application/auth/reset-password.phtml:18
+#: Application/view/application/organization/edit-subscription.phtml:12
+#: Application/view/application/user/add.phtml:5
+msgid "Error"
+msgstr "Error"
+
+#: Application/view/application/auth/index.phtml:103
+msgid "Enter your email"
+msgstr "Ingrese su email"
+
+#: Application/view/application/auth/index.phtml:110
+msgid "Reset Password"
+msgstr "Reiniciar Contraseña"
+
+#: Application/view/application/auth/index.phtml:115
+msgid "Did you remember your password?"
+msgstr "Recordó su contraseña?"
+
+#: Application/view/application/auth/register-success.phtml:3
+msgid "Successful Registration"
+msgstr "Registración exitosa"
+
+#: Application/view/application/auth/register-success.phtml:4
+#: Application/view/application/auth/register.phtml:4
+msgid "Get your own dashboard in a few seconds!"
+msgstr "Consiga su propio panel de control en pocos segundos!"
+
+#: Application/view/application/auth/register-success.phtml:13
+msgid "Your Account Has Been Created!"
+msgstr "¡Su cuenta ha sido creada!"
+
+#: Application/view/application/auth/register-success.phtml:15
+msgid "Congratulations! Your new account has been successfully created!"
+msgstr "Su nueva cuenta ha sido creada con éxito!"
+
+#: Application/view/application/auth/register-success.phtml:16
+msgid "You can now start working towards excellence!"
+msgstr "Ya puede comenzar a trabajar hacia la excelencia!"
+
+#: Application/view/application/auth/register-success.phtml:17
+msgid "If you have ANY questions about the operation of this app, please e-mail us at support@quickaudits.io."
+msgstr "Si usted tiene alguna pregunta acerca del funcionamiento de esta aplicación, por favor envíenos un correo electrónico a support@quickaudits.io."
+
+#: Application/view/application/auth/register-success.phtml:18
+msgid "A confirmation has been sent to the provided e-mail address. If you have not received it within the hour, please contact us at support@quickaudits.io"
+msgstr "Una confirmación ha sido enviada a la dirección de correo electrónico proporcionada. Si usted no lo ha recibido en una hora, por favor póngase en contacto con nosotros a support@quickaudits.io"
+
+#: Application/view/application/auth/register.phtml:26
+msgid "Personal Information"
+msgstr "Información personal"
+
+#: Application/view/application/auth/register.phtml:31
+msgid "First name"
+msgstr "Nombre"
+
+#: Application/view/application/auth/register.phtml:40
+msgid "Last name"
+msgstr "Apellido"
+
+#: Application/view/application/auth/register.phtml:59
+msgid "Organization Information"
+msgstr "Información de la Organización"
+
+#: Application/view/application/auth/register.phtml:64
+msgid "Organization name"
+msgstr "Nombre de la Organización"
+
+#: Application/view/application/auth/register.phtml:73
+msgid "Organization phone"
+msgstr "Número de Teléfono de la Organización"
+
+#: Application/view/application/auth/register.phtml:80
+msgid "Select a product"
+msgstr "Seleccione un producto"
+
+#: Application/view/application/auth/register.phtml:89
+msgid "By clicking \"Register Account\" you agree to the <a href=\"javascript:void(0)\" class=\"text-success\" data-toggle=\"modal\" data-target=\"#modal-privacy\">Privacy Policy</a> and <a href=\"javascript:void(0)\"  class=\"text-success\" data-toggle=\"modal\" data-target=\"#modal-terms\">Terms & Conditions</a>."
+msgstr "Al presionar \"Registrar\" acepta las <a href=\"javascript:void(0)\" class=\"text-success\" data-toggle=\"modal\" data-target=\"#modal-privacy\">Politicas de Privacidad</a> y los <a href=\"javascript:void(0)\"  class=\"text-success\" data-toggle=\"modal\" data-target=\"#modal-terms\">Términos & Condiciones</a>."
+
+#: Application/view/application/auth/register.phtml:94
+msgid "Register Account"
+msgstr "Registre su cuenta"
+
+#: Application/view/application/auth/register.phtml:100
+msgid "Do you have an account?"
+msgstr "Posee una cuenta?"
+
+#: Application/view/application/auth/reset-password.phtml:48
+msgid "Did you remember your password? Login"
+msgstr "Recordó su contraseña? Ingresar"
+
+#: Application/view/application/auth/reset-success.phtml:3
+msgid "Successful Operation"
+msgstr "Operación Exitosa"
+
+#: Application/view/application/auth/reset-success.phtml:13
+msgid "Your Password Has Been Updated!"
+msgstr "Su contraseña ha sido actualizada!"
+
+#: Application/view/application/form/add.phtml:11
+#: Application/view/application/form/edit.phtml:11
+#: Basic/view/basic/listening/add.phtml:21
+#: Basic/view/basic/listening/edit.phtml:8
+msgid "General Information"
+msgstr "Información General"
+
+#: Application/view/application/form/add.phtml:12
+#: Application/view/application/form/edit.phtml:12
+msgid "Groups"
+msgstr "Grupos"
+
+#: Application/view/application/form/add.phtml:13
+#: Application/view/application/form/change-status.phtml:47
+#: Application/view/application/form/copy.phtml:35
+#: Application/view/application/form/edit.phtml:13
+#: Application/view/application/form/view.phtml:47
+#: Application/view/application/question-group/view.phtml:50
+#: Application/view/application/question/header.phtml:25
+#: Application/view/application/question/header.phtml:32
+#: Application/view/layout/layout.phtml:134
+#: Basic/view/basic/listening/add.phtml:59
+#: Basic/view/basic/listening/change-status.phtml:32
+#: Basic/view/basic/listening/change-status.phtml:51
+#: Basic/view/basic/listening/edit.phtml:28
+#: Basic/view/basic/listening/edit.phtml:48
+#: Basic/view/basic/listening/questions.phtml:20
+#: Basic/view/basic/listening/view.phtml:29
+#: Basic/view/basic/listening/view.phtml:48
+msgid "Questions"
+msgstr "Preguntas"
+
+#: Application/view/application/form/add.phtml:14
+#: Application/view/application/form/edit.phtml:14
+msgid "Weight & Order"
+msgstr "Peso y orden"
+
+#: Application/view/application/form/add.phtml:23
+#: Application/view/application/form/add.phtml:213
+#: Application/view/application/form/edit.phtml:23
+#: Application/view/application/form/edit.phtml:211
+msgid "Previous"
+msgstr "Atrás"
+
+#: Application/view/application/form/add.phtml:24
+#: Application/view/application/form/add.phtml:214
+#: Application/view/application/form/add.phtml:237
+#: Application/view/application/form/add.phtml:240
+#: Application/view/application/form/add.phtml:243
+#: Application/view/application/form/add.phtml:246
+#: Application/view/application/form/add.phtml:249
+#: Application/view/application/form/add.phtml:252
+#: Application/view/application/form/add.phtml:255
+#: Application/view/application/form/edit.phtml:24
+#: Application/view/application/form/edit.phtml:212
+#: Application/view/application/form/edit.phtml:235
+#: Application/view/application/form/edit.phtml:238
+#: Application/view/application/form/edit.phtml:241
+#: Application/view/application/form/edit.phtml:244
+#: Application/view/application/form/edit.phtml:247
+#: Application/view/application/form/edit.phtml:250
+#: Application/view/application/form/edit.phtml:253
+#: Application/view/application/form/index.phtml:173
+#: Application/view/application/project/add.phtml:110
+#: Application/view/application/project/add.phtml:114
+#: Application/view/application/project/add.phtml:118
+#: Application/view/application/project/edit.phtml:93
+#: Application/view/application/project/edit.phtml:96
+#: Application/view/application/project/edit.phtml:99
+#: Application/view/application/project/index.phtml:155
+#: Application/view/application/question-group/index.phtml:194
+#: Application/view/application/question-group/view.phtml:112
+#: Application/view/application/question/add.phtml:54
+#: Application/view/application/question/edit.phtml:42
+#: Application/view/application/question/index.phtml:193
+#: Basic/view/basic/listening/add-public.phtml:128
+msgid "Next"
+msgstr "Próximo"
+
+#: Application/view/application/form/add.phtml:28
+#: Application/view/application/form/add.phtml:218
+#: Application/view/application/form/edit.phtml:28
+#: Application/view/application/form/edit.phtml:216
+#: Application/view/layout/layout.phtml:398
+#: Application/view/layout/layout.phtml:445
+msgid "Saving"
+msgstr "Guardando"
+
+#: Application/view/application/form/add.phtml:40
+#: Application/view/application/form/edit.phtml:40
+msgid "QA Form"
+msgstr "Formulario de evaluación"
+
+#: Application/view/application/form/add.phtml:59
+#: Application/view/application/question-group/add.phtml:8
+#: Application/view/application/question-group/change-status.phtml:13
+#: Application/view/application/question-group/delete.phtml:17
+#: Application/view/application/question-group/edit.phtml:8
+#: Application/view/application/question-group/view.phtml:6
+#: Application/view/application/question/add.phtml:26
+#: Application/view/application/question/change-status.phtml:13
+#: Application/view/application/question/delete.phtml:13
+#: Application/view/application/question/edit.phtml:18
+#: Application/view/application/question/index.phtml:11
+#: Application/view/application/question/index.phtml:58
+#: Application/view/application/question/index.phtml:144
+#: Application/view/application/question/view.phtml:10
+msgid "Question Group"
+msgstr "Grupo de Pregunta"
+
+#: Application/view/application/form/add.phtml:60
+#: Basic/view/basic/listening/change-status.phtml:47
+#: Basic/view/basic/listening/edit.phtml:44
+#: Basic/view/basic/listening/questions.phtml:16
+#: Basic/view/basic/listening/view.phtml:44
+msgid "Weight"
+msgstr "Peso"
+
+#: Application/view/application/form/add.phtml:76
+#: Application/view/application/form/edit.phtml:77
+msgid "Include Question Group"
+msgstr "Incluir Grupo de Preguntas"
+
+#: Application/view/application/form/add.phtml:108
+#: Application/view/application/form/edit.phtml:110
+msgid "Total Answers"
+msgstr "Total de respuestas"
+
+#: Application/view/application/form/add.phtml:132
+#: Application/view/application/form/edit.phtml:134
+msgid "Include Question"
+msgstr "Incluir pregunta"
+
+#: Application/view/application/form/add.phtml:191
+#: Application/view/application/form/add.phtml:198
+#: Application/view/application/form/edit.phtml:197
+#: Application/view/application/organization/edit-subscription.phtml:53
+msgid "Total"
+msgstr "Total"
+
+#: Application/view/application/form/add.phtml:238
+#: Application/view/application/form/edit.phtml:236
+msgid "Give to your evaluation form a name."
+msgstr "De un nombre a su fromulario de evaluación"
+
+#: Application/view/application/form/add.phtml:241
+#: Application/view/application/form/edit.phtml:239
+msgid "Enable the question group you just created."
+msgstr "Habilite el grupo de preguntas que acaba de crear"
+
+#: Application/view/application/form/add.phtml:244
+#: Application/view/application/form/edit.phtml:242
+msgid "Assign a weight of 100% to the question group."
+msgstr "Asigne 100% del peso a el grupo de preguntas"
+
+#: Application/view/application/form/add.phtml:247
+#: Application/view/application/form/edit.phtml:245
+msgid "Select which questions you would like to enable in this question form by clicking on the left."
+msgstr "Seleccione las preguntas que quiere hablitar en este formulario haciendo click sobre el lado izquierdo"
+
+#: Application/view/application/form/add.phtml:250
+#: Application/view/application/form/edit.phtml:248
+msgid "Select the number of answers for each question (e.g. 2 for yes/no, or 5 to rate from 1 to 5)."
+msgstr "Seleccione el número de respuestas para cada pregunta (ej. 2 para Si/No o 5 para calificar de 1 a 5)"
+
+#: Application/view/application/form/add.phtml:253
+#: Application/view/application/form/edit.phtml:251
+msgid "Drag the question to the order in which you prefer to formulate them."
+msgstr "Arrastre la pregunta al orden donde desea que se formule"
+
+#: Application/view/application/form/add.phtml:256
+#: Application/view/application/form/edit.phtml:254
+msgid "Assign each question the weight you would like them to carry. Note that it must add 100%."
+msgstr "Asigne el peso deseado a cada pregunta.  Note que debe sumar 100%"
+
+#: Application/view/application/form/add.phtml:258
+#: Application/view/application/form/edit.phtml:256
+#: Application/view/application/form/index.phtml:176
+#: Application/view/application/project/add.phtml:122
+#: Application/view/application/project/edit.phtml:102
+#: Application/view/application/project/index.phtml:158
+#: Application/view/application/project/view.phtml:142
+#: Application/view/application/question-group/add.phtml:52
+#: Application/view/application/question-group/edit.phtml:52
+#: Application/view/application/question-group/index.phtml:197
+#: Application/view/application/question-group/view.phtml:115
+#: Application/view/application/question/add.phtml:57
+#: Application/view/application/question/edit.phtml:45
+#: Application/view/application/question/index.phtml:196
+#: Application/view/layout/layout.phtml:395
+#: Application/view/layout/layout.phtml:412
+#: Application/view/layout/layout.phtml:468
+msgid "Close"
+msgstr "Cerrar"
+
+#: Application/view/application/form/add.phtml:259
+#: Application/view/application/form/edit.phtml:257
+msgid "Click \"Save Changes\" to complete your evaluation form set up."
+msgstr "Presione \"guardar cambios\" para terminar la configuracion de su formulario de evaluación"
+
+#: Application/view/application/form/change-status.phtml:5
+msgid "Are you sure you want to disable this record?"
+msgstr "Está seguro que quiere deshabilitar este registro?"
+
+#: Application/view/application/form/change-status.phtml:7
+msgid "Are you sure you want to enable this record?"
+msgstr "Está seguro que quiere habilitar este registro?"
+
+#: Application/view/application/form/change-status.phtml:15
+#: Application/view/application/form/copy.phtml:11
+#: Application/view/application/form/view.phtml:14
+msgid "Form"
+msgstr "Formulario"
+
+#: Application/view/application/form/change-status.phtml:23
+#: Application/view/application/form/change-status.phtml:24
+#: Application/view/application/form/index.phtml:39
+#: Application/view/application/form/index.phtml:62
+#: Application/view/application/form/index.phtml:138
+#: Application/view/application/form/index.phtml:141
+#: Application/view/application/form/view.phtml:22
+#: Application/view/application/form/view.phtml:23
+#: Application/view/application/question-group/change-status.phtml:31
+#: Application/view/application/question-group/change-status.phtml:32
+#: Application/view/application/question-group/delete.phtml:35
+#: Application/view/application/question-group/delete.phtml:36
+#: Application/view/application/question-group/index.phtml:52
+#: Application/view/application/question-group/index.phtml:73
+#: Application/view/application/question-group/index.phtml:159
+#: Application/view/application/question-group/index.phtml:162
+#: Application/view/application/question-group/view.phtml:24
+#: Application/view/application/question-group/view.phtml:25
+#: Application/view/application/question-group/view.phtml:59
+#: Application/view/application/question-group/view.phtml:76
+#: Application/view/application/question/change-status.phtml:21
+#: Application/view/application/question/change-status.phtml:22
+#: Application/view/application/question/delete.phtml:21
+#: Application/view/application/question/delete.phtml:22
+#: Application/view/application/question/index.phtml:60
+#: Application/view/application/question/index.phtml:78
+#: Application/view/application/question/index.phtml:161
+#: Application/view/application/question/view.phtml:18
+#: Application/view/application/question/view.phtml:19
+#: Application/view/application/user/edit.phtml:92
+#: Application/view/application/user/manage-profile.phtml:99
+#: Application/view/application/user/view.phtml:83
+msgid "Blocked"
+msgstr "Bloqueado"
+
+#: Application/view/application/form/change-status.phtml:24
+#: Application/view/application/form/index.phtml:64
+#: Application/view/application/form/index.phtml:143
+#: Application/view/application/form/view.phtml:23
+#: Application/view/application/question-group/change-status.phtml:32
+#: Application/view/application/question-group/delete.phtml:36
+#: Application/view/application/question-group/index.phtml:75
+#: Application/view/application/question-group/index.phtml:164
+#: Application/view/application/question-group/view.phtml:25
+#: Application/view/application/question-group/view.phtml:78
+#: Application/view/application/question/change-status.phtml:22
+#: Application/view/application/question/delete.phtml:22
+#: Application/view/application/question/index.phtml:80
+#: Application/view/application/question/index.phtml:163
+#: Application/view/application/question/view.phtml:19
+msgid "Unblocked"
+msgstr "Desbloqueado"
+
+#: Application/view/application/form/change-status.phtml:32
+#: Application/view/application/form/copy.phtml:20
+#: Application/view/application/form/view.phtml:31
+msgid "Form Questions"
+msgstr "Preguntas del formulario"
+
+#: Application/view/application/form/change-status.phtml:48
+#: Application/view/application/form/copy.phtml:36
+#: Application/view/application/form/view.phtml:48
+msgid "Answers"
+msgstr "Respuestas"
+
+#: Application/view/application/form/change-status.phtml:49
+#: Application/view/application/form/copy.phtml:37
+#: Application/view/application/form/view.phtml:49
+#: Basic/view/basic/dashboard/global-daily-progress.phtml:14
+msgid "Scores"
+msgstr "Resultados"
+
+#: Application/view/application/form/change-status.phtml:75
+#: Application/view/application/form/index.phtml:80
+#: Application/view/application/form/index.phtml:110
+#: Application/view/application/project/change-status.phtml:81
+#: Application/view/application/project/index.phtml:71
+#: Application/view/application/project/index.phtml:98
+#: Application/view/application/question-group/change-status.phtml:44
+#: Application/view/application/question-group/index.phtml:88
+#: Application/view/application/question-group/index.phtml:118
+#: Application/view/application/question-group/view.phtml:91
+#: Application/view/application/question/change-status.phtml:34
+#: Application/view/application/question/index.phtml:93
+#: Application/view/application/question/index.phtml:123
+#: Application/view/application/user/change-status-user-project.phtml:34
+#: Application/view/application/user/change-status.phtml:46
+#: Application/view/application/user/edit.phtml:106
+#: Application/view/application/user/index.phtml:67
+#: Application/view/application/user/index.phtml:94
+#: Application/view/application/user/manage-profile.phtml:113
+#: Application/view/application/user/view.phtml:111
+#: Basic/view/basic/listening/change-status.phtml:111
+#: Basic/view/basic/listening/index.phtml:161
+#: Basic/view/basic/listening/index.phtml:203
+msgid "Disable"
+msgstr "Inhabilitar"
+
+#: Application/view/application/form/change-status.phtml:77
+#: Application/view/application/form/index.phtml:82
+#: Application/view/application/form/index.phtml:112
+#: Application/view/application/project/change-status.phtml:83
+#: Application/view/application/project/index.phtml:73
+#: Application/view/application/project/index.phtml:100
+#: Application/view/application/question-group/change-status.phtml:46
+#: Application/view/application/question-group/index.phtml:90
+#: Application/view/application/question-group/index.phtml:120
+#: Application/view/application/question-group/view.phtml:93
+#: Application/view/application/question/change-status.phtml:36
+#: Application/view/application/question/index.phtml:95
+#: Application/view/application/question/index.phtml:125
+#: Application/view/application/user/change-status-user-project.phtml:36
+#: Application/view/application/user/change-status.phtml:48
+#: Application/view/application/user/edit.phtml:108
+#: Application/view/application/user/index.phtml:69
+#: Application/view/application/user/index.phtml:96
+#: Application/view/application/user/manage-profile.phtml:115
+#: Application/view/application/user/view.phtml:113
+#: Basic/view/basic/listening/change-status.phtml:113
+#: Basic/view/basic/listening/index.phtml:167
+#: Basic/view/basic/listening/index.phtml:209
+msgid "Enable"
+msgstr "Habilitar"
+
+#: Application/view/application/form/change-status.phtml:79
+#: Application/view/application/form/copy.phtml:63
+#: Application/view/application/form/view.phtml:80
+#: Application/view/application/organization/cancel-subscription.phtml:59
+#: Application/view/application/project/add.phtml:97
+#: Application/view/application/project/change-status.phtml:85
+#: Application/view/application/project/edit.phtml:81
+#: Application/view/application/project/view.phtml:129
+#: Application/view/application/question-group/add.phtml:41
+#: Application/view/application/question-group/change-status.phtml:48
+#: Application/view/application/question-group/delete.phtml:50
+#: Application/view/application/question-group/edit.phtml:41
+#: Application/view/application/question-group/view.phtml:42
+#: Application/view/application/question/add.phtml:40
+#: Application/view/application/question/add.phtml:42
+#: Application/view/application/question/change-status.phtml:38
+#: Application/view/application/question/delete.phtml:34
+#: Application/view/application/question/edit.phtml:31
+#: Application/view/application/question/view.phtml:33
+#: Application/view/application/user/add-user-project.phtml:32
+#: Application/view/application/user/add.phtml:71
+#: Application/view/application/user/change-password-profile.phtml:33
+#: Application/view/application/user/change-password.phtml:33
+#: Application/view/application/user/change-status-user-project.phtml:38
+#: Application/view/application/user/change-status.phtml:50
+#: Application/view/application/user/delete-user-project.phtml:34
+#: Application/view/application/user/edit.phtml:56
+#: Application/view/application/user/manage-profile.phtml:67
+#: Application/view/application/user/view.phtml:115
+#: Basic/view/basic/listening/add.phtml:79
+#: Basic/view/basic/listening/change-status.phtml:115
+#: Basic/view/basic/listening/edit.phtml:120
+#: Basic/view/basic/listening/view.phtml:110
+msgid "Return"
+msgstr "Volver"
+
+#: Application/view/application/form/copy.phtml:4
+msgid "Are you sure you want to copy this form?"
+msgstr "¿Esta seguro que desea hacer una copia del formulario?"
+
+#: Application/view/application/form/copy.phtml:62
+#: Application/view/application/form/index.phtml:76
+#: Application/view/application/form/index.phtml:106
+msgid "Copy"
+msgstr "Copiar"
+
+#: Application/view/application/form/header.phtml:28
+#: Application/view/application/form/header.phtml:35
+msgid "QA Forms"
+msgstr "Formulario de evaluación"
+
+#: Application/view/application/form/header.phtml:34
+#: Application/view/application/organization/header.phtml:18
+#: Application/view/application/project/header.phtml:31
+#: Application/view/application/question-group/header.phtml:31
+#: Application/view/application/question/header.phtml:31
+#: Application/view/application/user/header.phtml:18
+#: Basic/view/basic/listening/header.phtml:19
+#: Basic/view/basic/report/header.phtml:10
+msgid "Home"
+msgstr "Inicio"
+
+#: Application/view/application/form/index.phtml:5
+#: Application/view/application/project/index.phtml:5
+#: Application/view/application/question-group/index.phtml:5
+#: Application/view/application/question/index.phtml:6
+#: Application/view/application/user/index.phtml:5
+msgid "Enter keyword"
+msgstr "Ingrese palabra clave"
+
+#: Application/view/application/form/index.phtml:16
+#: Application/view/application/project/index.phtml:16
+#: Application/view/application/question-group/index.phtml:16
+#: Application/view/application/question/index.phtml:27
+#: Application/view/application/user/index.phtml:16
+#: Basic/view/basic/listening/index.phtml:81
+#: Basic/view/basic/report/global-daily-progress.phtml:37
+#: Basic/view/basic/report/global-weekly-progress.phtml:45
+#: Basic/view/basic/report/project-overview.phtml:47
+#: Basic/view/basic/report/question-weekly-progress.phtml:37
+#: Basic/view/basic/report/sample-daily-overview.phtml:47
+msgid "Search"
+msgstr "Buscar"
+
+#: Application/view/application/form/index.phtml:18
+#: Application/view/application/project/index.phtml:17
+#: Application/view/application/question-group/index.phtml:18
+#: Application/view/application/question/index.phtml:29
+#: Application/view/application/user/index.phtml:17
+#: Basic/view/basic/listening/index.phtml:88
+msgid "Add New"
+msgstr "Nuevo"
+
+#: Application/view/application/form/index.phtml:37
+#: Application/view/application/form/index.phtml:124
+#: Application/view/application/project/index.phtml:37
+#: Application/view/application/project/index.phtml:112
+#: Application/view/application/question-group/index.phtml:46
+#: Application/view/application/question-group/index.phtml:135
+#: Application/view/application/question-group/view.phtml:57
+#: Application/view/application/question/index.phtml:57
+#: Application/view/application/question/index.phtml:140
+#: Application/view/application/user/add.phtml:14
+#: Application/view/application/user/change-status.phtml:9
+#: Application/view/application/user/edit.phtml:10
+#: Application/view/application/user/index.phtml:37
+#: Application/view/application/user/index.phtml:108
+#: Application/view/application/user/manage-profile.phtml:14
+#: Application/view/application/user/view.phtml:21
+msgid "Name"
+msgstr "Nombre"
+
+#: Application/view/application/form/index.phtml:70
+#: Application/view/application/form/index.phtml:100
+#: Application/view/application/project/index.phtml:64
+#: Application/view/application/project/index.phtml:91
+#: Application/view/application/question-group/index.phtml:81
+#: Application/view/application/question-group/index.phtml:111
+#: Application/view/application/question-group/view.phtml:84
+#: Application/view/application/question/index.phtml:86
+#: Application/view/application/question/index.phtml:116
+#: Application/view/application/user/index.phtml:60
+#: Application/view/application/user/index.phtml:87
+#: Basic/view/basic/listening/index.phtml:147
+#: Basic/view/basic/listening/index.phtml:189
+#: Basic/view/basic/report/global-weekly-progress.phtml:92
+msgid "View"
+msgstr "Ver"
+
+#: Application/view/application/form/index.phtml:73
+#: Application/view/application/form/index.phtml:103
+#: Application/view/application/form/view.phtml:77
+#: Application/view/application/project/index.phtml:67
+#: Application/view/application/project/index.phtml:94
+#: Application/view/application/project/view.phtml:126
+#: Application/view/application/question-group/index.phtml:84
+#: Application/view/application/question-group/index.phtml:114
+#: Application/view/application/question-group/view.phtml:36
+#: Application/view/application/question-group/view.phtml:87
+#: Application/view/application/question/index.phtml:89
+#: Application/view/application/question/index.phtml:119
+#: Application/view/application/question/view.phtml:30
+#: Application/view/application/user/index.phtml:63
+#: Application/view/application/user/index.phtml:90
+#: Application/view/application/user/view.phtml:109
+#: Basic/view/basic/listening/index.phtml:155
+#: Basic/view/basic/listening/index.phtml:197
+#: Basic/view/basic/listening/view.phtml:107
+msgid "Edit"
+msgstr "Editar"
+
+#: Application/view/application/form/index.phtml:174
+msgid "Click \"Add New\" to create an evaluation form."
+msgstr "Presione \"Nuevo\" para crear un formulario de evaluación"
+
+#: Application/view/application/form/index.phtml:177
+msgid "Or click the pencil icon to edit an existing form."
+msgstr "O presione el icono del lápiz para editar un formulario existente"
+
+#: Application/view/application/form/view.phtml:6
+msgid "Success"
+msgstr "Éxito!"
+
+#: Application/view/application/form/view.phtml:6
+msgid "Form was added successfully"
+msgstr "El formulario se agrego exitosamente!"
+
+#: Application/view/application/form/view.phtml:69
+#, php-format
+msgid "We couldn't find any question attached to this form. Press <a href=\"%s\" class=\"text-info\">here</a> to build your form."
+msgstr "No pudimos encontrar ninguna pregunta adjuntar al formulario. Presione <a href=\"%s\" class=\"text-info\">aquí</a>para armar su formulario."
+
+#: Application/view/application/listening/add.phtml:14
+msgid "Listening added successfully!"
+msgstr "La evaluación se agrego exitosamente!"
+
+#: Application/view/application/organization/add-billing-details.phtml:18
+#: Application/view/application/organization/edit-subscription.phtml:146
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:6
+#: Application/view/application/organization/manage-billing-details.phtml:17
+msgid "Address"
+msgstr "Dirección"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:16
+#: Application/view/application/organization/manage-billing-details.phtml:21
+msgid "City"
+msgstr "Ciudad"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:26
+#: Application/view/application/organization/manage-billing-details.phtml:25
+msgid "Country"
+msgstr "País"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:30
+msgid "Please choose a Country"
+msgstr "Seleccione un País"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:36
+msgid "State / Province"
+msgstr "Estado / Provincia"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:41
+msgid "Please choose a State / Province"
+msgstr "Seleccione un Estado / Provincia"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:43
+msgid "Loading country states / provinces"
+msgstr "Cargando estados / provincias del pais"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:50
+#: Application/view/application/organization/manage-billing-details.phtml:33
+msgid "Zip / Postcode"
+msgstr "Código Postal"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:60
+#: Application/view/application/organization/manage-billing-details.phtml:40
+msgid "Credit Card Details"
+msgstr "Detalles de la Tarjeta de Credito"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:62
+#: Application/view/application/organization/manage-billing-details.phtml:40
+msgid "Your credit card details are stored safely with PayPal"
+msgstr "Los detalles de su tarjeta de crédito se encuentran asegurados con PayPal."
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:66
+#: Application/view/application/organization/edit-subscription.phtml:88
+#: Application/view/application/organization/manage-billing-details.phtml:44
+msgid "Type"
+msgstr "Tipo"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:76
+#: Application/view/application/organization/edit-subscription.phtml:94
+#: Application/view/application/organization/manage-billing-details.phtml:48
+msgid "Card Number"
+msgstr "Número de la Tarjeta"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:86
+msgid "Cvv2"
+msgstr "Cvv2"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:96
+#: Application/view/application/organization/edit-subscription.phtml:100
+#: Application/view/application/organization/manage-billing-details.phtml:52
+msgid "Expiration"
+msgstr "Expiración"
+
+#: Application/view/application/organization/billing-details-fieldset.phtml:114
+#: Application/view/application/organization/edit-subscription.phtml:106
+#: Application/view/application/organization/manage-billing-details.phtml:56
+msgid "Cardholder Name"
+msgstr "Nombre de la Tarjeta"
+
+#: Application/view/application/organization/cancel-subscription.phtml:3
+msgid "Are you sure you want to <strong>cancel</strong> your subscription?"
+msgstr "¿Esta seguro que desea <strong>cancelar</strong> su subscripción?"
+
+#: Application/view/application/organization/cancel-subscription.phtml:10
+#: Application/view/application/organization/manage-subscription.phtml:13
+msgid "Plan details updated successfully!"
+msgstr "La subscripción se actualizo exitosamente!"
+
+#: Application/view/application/organization/cancel-subscription.phtml:17
+#: Application/view/application/organization/edit-subscription.phtml:23
+msgid "Product"
+msgstr "Producto"
+
+#: Application/view/application/organization/cancel-subscription.phtml:21
+#: Application/view/application/organization/edit-subscription.phtml:33
+msgid "Total Users"
+msgstr "Total de Usuarios"
+
+#: Application/view/application/organization/cancel-subscription.phtml:25
+#: Application/view/application/organization/edit-subscription.phtml:43
+msgid "Billing Period"
+msgstr "Periodo de Pago"
+
+#: Application/view/application/organization/cancel-subscription.phtml:29
+msgid "Billing Since"
+msgstr "Facturando desde"
+
+#: Application/view/application/organization/cancel-subscription.phtml:33
+msgid "Billing Amount"
+msgstr "Total de Pago"
+
+#: Application/view/application/organization/cancel-subscription.phtml:38
+msgid "Last Billing Date"
+msgstr "Ultima Fecha de Pago"
+
+#: Application/view/application/organization/cancel-subscription.phtml:44
+msgid "Next Billing Date"
+msgstr "Próxima Fecha de Pago"
+
+#: Application/view/application/organization/edit-subscription.phtml:56
+msgid "SUBTOTAL PER USER"
+msgstr "SUBTOTAL POR USUARIO"
+
+#: Application/view/application/organization/edit-subscription.phtml:64
+msgid "TOTAL TO PAY"
+msgstr "TOTAL A PAGAR"
+
+#: Application/view/application/organization/edit-subscription.phtml:72
+msgid "TOTAL TO PAY <span class=\"text-info\">NOW</span>"
+msgstr "TOTAL A PAGAR <span class=\"text-info\">AHORA</span>"
+
+#: Application/view/application/organization/edit-subscription.phtml:79
+msgid "Taxes are included in price."
+msgstr "Impuestos se encuentran incluidos en el precio."
+
+#: Application/view/application/organization/edit-subscription.phtml:80
+msgid "All prices are in US dollar."
+msgstr "Todos los precios se encuentran en Dólares."
+
+#: Application/view/application/organization/edit-subscription.phtml:85
+msgid "Existing Credit Card"
+msgstr "Tarjeta de Crédito Existente"
+
+#: Application/view/application/organization/edit-subscription.phtml:112
+msgid "Update Credit Card Details"
+msgstr "Actualizar Detalles de la Tarjeta de Crédito"
+
+#: Application/view/application/organization/edit-subscription.phtml:116
+#, php-format
+msgid "You can update later your credit card details in the section <a href=\"%s\">Billing Details</a>."
+msgstr "Puede actualizar mas tarde los detalles de su tarjeta de crédito en la sección <a href=\"%s\">Detalles de Pago</a>."
+
+#: Application/view/application/organization/edit-subscription.phtml:125
+msgid "Update Credit Card"
+msgstr "Actualizar Tarjeta de Crédito"
+
+#: Application/view/application/organization/edit-subscription.phtml:131
+msgid "Confirmation"
+msgstr "Confirmación"
+
+#: Application/view/application/organization/header.phtml:12
+#: Application/view/application/organization/manage-profile.phtml:14
+msgid "Organization"
+msgstr "Organización"
+
+#: Application/view/application/organization/header.phtml:19
+#: Application/view/layout/layout.phtml:272
+msgid "Organizations"
+msgstr "Organizaciones"
+
+#: Application/view/application/organization/manage-billing-details.phtml:7
+msgid "Billing details added successfully!"
+msgstr "Los detalles de pago se agregaron exitosamente!"
+
+#: Application/view/application/organization/manage-billing-details.phtml:29
+msgid "State"
+msgstr "Estado"
+
+#: Application/view/application/organization/manage-billing-details.phtml:63
+#, php-format
+msgid "We could not find any billing details attached to your organization. Please press <a href=\"%s\" class=\"text-info\">here</a> to add a new billing detail."
+msgstr "No hemos podido encontrar ningún detalle de pago adjunto a su organización. Por favor, presione <a href=\"%s\" class=\"text-info\">aquí</a> para agregar un nuevo detalle de facturación."
+
+#: Application/view/application/organization/manage-profile.phtml:5
+msgid "Organization profile updated successfully!"
+msgstr "El perfil de la organización se actualizó exitosamente!"
+
+#: Application/view/application/organization/manage-profile.phtml:25
+msgid "Contact First Name"
+msgstr "Nombre de Contacto"
+
+#: Application/view/application/organization/manage-profile.phtml:36
+msgid "Contact Last Name"
+msgstr "Apellido de Contacto"
+
+#: Application/view/application/organization/manage-profile.phtml:47
+msgid "Contact Phone"
+msgstr "Teléfono de Contacto"
+
+#: Application/view/application/organization/manage-profile.phtml:58
+msgid "Contact Email"
+msgstr "Correo Electrónico de Contacto"
+
+#: Application/view/application/organization/manage-profile.phtml:69
+#: Application/view/layout/layout.phtml:113
+msgid "Dashboard"
+msgstr "Tablero de Control"
+
+#: Application/view/application/organization/manage-profile.phtml:73
+#: Basic/view/basic/dashboard/bottom-agents.phtml:9
+#: Basic/view/basic/dashboard/bottom-scoring-questions-global.phtml:9
+#: Basic/view/basic/dashboard/bottom-scoring-questions.phtml:9
+#: Basic/view/basic/dashboard/global-daily-progress.phtml:9
+#: Basic/view/basic/dashboard/highest-intraweek-drop-project.phtml:6
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question-global.phtml:6
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question-groups-global.phtml:6
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question-groups.phtml:6
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question.phtml:6
+#: Basic/view/basic/dashboard/highest-intraweek-rise-project.phtml:6
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question-global.phtml:6
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question-groups-global.phtml:6
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question-groups.phtml:6
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question.phtml:6
+#: Basic/view/basic/dashboard/mtd-score-global.phtml:6
+#: Basic/view/basic/dashboard/mtd-score-per-project.phtml:10
+#: Basic/view/basic/dashboard/mtd-score-per-project.phtml:13
+#: Basic/view/basic/dashboard/mtd-score-per-question-group.phtml:10
+#: Basic/view/basic/dashboard/mtd-score-per-question-group.phtml:13
+#: Basic/view/basic/dashboard/mtd-score.phtml:6
+#: Basic/view/basic/dashboard/number-samples-mtd-global.phtml:6
+#: Basic/view/basic/dashboard/number-samples-mtd-per-project.phtml:10
+#: Basic/view/basic/dashboard/number-samples-mtd-per-project.phtml:13
+#: Basic/view/basic/dashboard/number-samples-mtd.phtml:6
+#: Basic/view/basic/dashboard/project-overview.phtml:9
+#: Basic/view/basic/dashboard/question-performance-ranking.phtml:9
+#: Basic/view/basic/dashboard/score-needed.phtml:8
+#: Basic/view/basic/dashboard/score-needed.phtml:31
+#: Basic/view/basic/dashboard/today-score-global.phtml:6
+#: Basic/view/basic/dashboard/today-score-per-project.phtml:10
+#: Basic/view/basic/dashboard/today-score-per-project.phtml:13
+#: Basic/view/basic/dashboard/today-score-per-question-group.phtml:10
+#: Basic/view/basic/dashboard/today-score-per-question-group.phtml:13
+#: Basic/view/basic/dashboard/today-score.phtml:6
+#: Basic/view/basic/dashboard/top-agents.phtml:9
+#: Basic/view/basic/dashboard/top-scoring-questions-global.phtml:9
+#: Basic/view/basic/dashboard/top-scoring-questions.phtml:9
+msgid "Manage Dashboards"
+msgstr "Administrar tablero de control"
+
+#: Application/view/application/organization/manage-profile.phtml:73
+msgid "(Will discard unsaved data)"
+msgstr "(Descartará datos no guardados)"
+
+#: Application/view/application/organization/manage-profile.phtml:79
+msgid "Product Type"
+msgstr "Tipo de Producto"
+
+#: Application/view/application/organization/manage-profile.phtml:90
+msgid "Go To Dashboard"
+msgstr "Ir al tablero de control"
+
+#: Application/view/application/organization/manage-subscription.phtml:5
+msgid "Current Plan Details"
+msgstr "Detalles del Plan Actual"
+
+#: Application/view/application/organization/manage-subscription.phtml:16
+msgid "Subscription cancelled successfully!"
+msgstr "La subscripción fue cancelada exitosamente!"
+
+#: Application/view/application/organization/manage-subscription.phtml:32
+#: Application/view/application/organization/manage-subscription.phtml:100
+#: Application/view/application/user/header.phtml:12
+#: Application/view/application/user/header.phtml:19
+#: Application/view/layout/layout.phtml:263
+msgid "Users"
+msgstr "Usuarios"
+
+#: Application/view/application/organization/manage-subscription.phtml:38
+msgid "FREE"
+msgstr "GRATIS"
+
+#: Application/view/application/organization/manage-subscription.phtml:40
+#: Application/view/application/organization/manage-subscription.phtml:104
+#, php-format
+msgid "per %s"
+msgstr "por %s"
+
+#: Application/view/application/organization/manage-subscription.phtml:40
+msgid "month"
+msgstr "mes"
+
+#: Application/view/application/organization/manage-subscription.phtml:40
+msgid "year"
+msgstr "año"
+
+#: Application/view/application/organization/manage-subscription.phtml:44
+msgid "FREE TRIAL"
+msgstr "PERIODO DE PRUEBA"
+
+#: Application/view/application/organization/manage-subscription.phtml:54
+msgid "Current Subscription Details"
+msgstr "Detalles de Suscripción Actual"
+
+#: Application/view/application/organization/manage-subscription.phtml:58
+msgid "Next billing"
+msgstr "Próxima facturación"
+
+#: Application/view/application/organization/manage-subscription.phtml:62
+msgid "End date"
+msgstr "Fecha de finalizacion"
+
+#: Application/view/application/organization/manage-subscription.phtml:66
+msgid "Trial ends on"
+msgstr "Periodo de prueba termina el"
+
+#: Application/view/application/organization/manage-subscription.phtml:70
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#: Application/view/application/organization/manage-subscription.phtml:70
+msgid "Active"
+msgstr "Activo"
+
+#: Application/view/application/organization/manage-subscription.phtml:76
+msgid "Renew Subscription"
+msgstr "Renovar Subscripción"
+
+#: Application/view/application/organization/manage-subscription.phtml:88
+msgid "Active subscriptions with end date"
+msgstr "Subscripciones activas con fecha de finalización"
+
+#: Application/view/application/organization/manage-subscription.phtml:105
+msgid "Available until"
+msgstr "Disponible hasta"
+
+#: Application/view/application/project/add.phtml:18
+#: Application/view/application/project/edit.phtml:8
+msgid "Project name"
+msgstr "Nombre del proyecto"
+
+#: Application/view/application/project/add.phtml:28
+#: Application/view/application/project/change-status.phtml:10
+#: Application/view/application/project/edit.phtml:18
+#: Application/view/application/project/view.phtml:31
+msgid "Minimum required performance"
+msgstr "Desempeño mínimo requerido"
+
+#: Application/view/application/project/add.phtml:37
+#: Application/view/application/project/edit.phtml:26
+msgid "Enable public evaluations"
+msgstr "Habilitar evaluaciones públicas"
+
+#: Application/view/application/project/add.phtml:40
+#: Application/view/application/project/edit.phtml:29
+msgid "If this field is set to true, you will be able to make public evaluations of this project."
+msgstr "Si este campo está marcado, usted podrá realizar evaluaciones públicas de este proyecto."
+
+#: Application/view/application/project/add.phtml:45
+#: Application/view/application/project/change-status.phtml:36
+#: Application/view/application/project/edit.phtml:33
+#: Application/view/application/project/view.phtml:57
+msgid "Public options"
+msgstr "Opciones públicas"
+
+#: Application/view/application/project/add.phtml:49
+#: Application/view/application/project/change-status.phtml:41
+#: Application/view/application/project/edit.phtml:37
+#: Application/view/application/project/view.phtml:62
+msgid "Public short subtitle"
+msgstr "Subtitulo de evaluación publica"
+
+#: Application/view/application/project/add.phtml:59
+#: Application/view/application/project/change-status.phtml:45
+#: Application/view/application/project/edit.phtml:47
+#: Application/view/application/project/view.phtml:66
+msgid "Require enter names"
+msgstr "Solicitar ingreso de nombres"
+
+#: Application/view/application/project/add.phtml:62
+#: Application/view/application/project/edit.phtml:50
+msgid "If this field is set to true, people will have to enter their names."
+msgstr "Si este campo está marcado, las personas van a tener que ingresar sus nombres."
+
+#: Application/view/application/project/add.phtml:67
+#: Application/view/application/project/change-status.phtml:49
+#: Application/view/application/project/edit.phtml:55
+#: Application/view/application/project/view.phtml:70
+#: Application/view/application/user/manage-profile.phtml:50
+msgid "Language"
+msgstr "Idioma"
+
+#: Application/view/application/project/add.phtml:70
+#: Application/view/application/project/edit.phtml:57
+#: Application/view/application/user/manage-profile.phtml:52
+msgid "Select your language"
+msgstr "Seleccione su idioma"
+
+#: Application/view/application/project/add.phtml:78
+msgid "Form channels"
+msgstr "Canales de formularios"
+
+#: Application/view/application/project/add.phtml:86
+#: Application/view/application/project/edit.phtml:72
+msgid "Choose a QA Form"
+msgstr "Seleccione un Formulario"
+
+#: Application/view/application/project/add.phtml:111
+#: Application/view/application/project/edit.phtml:94
+msgid "Enter yout project name."
+msgstr "Introduzca el nombre de su proyecto"
+
+#: Application/view/application/project/add.phtml:115
+#: Application/view/application/project/edit.phtml:97
+msgid "Establish a desired performance."
+msgstr "Establezca un desempeño deseado"
+
+#: Application/view/application/project/add.phtml:119
+#: Application/view/application/project/edit.phtml:100
+msgid "Attach an evaluation form to the different channels you will use."
+msgstr "Adjunte un formulario de evaluación a cada canal que utilizará"
+
+#: Application/view/application/project/add.phtml:124
+#: Application/view/application/project/edit.phtml:103
+msgid "Press \"Save Changes\" to complete your project."
+msgstr "Presione \"Guardar cambios\" para completar su proyecto"
+
+#: Application/view/application/project/change-status.phtml:15
+#: Application/view/application/project/view.phtml:36
+msgid "Languages"
+msgstr "Idiomas"
+
+#: Application/view/application/project/change-status.phtml:22
+#: Application/view/application/project/index.phtml:39
+#: Application/view/application/project/view.phtml:43
+msgid "Public evaluations"
+msgstr "Evaluaciones públicas"
+
+#: Application/view/application/project/change-status.phtml:60
+#: Application/view/application/project/view.phtml:80
+msgid "Project Channels"
+msgstr "Canales del proyecto"
+
+#: Application/view/application/project/edit.phtml:64
+msgid "Form Channels"
+msgstr "Canales de formulario"
+
+#: Application/view/application/project/header.phtml:25
+#: Application/view/application/project/header.phtml:32
+#: Application/view/application/user/view.phtml:62
+#: Application/view/layout/layout.phtml:125
+#: Application/view/layout/layout.phtml:142
+msgid "Projects"
+msgstr "Proyectos"
+
+#: Application/view/application/project/index.phtml:38
+msgid "Required performance"
+msgstr "Desempeño requerido"
+
+#: Application/view/application/project/index.phtml:116
+msgid "Required Performance"
+msgstr "Desempeño requerido"
+
+#: Application/view/application/project/index.phtml:156
+msgid "Create your project by clicking \"Add New\"."
+msgstr "Cree su proyecto presionando en \"Nuevo\""
+
+#: Application/view/application/project/index.phtml:159
+msgid "Edit your project details by clicking on the pencil icon."
+msgstr "Edite su proyecto presionando el ícono del lápiz"
+
+#: Application/view/application/project/view.phtml:19
+msgid "Successful operation!"
+msgstr "Operación exitosa!"
+
+#: Application/view/application/project/view.phtml:91
+msgid "Go to evaluation"
+msgstr "Ir a la evaluación"
+
+#: Application/view/application/project/view.phtml:95
+msgid "Generate QR Code"
+msgstr "Generar código QR"
+
+#: Application/view/application/project/view.phtml:100
+msgid "Share evaluation"
+msgstr "Compartir evaluación"
+
+#: Application/view/application/question-group/add.phtml:19
+#: Application/view/application/question-group/change-status.phtml:17
+#: Application/view/application/question-group/delete.phtml:21
+#: Application/view/application/question-group/edit.phtml:19
+#: Application/view/application/question-group/index.phtml:48
+msgid "Display order"
+msgstr "Orden de despliegue"
+
+#: Application/view/application/question-group/add.phtml:30
+#: Application/view/application/question-group/change-status.phtml:22
+#: Application/view/application/question-group/delete.phtml:26
+msgid "Is Fatal?"
+msgstr "Es Fatal?"
+
+#: Application/view/application/question-group/add.phtml:33
+#: Application/view/application/question-group/edit.phtml:33
+msgid "If this set to true, any question under a fatal question group will set the lowest value to the form"
+msgstr "Si se selecciona como verdadero, cualquier pregunta dentro de un grupo de prefuntas fatal le dara el puntaje mas bajo al formulario"
+
+#: Application/view/application/question-group/add.phtml:53
+#: Application/view/application/question-group/edit.phtml:53
+msgid "Give your question group a name and click \"Save Changes\" to continue."
+msgstr "Dele un nombre a su grupo de preguntas y presione \"Guardar cambios\" para continuar"
+
+#: Application/view/application/question-group/change-status.phtml:4
+msgid "Are you sure you want to <strong>disable</strong> this record?"
+msgstr "Está seguro que quiere <strong>inhabilitar</strong> este registro?"
+
+#: Application/view/application/question-group/change-status.phtml:6
+msgid "Are you sure you want to <strong>enable</strong> this record?"
+msgstr "Está seguro que quiere <strong>habilitar</strong> este registro?"
+
+#: Application/view/application/question-group/change-status.phtml:23
+#: Application/view/application/question-group/delete.phtml:27
+#: Application/view/application/question-group/index.phtml:62
+#: Application/view/application/question-group/index.phtml:145
+#: Application/view/application/question-group/view.phtml:16
+#: Application/view/application/user/edit.phtml:100
+#: Application/view/application/user/edit.phtml:101
+#: Application/view/application/user/manage-profile.phtml:107
+#: Application/view/application/user/manage-profile.phtml:108
+#: Application/view/application/user/view.phtml:90
+#: Application/view/application/user/view.phtml:91
+#: Basic/view/basic/listening/add-public.phtml:88
+#: Basic/view/basic/listening/change-status.phtml:64
+#: Basic/view/basic/listening/edit.phtml:74
+#: Basic/view/basic/listening/index.phtml:131
+#: Basic/view/basic/listening/questions.phtml:46
+#: Basic/view/basic/listening/view.phtml:61
+msgid "Yes"
+msgstr "Si"
+
+#: Application/view/application/question-group/change-status.phtml:23
+#: Application/view/application/question-group/delete.phtml:27
+#: Application/view/application/question-group/index.phtml:62
+#: Application/view/application/question-group/index.phtml:145
+#: Application/view/application/question-group/view.phtml:16
+#: Application/view/application/user/edit.phtml:100
+#: Application/view/application/user/edit.phtml:101
+#: Application/view/application/user/manage-profile.phtml:107
+#: Application/view/application/user/manage-profile.phtml:108
+#: Application/view/application/user/view.phtml:90
+#: Application/view/application/user/view.phtml:91
+#: Basic/view/basic/listening/add-public.phtml:88
+#: Basic/view/basic/listening/change-status.phtml:64
+#: Basic/view/basic/listening/edit.phtml:74
+#: Basic/view/basic/listening/index.phtml:131
+#: Basic/view/basic/listening/questions.phtml:46
+#: Basic/view/basic/listening/view.phtml:61
+msgid "No"
+msgstr "No"
+
+#: Application/view/application/question-group/delete.phtml:3
+#: Application/view/application/question/delete.phtml:3
+msgid "Are you sure you want to <strong>delete</strong> this record? This action can not be undone."
+msgstr "¿Esta seguro que desea <strong>eliminar</strong> este registro? Esta operación no puede deshacerse."
+
+#: Application/view/application/question-group/delete.phtml:48
+#: Application/view/application/question-group/index.phtml:94
+#: Application/view/application/question-group/index.phtml:124
+#: Application/view/application/question/delete.phtml:33
+#: Application/view/application/question/index.phtml:99
+#: Application/view/application/question/index.phtml:129
+#: Application/view/application/user/delete-user-project.phtml:33
+#: Application/view/application/user/edit.phtml:112
+#: Application/view/application/user/manage-profile.phtml:119
+msgid "Delete"
+msgstr "Borrar"
+
+#: Application/view/application/question-group/edit.phtml:30
+msgid "Is fatal?"
+msgstr "Es fatal?"
+
+#: Application/view/application/question-group/header.phtml:25
+#: Application/view/application/question-group/header.phtml:32
+#: Application/view/layout/layout.phtml:130
+msgid "Question Groups"
+msgstr "Grupo de preguntas"
+
+#: Application/view/application/question-group/index.phtml:37
+msgid "Question group was deleted successfully!"
+msgstr "El grupo de pregunta fue eliminado exitosamente!"
+
+#: Application/view/application/question-group/index.phtml:49
+msgid "Is fatal"
+msgstr "Es fatal"
+
+#: Application/view/application/question-group/index.phtml:140
+#: Application/view/application/question-group/view.phtml:10
+msgid "Display Order"
+msgstr "Orden de despliegue"
+
+#: Application/view/application/question-group/index.phtml:144
+#: Application/view/application/question-group/view.phtml:15
+msgid "Is Fatal"
+msgstr "Es Fatal?"
+
+#: Application/view/application/question-group/index.phtml:195
+msgid "Create your question group by clicking \"Add New\"."
+msgstr "Cree su grupo presionando \"Nuevo\"."
+
+#: Application/view/application/question-group/index.phtml:198
+msgid "Edit your question group details by clicking on the pencil icon. You can only edit \"unblocked\" question groups"
+msgstr "Edite su grupo de preguntas presionando en el icono del lapiz. Solo podra editar grupos de preguntas \"Desbloqueados\""
+
+#: Application/view/application/question-group/view.phtml:39
+msgid "Add New Question"
+msgstr "Agregue una pregunta nueva"
+
+#: Application/view/application/question-group/view.phtml:104
+msgid "There are no questions added in this question group."
+msgstr "No hay preguntas asignadas en este grupo de preguntas."
+
+#: Application/view/application/question-group/view.phtml:113
+msgid "You can now create up to 10 questions by clicking \"Add New Question\"."
+msgstr "Ahora puede crear hasta 10 preguntas presionando \"Agregue una pregunta nueva\""
+
+#: Application/view/application/question-group/view.phtml:116
+msgid "Or you can edit existing and \"unblocked\" questions by clicking on the edit pencil."
+msgstr "O puede editar preguntas existentes y \"Desbloqueadas\" presionanado el ícono del lápiz "
+
+#: Application/view/application/question/add.phtml:6
+msgid "Question added successfully!"
+msgstr "Pregunta agregada exitosamente"
+
+#: Application/view/application/question/add.phtml:15
+#: Application/view/application/question/change-status.phtml:9
+#: Application/view/application/question/delete.phtml:9
+#: Application/view/application/question/edit.phtml:7
+#: Application/view/application/question/view.phtml:6
+#: Basic/view/basic/dashboard/question-performance-ranking.phtml:24
+msgid "Question"
+msgstr "Pregunta"
+
+#: Application/view/application/question/add.phtml:55
+#: Application/view/application/question/edit.phtml:43
+msgid "Type your question in the free text field."
+msgstr "Escriba su pregunta en el campo de texto libre"
+
+#: Application/view/application/question/add.phtml:58
+#: Application/view/application/question/edit.phtml:46
+msgid "Click \"Save Changes & Add New\" to continue on the next question or \"Save Changes\" on your last question."
+msgstr "Presione \"Guardar cambios y Nuevo\" para pasar a la siguiente pregunta o \"Guardar cambios\" en su última pregunta"
+
+#: Application/view/application/question/change-status.phtml:3
+#: Application/view/application/user/change-status-user-project.phtml:3
+#: Application/view/application/user/change-status.phtml:3
+#: Basic/view/basic/listening/change-status.phtml:3
+#, php-format
+msgid "Are you sure you want to <strong>%s</strong> this record?"
+msgstr "Esta seguro que quiere <strong>%s</strong>  este registro?"
+
+#: Application/view/application/question/change-status.phtml:3
+#: Application/view/application/user/change-status-user-project.phtml:3
+#: Application/view/application/user/change-status.phtml:3
+#: Basic/view/basic/listening/change-status.phtml:3
+msgid "disable"
+msgstr "Inhabilitar"
+
+#: Application/view/application/question/change-status.phtml:3
+#: Application/view/application/user/change-status-user-project.phtml:3
+#: Application/view/application/user/change-status.phtml:3
+#: Basic/view/basic/listening/change-status.phtml:3
+msgid "enable"
+msgstr "Habilitar"
+
+#: Application/view/application/question/index.phtml:48
+msgid "Question was deleted successfully!"
+msgstr "La pregunta fue eliminada exitosamente!"
+
+#: Application/view/application/question/index.phtml:194
+msgid "Create your questions by clicking \"Add New\"."
+msgstr "Cree sus preguntas presionando \"Nuevo\""
+
+#: Application/view/application/question/index.phtml:197
+msgid "Edit your question details by clicking on the pencil icon. You can only edit \"unblocked\" questions"
+msgstr "Edite su pregunta presionando en el ícono del lápiz. Solo podra editar preguntas \"Desbloqueados\""
+
+#: Application/view/application/user/add-user-project.phtml:16
+msgid "Select a Project"
+msgstr "Seleccione un Proyecto"
+
+#: Application/view/application/user/add-user-project.phtml:22
+#: Application/view/application/user/add.phtml:35
+#: Application/view/application/user/add.phtml:61
+#: Application/view/application/user/change-status-user-project.phtml:17
+#: Application/view/application/user/change-status.phtml:17
+#: Application/view/application/user/delete-user-project.phtml:17
+#: Application/view/application/user/edit.phtml:31
+#: Application/view/application/user/edit.phtml:90
+#: Application/view/application/user/index.phtml:39
+#: Application/view/application/user/index.phtml:116
+#: Application/view/application/user/manage-profile.phtml:35
+#: Application/view/application/user/manage-profile.phtml:97
+#: Application/view/application/user/view.phtml:29
+#: Application/view/application/user/view.phtml:81
+msgid "Role"
+msgstr "Rol"
+
+#: Application/view/application/user/add-user-project.phtml:24
+#: Application/view/application/user/add.phtml:37
+#: Application/view/application/user/edit.phtml:33
+msgid "Select a Role"
+msgstr "Seleccione un Rol"
+
+#: Application/view/application/user/add.phtml:18
+#: Application/view/application/user/edit.phtml:14
+#: Application/view/application/user/manage-profile.phtml:18
+msgid "Enter user full name"
+msgstr "Ingrese su nombre completo"
+
+#: Application/view/application/user/add.phtml:51
+msgid "Project Credentials"
+msgstr "Credenciales del proyecto"
+
+#: Application/view/application/user/change-password-profile.phtml:14
+#: Application/view/application/user/change-password.phtml:14
+msgid "Enter new password"
+msgstr "Ingrese la nueva contraseña"
+
+#: Application/view/application/user/change-password-profile.phtml:25
+#: Application/view/application/user/change-password.phtml:25
+msgid "Confirm new password"
+msgstr "Confirme la nueva contraseña"
+
+#: Application/view/application/user/change-status-user-project.phtml:9
+#: Application/view/application/user/delete-user-project.phtml:9
+msgid "User"
+msgstr "Usuario"
+
+#: Application/view/application/user/change-status.phtml:33
+#: Application/view/application/user/change-status.phtml:34
+#: Application/view/application/user/view.phtml:51
+#: Application/view/application/user/view.phtml:52
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#: Application/view/application/user/change-status.phtml:34
+#: Application/view/application/user/view.phtml:52
+msgid "Not Confirmed"
+msgstr "No confirmado"
+
+#: Application/view/application/user/delete-user-project.phtml:3
+msgid "Are you sure you want to <strong>delete</strong> this record?"
+msgstr "Está seguro que quiere saltear el asistente?"
+
+#: Application/view/application/user/edit.phtml:68
+#: Application/view/application/user/manage-profile.phtml:79
+msgid "Add Project"
+msgstr "Agregar proyeco"
+
+#: Application/view/application/user/edit.phtml:71
+msgid "Manage User Projects"
+msgstr "Administrar los proyectos del usuario "
+
+#: Application/view/application/user/edit.phtml:129
+#: Application/view/application/user/manage-profile.phtml:132
+#: Application/view/application/user/view.phtml:102
+msgid "User is not assigned to any project."
+msgstr "El usuario no está asignado a ningún proyecto"
+
+#: Application/view/application/user/manage-profile.phtml:5
+msgid "Profile is updated!"
+msgstr "El perfil ha sido actualizado!"
+
+#: Application/view/application/user/manage-profile.phtml:82
+msgid "Manage My Projects"
+msgstr "Administrar mis proyectos"
+
+#: Application/view/error/404.phtml:13
+msgid "The requested controller was unable to dispatch the request."
+msgstr "El controlador solicitado no pudo ejecutar la petición."
+
+#: Application/view/error/404.phtml:16
+msgid "The requested controller could not be mapped to an existing controller class."
+msgstr "El controlador solicitado no se pudo mapear con una clase de controlador existente."
+
+#: Application/view/error/404.phtml:19
+msgid "The requested controller was not dispatchable."
+msgstr "El controlador solicitado no es ejecutable."
+
+#: Application/view/error/404.phtml:22
+msgid "The requested URL could not be matched by routing."
+msgstr "El ruteador no ha encontrado la ruta para la URL solicitada."
+
+#: Application/view/error/404.phtml:25
+msgid "We cannot determine at this time why a 404 was generated."
+msgstr "No pudimos determinar por qué un error 404 ha sido generado."
+
+#: Application/view/error/404.phtml:37
+msgid "Controller"
+msgstr "Controller"
+
+#: Application/view/error/404.phtml:44
+#, php-format
+msgid "resolves to %s"
+msgstr "se resuelve a %s"
+
+#: Application/view/error/404.phtml:56 Application/view/error/index.phtml:8
+msgid "Additional information"
+msgstr "Información adicional"
+
+#: Application/view/error/404.phtml:59 Application/view/error/404.phtml:83
+#: Application/view/error/index.phtml:11 Application/view/error/index.phtml:35
+msgid "File"
+msgstr "Archivo"
+
+#: Application/view/error/404.phtml:63 Application/view/error/404.phtml:87
+#: Application/view/error/index.phtml:15 Application/view/error/index.phtml:39
+msgid "Message"
+msgstr "Mensaje"
+
+#: Application/view/error/404.phtml:67 Application/view/error/404.phtml:91
+#: Application/view/error/index.phtml:19 Application/view/error/index.phtml:43
+msgid "Stack trace"
+msgstr "Seguimiento de la pila (stack trace)"
+
+#: Application/view/error/404.phtml:77 Application/view/error/index.phtml:29
+msgid "Previous exceptions"
+msgstr "Excepciones anteriores"
+
+#: Application/view/error/index.phtml:1
+msgid "An error occurred"
+msgstr "Ha ocurrido un error"
+
+#: Application/view/error/index.phtml:58
+msgid "No Exception available"
+msgstr "No hay ninguna Excepción disponible."
+
+#: Application/view/layout/layout-auth.phtml:87
+msgid "sign in"
+msgstr "iniciar sesión"
+
+#: Application/view/layout/layout-auth.phtml:90
+msgid "sign up"
+msgstr "Registrese"
+
+#: Application/view/layout/layout-auth.phtml:108
+#: Application/view/layout/layout-auth.phtml:188
+msgid "Privacy Policy"
+msgstr "Política de Privacidad"
+
+#: basic/listening/view:31
+msgid "Print"
+msgstr "Imprimir"
+
+#: Application/view/layout/layout.phtml:453
+msgid "USER GUIDE"
+msgstr "Guia de Usuario"
+
+#: Application/view/layout/layout.phtml:453
+msgid "Check out our set up guide or watch our instructional videos"
+msgstr "Lea nuestra Guia de Usuario o mire nuestros videos institucionales"
+
+#: Application/view/layout/layout.phtml:453
+msgid "User guide_Contact Center.pdf"
+msgstr "Guia del usuario_Contact Center.pdf"
+
+#: Application/view/layout/layout.phtml:453
+msgid "User guide_Hotel.pdf"
+msgstr "Guia del usuario_Hotel.pdf"
+
+#: Application/view/layout/layout.phtml:453
+msgid "User guide_Restaurant.pdf"
+msgstr "Guia del usuario_Restaurant.pdf"
+
+#: Application/view/layout/layout-auth.phtml:111
+msgid "privacy_policy_text"
+msgstr ""
+"<p>La información recopilada de los usuarios nos permite personalizar y mejorar nuestro servicio. Esta información también permite al usuario crear una cuenta para ser utilizada en Quick Audits. Pedimos y mostramos información personal a otros usuarios y visitantes de Quick Audits, lo cual permite la identificación de los usuarios. Esta es la información que recopilamos de nuestros usuarios.</p>\n"
+"\n"
+"<p><b>¿Que información recopilamos?</b></p>\n"
+"\n"
+"<p><b>1. Información personal que usted nos brinda</b></p>\n"
+"\n"
+"<p>Recibimos y almacenamos información que usted nos brinda a través de Quick Audits o de cualquier otra forma. La información recopilada puede incluir su nombre, número de teléfono y dirección de correo electrónico. La información que usted nos provee se utiliza con el fin de poder interactuar con otros usuarios, responder pedidos de cierta información, productos o servicios y para comunicaciones acerca de ofertas y nueva funcionalidad. </p>\n"
+"\n"
+"<p><b>2. Información personal recopilada automáticamente</b></p>\n"
+"\n"
+"<p>Recibimos y almacenamos cierta información cada vez que usted interactúa con Quick Audits u obtiene alguno de nuestros servicios. Quick Audits recibe y almacena automáticamente información de su navegador en nuestros eventos de servidores, incluyendo modelo de hardware, sistema operativo, identificadores únicos de los dispositivos e información de redes de comunicación, que incluyen números de teléfono, tipo de navegador, direcciones IP, información de cookies de Quick Audits y las páginas visitadas. También registramos los detalles de sus transacciones en Quick Audits.</p>\n"
+"\n"
+"<p>Generalmente nuestro servicio recopila de forma automática información acerca del uso, como la cantidad y frecuencia de visitas a nuestro sitio y sus componentes de forma similar a el rating televisivo que indica cuanta gente vio un programa. Este tipo de datos agregados nos permite saber con qué frecuencia se utilizan las diferentes partes o servicios de Quick Audits y así poder mejorarlos. Como parte de esta información de uso es posible que compartamos información con nuestros proveedores acerca del uso colectivo de nuestro sitio. Compartimos esta información con el fin de brindar los medios a nuestros proveedores para que ellos también puedan ayudar a optimizar la experiencia del usuario. </p>\n"
+"\n"
+"<p><b>3. Comunicación por correo electrónico</b></p>\n"
+"\n"
+"<p>Puede que recibamos confirmación cuando abra un correo electrónico de Quick Audits, si su computadora es compatible con ese tipo de programa. Quick Audits utiliza esa confirmación para hacer que los correos electrónicos sean más útiles e interesantes. También comparamos nuestra lista de usuarios con listas de otras compañías para evitar el envío de mensajes innecesarios a nuestros usuarios. </p>\n"
+"\n"
+"<p><b>4. Cookies del navegador</b></p>\n"
+"\n"
+"<p>Los cookies son identificadores alfanuméricos que transferimos al disco rígido de su computadora a través de su navegador, los cuales les permiten a nuestros sistemas reconocer su navegador y nos dicen cómo, cuándo y por cuántas personas son visitadas las diferentes secciones de nuestra página. </p>\n"
+"\n"
+"<p>Quick Audits no recopila información personal y no combinamos la información general obtenida a través de cookies con otra información personal que nos diga quién es usted o cual el su nombre de usuario o dirección de correo electrónico.</p>\n"
+"\n"
+"<p>La mayoría de los navegadores tienen la opción de apagar la funcionalidad de cookies y dependiendo de cuan sofisticado sea su navegador, permitir aceptar cada cookie nuevo en diversas formas. Requerimos que los cookies estén habilitados para que pueda beneficiarse de los servicios ofrecidos por Quick Audits.</p>\n"
+"\n"
+"<p><b>5. Información de su ubicación</b></p>\n"
+"\n"
+"<p>Cuando utilice Quick Audits en un dispositivo que permite detectar su ubicación, es posible que recopilemos y procesemos información acerca de su ubicación, tales como señales de GPS enviadas de un teléfono móvil. También puede que utilicemos otras tecnologías para detectar su ubicación, como por ejemplo información de puntos de acceso de WiFi cercanos o torres de telefonía celular. </p>\n"
+"\n"
+"<p><b>Como utilizamos la informacion que recopilamos</b></p>\n"
+"\n"
+"<p>Utilizamos la información que recopilamos de todos nuestros servicios con el fin de proveer, mantener, proteger y mejorar dichos servicios, desarrollar nuevos servicios al igual que proteger a Quick Audits y sus usuarios.</p>\n"
+"\n"
+"<p>Cuando contacte a Quick Audits, puede que mantengamos registros de su comunicación con el fin de resolver cualquier inconveniente que este teniendo. Puede que utilicemos su dirección de correo electrónico para informarle acerca de nuestros servicios, como por ejemplo cambios inminentes o mejoras. </p>\n"
+"\n"
+"<p>Utilizamos información recopilada de cookies y otras tecnologías para mejorar la experiencia del usuario y la calidad de nuestros servicios en general. Por ejemplo al guardar su preferencia de idioma, nuestro servicio aparecerá en su idioma preferido. Pediremos su permiso para utilizar su información para cualquier otro propósito que no sea el manifestado en esta política de privacidad. </p>\n"
+"\n"
+"<p>Siempre utilizaremos la información de acuerdo a lo que indica la ley. </p>\n"
+"\n"
+"<p>Quick Audits procesa información personal en varios servidores en distintas partes del mundo. Es posible que su información personal se procese en un país que no es en el que usted reside.</p>\n"
+"\n"
+"<p><b>Preguntas y datos de contacto</b></p>\n"
+"\n"
+"<p>Puede enviar cualquier pregunta acerca de esta política de privacidad a: </p>\n"
+"\n"
+"<p><a href=\"mailto:support@quickaudits.io\">support@quickaudits.io</a></p>"
+
+#: Application/view/layout/layout-auth.phtml:122
+#: Application/view/layout/layout-auth.phtml:187
+msgid "Terms & Conditions"
+msgstr "Términos & Condiciones"
+
+#: Application/view/layout/layout-auth.phtml:125
+msgid "terms_conditions_text"
+msgstr "<p>Quick Audits Términos y Condiciones<br /><br /><br />Por favor lea los términos y condiciones (\"Términos\", \"Términos y Condiciones\") cuidadosamente antes de utilizar el sitio web <a href=\"http://www.quickaudits.io\">www.quickaudits.io</a> y su software (el \"Servicio\") operado por Quick Audits S.R.L. (\"Nosotros\", \"nuestra\", o \"la empresa\").<br />El acceso y/ o uso del servicio será solamente autorizado a aquellos que acepten y respeten estos términos. Los términos se aplican a todos los visitantes del sitio, usuarios (el “Cliente”) y otros que utilizan nuestro servicio.</p><p>Al usar el servicio o acceder a nuestro sistema, usted se encuentra sujeto a nuestros términos. Si no está de acuerdo con cualquier parte de los términos, no podrá acceder al servicio. </p><p><b>ARTICULO 1. ACCESO AL SERVICIO DE SOFTWARE AS A SERVICE (SaaS) Y CONDICIONES DE USO</b><br /><b>1.1 Acceso a SaaS y su licencia limitada. </b>Sujeto a los términos y condiciones de este acuerdo, Quick Audits por la presente (a) emite una licencia no transferible y no exclusiva durante la duración de la suscripción paga, por la cual le permite al cliente y a sus usuarios autorizados, actuando en representación del cliente, acceso y uso del servicio SaaS. (b) Emite una licencia limitada, mundial y no transferible durante la duración de la suscripción paga, prohibiendo su sublicenciamiento. Emite una licencia limitada, mundial y no transferible durante la duración de la suscripción de prueba la cual se podrá extender por 30 o 60 días. Quick Audits se reserva el derecho de discontinuar cualquier licencia de prueba en cualquier momento. Los datos recopilados durante los periodos de prueba no pertenecen al Cliente y solo se transformaran en propiedad del Cliente cuando este inicie su suscripción paga. (d) se compromete a proveer los servicios SaaS utilizando software perteneciente a Quick Audits, instalado en equipos de la propiedad y bajo el control de Quick Audits, los cuales se encuentran localizados en el centro de cómputos de Quick Audits. El Cliente no tiene derecho a recibir ni instalar software perteneciente a Quick Audits ni código fuente del software perteneciente a Quick Audits. No existen licencias implícitas que se desprenden de esta licencia. (e) Se reserva la autoría y derechos para la copia y distribución de cualquier desarrollo o diseño que se haga a pedido del Cliente, al igual que los derechos de comercialización al público de todos los desarrollos y diseños llevados a cabo por Quick Audits. <br /><br /><b>1.2 Uso del sistema SaaS; Limitaciones. </b> El Cliente no podrá licenciar, vender, alquilar o de cualquier otro modo facilitar acceso a los servicios SaaS a terceros, más allá de los designados en este acuerdo. El Cliente puede brindar acceso a sus afiliados o proveedores por medio de subscripciones pagas, para el uso interno de su operatoria, sujeto a los términos de este acuerdo. El Cliente será responsable de asegurar el cumplimiento de este acuerdo por parte de sus afiliados y proveedores. El Cliente no deberá remover ningún anuncio ni notificación relacionado al servicio SaaS, que refiera a los derechos de copia y distribución, marcas registradas, patentes o derechos de propiedad intelectual. Todos los derechos de propiedad intelectual que comprenden el servicio de SaaS son y permanecerán de la propiedad exclusiva de Quick Audits más allá de que de que sean o no reconocidos por jurisdicciones locales. Cualquier derecho que no sea específicamente otorgado en este acuerdo, permanecerá reservado a Quick Audits. El cliente NO DEBERA: (i) Accionar de ninguna forma que ponga en riesgo los derechos de propiedad de Quick Audits sobre el servicio SaaS y sus materiales (ii) Modificar, llevar acabo ingeniería inversa o crear trabajos derivados del servicio SaaS y sus materiales. (iii) Remover ninguna marca de propiedad o carteles restrictivos en ningún material (iv) Utilizar el servicio o materiales de modo tal que viole alguna ley, regulación o mandato; o (v) acceder o usar los materiales con el fin de competir con Quick Audits o ayudar a terceros a competir con Quick Audits.<br /><br /><b>ARTICULO 2. DATOS DEL CLIENTE, SEGURIDAD Y CONFIDECTILIDAD</b><br /><b>2.1 Datos del cliente y datos del sistema. </b>El Cliente le proveerá a Quick Audits todos los datos a ser utilizados en el sistema SaaS. El Cliente es el único responsable del contenido y certeza de sus datos. Quick Audits no modificara y corroborara los datos del Cliente. Los datos del Cliente son de su exclusiva pertenencia y Quick Audita se limitara a proteger dichos datos, acorde a lo establecido en este acuerdo. Quick Audits utilizará los datos del Cliente sólo con el objetivo establecido en este acuerdo y no los utilizara para ningún otro propósito, sin primero obtener consentimiento del Cliente. </p><p><br /><b>2.2 Copia de seguridad del Cliente. </b>El Cliente entiende que Quick Audits sólo se responsabiliza por la copia de seguridad de los datos del Cliente que están alojados en los centros de cómputos de Quick Audits</p><p><br /><b>2.3 Seguridad. </b>Quick Audits implementará y utilizará tecnologías de seguridad estándar en la industria de SaaS. Quick Audits no controla ni tiene responsabilidad sobre la transferencia de datos del Cliente a través de las redes de telecomunicaciones, incluyendo internet. Quick Audits no garantiza que el servicio SaaS funcionará de modo correcto o seguro o que las tecnologías de seguridad de Quick Audits puedan evitar disrupciones en el servicio o los datos del Cliente.</p><p><b>2.4 Información Confidencial.</b> Adicionalmente las obligaciones de seguridad y confidencialidad previstas en este acuerdo, el Cliente y Quick Audits tomaran precauciones razonables y necesarias para resguardar la confidencialidad de la información de ambas partes. Las partes: (a) no divulgarán o utilizarán información de la otra parte para ningún otro propósito que el establecido en este acuerdo (b) limitarán acceso a información confidencial de la otra parte a sus empleados. (c) no venderán, transferirán, publicarán, divulgarán o de cualquier otro modo exponer información confidencial de la otra parte a terceros, sin el expreso consentimiento escrito de la parte. Si unas de las partes debiese divulgar información confidencial acera de la otra parte por orden de un tribunal, regla gubernamental o regulación u otro pedido judicial, las partes acuerdan notificar a la otra parte inmediatamente acerca del pedido de divulgación y las circunstancias en cual dicho pedido fue efectuado. Luego de proveer dicha notificación, las partes podrán acceder a dicho pedido de divulgación. </p><p><b>ARTICULO 3. TÉRMINO AND CANCELACION</b><br /><b>3.1 Término mínimo y Renovación. </b>Este acuerdo comienza en la fecha de compra y de no ser cancelado o renovado de manera temprana, será válido hasta la fecha de expiración que conste en la transacción de compra. Quick Audits se reserva el derecho de negar acceso a sus servidores, servicio y datos a cualquier usuario que no posea una suscripción valida y vigente.</p><p><b>3.2 Cancelación con causa. </b>Ambas partes podrán cancelar este acuerdo por medio de una notificación por escrito y luego de treinta (30) días de oportunidad de subsanar (si fuese sujeto a subsanación), si la otra parte violara algún término de este acuerdo. Si la parte en falta documenta un esfuerzo de buena fe para subsanar dicha violación, con la excepción de la falta de pago, dentro de los treinta (30) días de recibida la notificación de violación de términos, la parte que no está en falta no cancelará este acuerdo mientras dichos esfuerzos sean continuos y la falta se subsane dentro de un tiempo razonable. </p><p><b>3.3 Insolvencia. </b>Ambas partes podrán cancelar este acuerdo de forma inmediata, sin penalidad, en caso que (i) la otra parte entre en concurso preventivo o quiebra, o reciba un pedido de quiebra involuntario de cualquier tipo y este no sea anulado dentro de los (60) días desde la fecha de dicho pedido (ii) La otra parte deje de operar de forma regular, se declare insolvente, entre en suspensión de pagos, moratoria, reorganización o sea sujeto de cualquier otro proceso judicial o administrativo relacionado a la insolvencia o protección de los derechos de los acreedores. </p><p><br /><b>3.4 Consecuencias. </b>Una vez cancelado este acuerdo por cualquier motivo:<br />(i) Quick Audits puede denegar acceso al Cliente a sus datos y servicio; (ii) el Cliente devolverá de manera inmediata (dentro de los diez (10) días hábiles) todo el material, software y documentación a Quick Audits y presentará una declaración jurada firmada por un gerente o representante de Cliente, certificando que dichas acciones han sido llevadas a cabo. (iii) Quick Audits cooperara con el Cliente en la transferencia ordenada de servicios y retornará todos los datos e información confidencial del Cliente que exista en posesión o control de Quick Audits. Quick Audits puede conservar copias de seguridad de los datos del cliente por doce (12) meses o más, de ser requerido por ley. Nada en esta sección requerirá que Quick Audits comparta información confidencial con un competidor. </p><p>La cancelación de una suscripción u orden de trabajo sin la cancelación de este acuerdo, no cancelara otras subscripciones u órdenes de trabajo ni este acuerdo. </p><p><br /><b>3.5 Supervivencia de los términos. </b>Todos los términos de este acuerdo, que así son intencionados por su naturaleza, permanecerán vigente más allá de la cancelación de este acuerdo, incluyendo todas las obligaciones de pago, restricciones de uso, obligaciones de confidencialidad, términos de autoría , obligaciones de indemnización, descargos y limitación de responsabilidades. </p>"
+
+#: Application/view/layout/layout-auth.phtml:140
+msgid "Real Time Feedback"
+msgstr "Retroalimentación en Tiempo Real"
+
+#: Application/view/layout/layout-auth.phtml:146
+msgid "Custom Dashboards"
+msgstr "Tableros de Control a Medida"
+
+#: Application/view/layout/layout-auth.phtml:152
+msgid "Targeted Insight"
+msgstr "Visibilidad Enfocada"
+
+#: Application/view/layout/layout-auth.phtml:160
+msgid "Cloud Powered"
+msgstr "Potencia en la Nube"
+
+#: Application/view/layout/layout-auth.phtml:166
+msgid "Scheduled Reports"
+msgstr "Reportes Programados"
+
+#: Application/view/layout/layout-auth.phtml:172
+msgid "Highly Customizable"
+msgstr "Altamente Adaptable"
+
+#: Application/view/layout/layout-auth.phtml:185
+msgid "Legal"
+msgstr "Legal"
+
+#: Application/view/layout/layout-auth.phtml:194
+#: Application/view/layout/layout-public-listening.phtml:91
+#: Application/view/layout/layout.phtml:484
+msgid "Developed by"
+msgstr "Desarrollado por"
+
+#: Application/view/layout/layout.phtml:107
+msgid "Welcome"
+msgstr "Bienvenido"
+
+#: Application/view/layout/layout.phtml:138
+msgid "QA Form Builder"
+msgstr "Editor de formularios"
+
+#: Application/view/layout/layout.phtml:146
+msgid "Subjects"
+msgstr "Sujetos"
+
+#: Application/view/layout/layout.phtml:157
+msgid "Quality Assurance"
+msgstr "Control de calidad"
+
+#: Application/view/layout/layout.phtml:164
+#: Basic/view/basic/listening/header.phtml:13
+#: Basic/view/basic/listening/header.phtml:20
+msgid "Evaluations"
+msgstr "Evaluaciones"
+
+#: Application/view/layout/layout.phtml:185
+#: Basic/view/basic/report/header.phtml:4
+#: Basic/view/basic/report/header.phtml:11
+msgid "Reports"
+msgstr "Reportes"
+
+#: Application/view/layout/layout.phtml:194
+#: Application/view/layout/layout.phtml:214
+msgid "Question Daily Progress"
+msgstr "Progreso diario por pregunta"
+
+#: Application/view/layout/layout.phtml:259
+msgid "Access Management"
+msgstr "Accesos"
+
+#: Application/view/layout/layout.phtml:266
+msgid "Roles"
+msgstr "Roles"
+
+#: Application/view/layout/layout.phtml:278
+msgid "Plans & Billing"
+msgstr "Plan & Facturación"
+
+#: Application/view/layout/layout.phtml:326
+#, php-format
+msgid "You're using the %s plan. <strong>Upgrade Now</strong>"
+msgstr "Esta utilizando el plan %s. <strong>Actualizar Ahora</strong>"
+
+#: Application/view/layout/layout.phtml:336
+msgid "Profile"
+msgstr "Perfil"
+
+#: Application/view/layout/layout.phtml:338
+msgid "Organization Profile"
+msgstr "Perfil de la organizacion"
+
+#: Application/view/layout/layout.phtml:341
+#: Application/view/layout/layout.phtml:469
+msgid "Restart Wizard"
+msgstr "Reiniciar Asistente"
+
+#: Application/view/layout/layout.phtml:343
+msgid "Logout"
+msgstr "Salir"
+
+#: Application/view/layout/layout.phtml:364
+msgid "Upgrade your plan!"
+msgstr "Actualice su plan!"
+
+#: Application/view/layout/layout.phtml:367
+#, php-format
+msgid "Your subscription for the %s plan allows you to have up to %s active users. Please <a href=\"%s\">Disable %s User Accounts</a> or <a href=\"%s\">Upgrade Now</a> to continue using Quick Audits."
+msgstr "Su subscripción para el plan %s le permite tener hasta %s usuarios activos. Por favor, <a href=\"%s\">Deshabilite %s Cuentas de Usuarios</a> o <a href=\"%s\">Actualice su Subscripción</a> para continuar utilizando Quick Audits."
+
+#: Application/view/layout/layout.phtml:370
+#, php-format
+msgid "Your subscription for the %s plan expired. Please <a href=\"%s\">Upgrade Now</a> to continue using Quick Audits."
+msgstr "Su subscripcion para el plan %s ha expirado. Por favor, <a href=\"%s\">Actualice su Subscripción</a> para continuar utilizando Quick Audits."
+
+#: Application/view/layout/layout.phtml:373
+#, php-format
+msgid "Your free trial period for the %s plan expired. Please <a href=\"%s\">Upgrade Now</a> to continue using Quick Audits."
+msgstr "Su periodo de prueba para el plan %s ha expirado. Por favor, <a href=\"%s\">Actualice su Subscripción</a> para continuar utilizando Quick Audits."
+
+#: Application/view/layout/layout.phtml:377
+msgid "Upgrade Now"
+msgstr "Actualizar Ahora"
+
+#: Application/view/layout/layout.phtml:392
+msgid "Are you sure you want to skip the wizard?"
+msgstr "Está seguro que quiere saltear el asistente?"
+
+#: Application/view/layout/layout.phtml:397
+#: Application/view/layout/layout.phtml:453
+msgid "Skip Wizard"
+msgstr "Saltear el asistente"
+
+#: Application/view/layout/layout.phtml:409
+msgid "Are you sure you want to do the wizard again?"
+msgstr "Está seguro que quiere sempezar el asistente de nuevo?"
+
+#: Application/view/layout/layout.phtml:413
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: Application/view/layout/layout.phtml:441
+msgid "Congratulations! You have completed successfully your setup!"
+msgstr "Felicitaciones! Ha completado exitosamente su configuración!"
+
+#: Application/view/layout/layout.phtml:444
+msgid "Finish Wizard"
+msgstr "Terminar el asistente"
+
+#: Application/view/layout/layout.phtml:449
+msgid "Repeat Wizard"
+msgstr "Repetir el asistente"
+
+#: Application/view/layout/layout.phtml:465
+msgid "Are you sure you want to restart the wizard?"
+msgstr "¿Está seguro de que desea reiniciar el asistente?"
+
+#: Application/view/mails/account-creation.phtml:429
+#: Application/view/mails/user-creation.phtml:337
+#, php-format
+msgid "Hello %s"
+msgstr "Hola %s"
+
+#: Application/view/mails/account-creation.phtml:432
+msgid "Welcome to Quick Audits and thank you for signing up. Your account has been activated and it is ready to be configured."
+msgstr "Bienvenido a Quick Audits y gracias por registrarse. Su cuenta ha sido activada y está lista para ser configurada."
+
+#: Application/view/mails/account-creation.phtml:460
+msgid "Click on the button below to set your password, log in to your account and follow the initial configuration steps."
+msgstr "Haga clic en el botón de abajo para configurar la contraseña, iniciar sesión a la cuenta y siga los pasos de configuración inicial."
+
+#: Application/view/mails/account-creation.phtml:497
+#: Application/view/mails/user-creation.phtml:352
+msgid "Let's get you started"
+msgstr "Comencemos"
+
+#: Application/view/mails/account-creation.phtml:529
+#: Application/view/mails/user-creation.phtml:361
+msgid "If you need help at any time, contact us at"
+msgstr "Si necesitas asistencia, contáctanos"
+
+#: Application/view/mails/account-creation.phtml:531
+#: Application/view/mails/user-creation.phtml:361
+msgid "To view all of our products and features visit:"
+msgstr "Para ver todos nuestros productos y características visite:"
+
+#: Application/view/mails/account-creation.phtml:537
+#: Application/view/mails/user-creation.phtml:362
+msgid "Best regards"
+msgstr "Saludos cordiales"
+
+#: Application/view/mails/account-creation.phtml:538
+#: Application/view/mails/user-creation.phtml:362
+msgid "The Quick Audits Team"
+msgstr "El Equipo de Quick Audits"
+
+#: Application/view/mails/account-creation.phtml:570
+#: Application/view/mails/user-creation.phtml:371
+msgid "Terms"
+msgstr "Términos"
+
+#: Application/view/mails/account-creation.phtml:572
+#: Application/view/mails/user-creation.phtml:371
+msgid "Privacy"
+msgstr "Privacidad"
+
+#: Application/view/mails/user-creation.phtml:338
+msgid "Welcome to Quick Audits, your organization has created a Quick Audits profile for you. Your account has been activated and it is ready to be configured."
+msgstr "Bienvenido a Quick Audits, su organización ha creado un perfil de Quick Audits para usted. Su cuenta ha sido activada y está lista para que la configure."
+
+#: Application/view/mails/user-creation.phtml:340
+msgid "Click on the link below to set your password, log in to your account and follow the initial configuration steps."
+msgstr "Haga clic en el botón de abajo para configurar la contraseña, iniciar sesión a la cuenta y siga los pasos de configuración inicial."
+
+#: Basic/view/basic/dashboard/bottom-agents.phtml:22
+#: Basic/view/basic/dashboard/bottom-scoring-questions-global.phtml:33
+#: Basic/view/basic/dashboard/bottom-scoring-questions.phtml:33
+#: Basic/view/basic/dashboard/global-daily-progress.phtml:22
+#: Basic/view/basic/dashboard/project-overview.phtml:22
+#: Basic/view/basic/dashboard/question-performance-ranking.phtml:40
+#: Basic/view/basic/dashboard/top-agents.phtml:22
+#: Basic/view/basic/dashboard/top-scoring-questions-global.phtml:32
+#: Basic/view/basic/dashboard/top-scoring-questions.phtml:32
+msgid "There is no data to display this report."
+msgstr "No hay información para mostrar en este reporte."
+
+#: Basic/view/basic/dashboard/bottom-scoring-questions-global.phtml:15
+#: Basic/view/basic/dashboard/bottom-scoring-questions.phtml:15
+#: Basic/view/basic/dashboard/global-daily-progress.phtml:15
+#: Basic/view/basic/dashboard/question-performance-ranking.phtml:15
+#: Basic/view/basic/dashboard/top-scoring-questions-global.phtml:15
+#: Basic/view/basic/dashboard/top-scoring-questions.phtml:15
+msgid "Last 7 Days"
+msgstr "Últimos 7 Días"
+
+#: Basic/view/basic/dashboard/bottom-scoring-questions.phtml:14
+msgid "Bottom 5 scoring questions (weekly)"
+msgstr "Preguntas con peor desempeño (semanal)"
+
+#: Basic/view/basic/dashboard/highest-intraweek-drop-project.phtml:10
+msgid "Highest intraweek drop project"
+msgstr "Proyecto con mayor descenso en el resultado (semanal)"
+
+#: Basic/view/basic/dashboard/highest-intraweek-drop-project.phtml:10
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question-global.phtml:10
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question-groups-global.phtml:10
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question-groups.phtml:10
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question.phtml:10
+#: Basic/view/basic/dashboard/highest-intraweek-rise-project.phtml:10
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question-global.phtml:10
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question-groups-global.phtml:10
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question-groups.phtml:10
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question.phtml:10
+msgid "(Weekly)"
+msgstr "(Semanalmente)"
+
+#: Basic/view/basic/dashboard/highest-intraweek-drop-project.phtml:21
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question-global.phtml:21
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question-groups-global.phtml:21
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question-groups.phtml:21
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question.phtml:21
+#: Basic/view/basic/dashboard/highest-intraweek-rise-project.phtml:21
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question-global.phtml:21
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question-groups-global.phtml:21
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question-groups.phtml:21
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question.phtml:21
+msgid "There is not enough data to display this report."
+msgstr "No hay información para mostrar en este reporte."
+
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question-global.phtml:10
+msgid "Highest intraweek drop global question"
+msgstr "Pregunta con mayor descenso en el resultado global (semanal)"
+
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question-groups-global.phtml:10
+msgid "Highest intraweek drop global group"
+msgstr "Grupo con mayor descenso en el resultado global (semanal)"
+
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question-groups.phtml:10
+msgid "Highest intraweek drop group"
+msgstr "Grupo con mayor descenso en el resultado (semanal)"
+
+#: Basic/view/basic/dashboard/highest-intraweek-drop-question.phtml:10
+msgid "Highest intraweek drop question"
+msgstr "Pregunta con mayor descenso en el resultado"
+
+#: Basic/view/basic/dashboard/highest-intraweek-rise-project.phtml:10
+msgid "Highest intraweek rise project"
+msgstr "Proyecto con mayor ascenso en el resultado (semanal)"
+
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question-global.phtml:10
+msgid "Highest intraweek rise global question"
+msgstr "Pregunta con mayor ascenso en el resultado global (semanal)"
+
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question-groups-global.phtml:10
+msgid "Highest intraweek rise global group"
+msgstr "Grupo con mayor ascenso en el resultado global (semanal)"
+
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question-groups.phtml:10
+msgid "Highest intraweek rise group"
+msgstr "Grupo con mayor ascenso en el resultado (semanal)"
+
+#: Basic/view/basic/dashboard/highest-intraweek-rise-question.phtml:10
+msgid "Highest intraweek rise question"
+msgstr "Pregunta con mayor acenso en el resultado"
+
+#: Basic/view/basic/dashboard/number-samples-mtd-per-project.phtml:19
+msgid "MTD samples per project"
+msgstr "Muestra parcial del mes por proyecto"
+
+#: Basic/view/basic/dashboard/score-needed.phtml:21
+#: Basic/view/basic/dashboard/score-needed.phtml:44
+msgid "Score needed"
+msgstr "Resultado necesario"
+
+#: Basic/view/basic/index/header.phtml:10
+#: Basic/view/basic/index/header.phtml:12
+#: Basic/view/basic/index/header.phtml:20
+#: Basic/view/basic/index/header.phtml:22
+#: Basic/view/basic/index/header.phtml:30
+#: Basic/view/basic/index/header.phtml:32
+msgid "Upgrade your plan"
+msgstr "Actualice su plan!"
+
+#: Basic/view/basic/index/header.phtml:15
+#, php-format
+msgid "You're currently using the %s plan"
+msgstr "Esta utilizando el plan %s"
+
+#: Basic/view/basic/index/header.phtml:25
+#, php-format
+msgid "Your subscription for the %s plan is about to expire in %s days!<br/>You should renew your subscription!"
+msgstr "Su subscripción para el plan %s se encuentra por expirar en %s días!<br/>Deberia renovar su subscripción!"
+
+#: Basic/view/basic/index/header.phtml:35
+#, php-format
+msgid "Your free trial subscription for the %s plan is about to expire in %s days!<br/>You should renew your subscription!"
+msgstr "Su periodo de prueba para el plan %s se encuentra por expirar en %s días!<br/>Deberia renovar su subscripción!"
+
+#: Basic/view/basic/index/index.phtml:13
+msgid "View dashboard for "
+msgstr "Ver tablero de control para"
+
+#: Basic/view/basic/index/index.phtml:34
+msgid "Loading"
+msgstr "Cargando"
+
+#: Basic/view/basic/listening/add-public.phtml:33
+msgid "Fullname"
+msgstr "Nombre completo"
+
+#: Basic/view/basic/listening/add-public.phtml:41
+msgid "Please, enter your fullname to start the survey"
+msgstr "Por favor, introduzca su nombre completo para comenzar la encuesta"
+
+#: Basic/view/basic/listening/add-public.phtml:127
+msgid "Back"
+msgstr "Volver"
+
+#: Basic/view/basic/listening/add-public.phtml:128
+msgid "Submit"
+msgstr "Enviar"
+
+#: Basic/view/basic/listening/add.phtml:13
+msgid "Evaluation added successfully!"
+msgstr "La evaluación se agrego exitosamente!"
+
+#: Basic/view/basic/listening/add.phtml:59
+#: Basic/view/basic/listening/edit.phtml:28
+msgid "Loading form questions"
+msgstr "Cargando formulario de preguntas"
+
+#: Basic/view/basic/listening/add.phtml:78
+#: Basic/view/basic/listening/edit.phtml:119
+msgid "Saving Changes"
+msgstr "Guardando Cambios"
+
+#: Basic/view/basic/listening/change-status.phtml:82
+#: Basic/view/basic/listening/edit.phtml:94
+#: Basic/view/basic/listening/questions.phtml:66
+#: Basic/view/basic/listening/view.phtml:79
+msgid "Total Quality Score"
+msgstr "Total Nivel de Calidad"
+
+#: Basic/view/basic/listening/change-status.phtml:98
+#: Basic/view/basic/listening/view.phtml:95
+msgid "There are no comments for this evaluation."
+msgstr "No se encuentran comentarios para esta evaluación."
+
+#: Basic/view/basic/listening/index.phtml:7
+#: Basic/view/basic/report/global-daily-progress.phtml:5
+#: Basic/view/basic/report/global-weekly-progress.phtml:5
+#: Basic/view/basic/report/project-overview.phtml:6
+#: Basic/view/basic/report/question-weekly-progress.phtml:5
+#: Basic/view/basic/report/sample-daily-overview.phtml:5
+msgid "All Projects"
+msgstr "Todos los Proyectos"
+
+#: Basic/view/basic/listening/index.phtml:18
+#: Basic/view/basic/report/global-daily-progress.phtml:12
+#: Basic/view/basic/report/global-weekly-progress.phtml:12
+#: Basic/view/basic/report/project-overview.phtml:14
+#: Basic/view/basic/report/question-weekly-progress.phtml:12
+#: Basic/view/basic/report/sample-daily-overview.phtml:12
+msgid "All Auditors"
+msgstr "Todos los Auditores"
+
+#: Basic/view/basic/listening/index.phtml:29
+#: Basic/view/basic/report/global-daily-progress.phtml:20
+#: Basic/view/basic/report/global-weekly-progress.phtml:20
+#: Basic/view/basic/report/project-overview.phtml:22
+#: Basic/view/basic/report/question-weekly-progress.phtml:20
+#: Basic/view/basic/report/sample-daily-overview.phtml:20
+msgid "All Agents"
+msgstr "Todos los agentes"
+
+#: Basic/view/basic/listening/index.phtml:43
+#: Basic/view/basic/report/global-daily-progress.phtml:28
+#: Basic/view/basic/report/global-weekly-progress.phtml:28
+#: Basic/view/basic/report/project-overview.phtml:30
+#: Basic/view/basic/report/question-weekly-progress.phtml:28
+#: Basic/view/basic/report/sample-daily-overview.phtml:30
+msgid "All Channels"
+msgstr "Todos los Canales"
+
+#: Basic/view/basic/listening/index.phtml:57
+#: Basic/view/basic/report/global-weekly-progress.phtml:36
+#: Basic/view/basic/report/project-overview.phtml:38
+#: Basic/view/basic/report/sample-daily-overview.phtml:38
+msgid "From"
+msgstr "Desde"
+
+#: Basic/view/basic/listening/index.phtml:62
+#: Basic/view/basic/report/global-weekly-progress.phtml:38
+#: Basic/view/basic/report/project-overview.phtml:40
+#: Basic/view/basic/report/sample-daily-overview.phtml:40
+msgid "To"
+msgstr "Hasta"
+
+#: Basic/view/basic/listening/index.phtml:84
+#: Basic/view/basic/report/global-daily-progress.phtml:38
+#: Basic/view/basic/report/global-daily-progress.phtml:49
+#: Basic/view/basic/report/global-weekly-progress.phtml:46
+#: Basic/view/basic/report/project-overview.phtml:48
+#: Basic/view/basic/report/question-weekly-progress.phtml:38
+#: Basic/view/basic/report/question-weekly-progress.phtml:49
+#: Basic/view/basic/report/sample-daily-overview.phtml:48
+msgid "Export to Excel"
+msgstr "Exportar a Excel"
+
+#: Basic/view/basic/listening/index.phtml:98
+msgid "Public evaluations cannot be edited!"
+msgstr "Las evaluaciones públicas no se pueden editar!"
+
+#: Basic/view/basic/listening/index.phtml:109
+#: Basic/view/basic/listening/index.phtml:231
+msgid "Auditor"
+msgstr "Auditor"
+
+#: Basic/view/basic/listening/index.phtml:113
+msgid "Public evaluation"
+msgstr "Evaluación pública"
+
+#: Basic/view/basic/listening/success-public.phtml:5
+msgid "Thank you for your evaluation!"
+msgstr "¡Gracias por tu evaluación!"
+
+#: Basic/view/basic/report/global-weekly-progress.phtml:59
+#: Basic/view/basic/report/project-overview.phtml:60
+#: Basic/view/basic/report/sample-daily-overview.phtml:61
+msgid "We couldn't find any data that matches your search criteria. Please try a different filter."
+msgstr "No pudimos encontrar ningún dato que coincide con sus criterios de búsqueda. Por favor, prueba un filtro diferente."
+
+#: Basic/view/basic/report/project-overview.phtml:100
+msgid "View Details"
+msgstr "Ver Detalles"
+
+#: Application/src/Application/Model/OrganizationTable.php:359
+msgid "Actively listens and replies accordingly?"
+msgstr "¿Escucha de manera activa y responde en consecuencia?"
+
+msgid "Arrival"
+msgstr "Llegada"
+
+msgid "Call close and goodbye complete?"
+msgstr "¿Ejecuta el saludo final completo?"
+
+msgid "Check out"
+msgstr "Check out"
+
+msgid "Did a waiter approach your table within the first 5 minutes after you sat at the table?"
+msgstr "¿Se acercó un mozo u otro miembro de nuestro equipo dentro de los primeros 5 minutos desde que se sentó?"
+
+msgid "Did you feel our room service was available every time you needed it?"
+msgstr "¿Sintió que tenía acceso a nuestro servicio de room service o estuvo disponible cuando lo necesito?"
+
+msgid "Did you find your room quiet enough to work and - or rest?"
+msgstr "¿Diría que el entorno de su habitación es lo suficientemente tranquilo y silencioso para poder descansar y trabajar?"
+
+msgid "Do you consider the wait to get a table acceptable?"
+msgstr "¿Considera que la espera para obtener una mesa fue aceptable?"
+
+msgid "Explains all product characteristics?"
+msgstr "¿Explica todas las características del producto?"
+
+msgid "Handles objections successfully?"
+msgstr "¿Maneja objeciones exitosamente?"
+
+msgid "How would you rate our check out process?"
+msgstr "¿Se le informo acerca de los horarios de check out al llegar a nuestro hotel?"
+
+msgid "Inquiries about reason for the call and repeats to confirm?"
+msgstr "¿Indaga acera del motivo de la llamada y repite para confirmar?"
+
+msgid "Is the greeting correct and complete?"
+msgstr "¿Ejecuta el saludo inicial completo?"
+
+msgid "Notifies about call being recorded?"
+msgstr "¿Informa acerca de la grabación de la llamada?"
+
+msgid "On a scale of 1 to 5, 5 being the highest score, how would you rate our internet connection?"
+msgstr "En una escala de 1 a 5, 5 siendo el puntaje más alto, ¿qué puntaje le daría a nuestra conexión de internet?"
+
+msgid "On a scale of 1 to 5, 5 being the highest score, how would you rate the presentation of your dish?"
+msgstr "En una escala de 1 a 5, 5 siendo el puntaje más alto, ¿qué puntaje le daría a la presentacion de nuestro plato?"
+
+msgid "On a scale of 1 to 5, 5 being the highest score, how would you rate your room?"
+msgstr "En una escala de 1 a 5, 5 siendo el puntaje más alto, ¿qué puntaje le daría a su habitacion?"
+
+msgid "Reservation"
+msgstr "Reservacion"
+
+msgid "Seems knowledgeable about product - service?"
+msgstr "¿Demuestra poseer conocimiento del producto o servicio?"
+
+msgid "Soft skills"
+msgstr "Atención"
+
+msgid "Verifies client’s details?"
+msgstr "¿Verifica los datos del cliente de forma adecuada?"
+
+msgid "Was your room clean and neat?"
+msgstr "¿Encontró su habitación limpia y organizada?"
+
+msgid "Were the food and drinks served to the right person?"
+msgstr "¿Se sirvieron los platos a las personas adecuadas?"
+
+msgid "Were you approached by our staff within 5 minutes of your arrival?"
+msgstr "¿Al llegar, fue atendidoa dentro de los primeros cinco minutos?"
+
+msgid "Were you told about the day’s specials or chef’s recommendations?"
+msgstr "Se le informo sobre el especial del dio o las recomendaciones del chef"
+
+msgid "Were your mattress and pillows comfortable?"
+msgstr "¿Considera que el colchón y almohada son cómodos?"
+
+msgid "Would you recommend our restaurant to friends and family?"
+msgstr "Recomendaria nuestro Restaurant a sus amigos y familiares"
+
+msgid "Would you say our restaurant offers a good price / quality relation?"
+msgstr "¿Cree que nuestro restaurant ofrece un buen balance entre precio y calidad?"
+
+msgid "Would you say your room had all the amenities you needed?"
+msgstr "¿Considera que su habitacion tenia todas las comodidades necesarias?"
+
+msgid "Guest satisfaction survey -- Please rate us on a scale from 1 to 5, 5 being the most satisfied"
+msgstr "Encuesta de satisfacción -- Por favor indique en una escala de 1 al 5, siendo 5 el mas satisfecho"
+
+msgid "Room Number"
+msgstr "Número de Habitación?"
+
+msgid "Your room"
+msgstr "Habitacion"
+
+msgid "Last Name - First Name"
+msgstr "Apellido y Nombre"
+
+msgid "Partida"
+msgstr "Departure"
+
+msgid "Company"
+msgstr "Compañía"
+
+msgid "How did know the Hotel?"
+msgstr "¿Cómo conoció el Hotel?"
+
+msgid "How did you make your reservation?"
+msgstr "¿Cómo hizo su reserva?"
+
+msgid "Doormen and bellboys"
+msgstr "Porteros y Maleteros"
+
+msgid "Receptionists"
+msgstr "Recepcionistas"
+
+msgid "Check In Process"
+msgstr "Proceso de Check In"
+
+msgid "Telephone service and guest service"
+msgstr "Atención telefónica y servicio al huésped"
+
+msgid "Level of knowledge of the staff about the hotel and the City"
+msgstr "Nivel de conocimiento del personal sobre el Hotel y la ciudad"
+
+msgid "Food and Beverages Staff"
+msgstr "Personal de Gastronomía"
+
+msgid "Breakfast"
+msgstr "Desayuno"
+
+msgid "Housekeeping Staff"
+msgstr "Personal de Limpieza"
+
+msgid "Overall cleanliness"
+msgstr "Limpieza general del Hotel"
+
+msgid "Bedroom cleanliness"
+msgstr "Limpieza de habitaciones"
+
+msgid "Room facilities"
+msgstr "Equipamiento de las habitaciones"
+
+msgid "Amenities quality"
+msgstr "Calidad de los Amenities"
+
+msgid "Spa Staff"
+msgstr "Personal del Spa"
+
+msgid "Welcome to the Spa"
+msgstr "Bienvenida al Spa"
+
+msgid "Quality of the offered treatments"
+msgstr "Calidad de Tratamientos ofrecidos"
+
+msgid "Spa condition"
+msgstr "Condición Spa"
+
+msgid "Internet in Rooms"
+msgstr "Internet en Habitaciones"
+
+msgid "Internet in public areas"
+msgstr "Internet en áreas públicas"
+
+msgid "YOUR PRIVACY IS OUR PRIORITY"
+msgstr "SU PRIVACIDAD ES NUESTA PRIORIDAD"
+
+msgid "All information submitted to us to one of our members will remain confidential and in no way will it be shared with third parties."
+msgstr "Toda información que usted nos ofrezca será de carácter confidencial y no será compartida ni redistribuída fuera de nuestra compañía."
+
+#~ msgid "Create your question group by clicking \"Add New\". Remember that the Basic product allows one question group and a maximum of 10 questions."
+#~ msgstr "Cree su grupo de preguntas presionando \"Nuevo\". Recuerde que el producto básico permite un grupo de preguntas y un máximo de 10 preguntas"
+
+#~ msgid "Create your questions by clicking \"Add New\". Remember that the Basic product allows a maximum of 10 questions."
+#~ msgstr "Cree sus preguntas presionando \"Nuevo\" Recuerde que el producto básico sólo permite 10 preguntas"
+
+#~ msgid "Displays all projects assigned to the profile, their global score and MTD sample size"
+#~ msgstr "Muestra todos los proyectos asignados al perfil, sus resultados globales y el tamaño parcial del mes de la muestra"
+
+#~ msgid "sing up"
+#~ msgstr "registrese"
+
+#~ msgid "QA agent"
+#~ msgstr "Auditor"
+
+#~ msgid "If this set to true, you will be able to make public evaluations of this project."
+#~ msgstr "Si esta propiedad es seleccionada, usted será capaz de hacer evaluaciones públicas de este proyecto."
+
+#~ msgid "Succcess"
+#~ msgstr "Éxito"
+
+#~ msgid "Full name"
+#~ msgstr "Nombre Completo"
+
+#~ msgid "Please, enter your full name to start the survey"
+#~ msgstr "Por favor, introduzca su nombre completo para comenzar la encuesta"
+
+#~ msgid "Minimum Required Performance"
+#~ msgstr "Desempeño mínimo requerido"
+
+#~ msgid "Project Name"
+#~ msgstr "Nombre del proyecto"
+
+#~ msgid "Bottom 5 Scoring Questions (Weekly)"
+#~ msgstr "Últimas 5 Preguntas en Puntuación (Weekly)"
+
+#~ msgid "Highest Intraweek Drop"
+#~ msgstr "Mayor Caída entre Semanas"
+
+#~ msgid "(Question)"
+#~ msgstr "(Pregunta)"
+
+#~ msgid "Highest Intraweek Rise"
+#~ msgstr "Mayor Subida entre Semanas"
+
+#~ msgid "MTD Score"
+#~ msgstr "Resultado MTD"
+
+#~ msgid "MTD Result"
+#~ msgstr "Resultado MTD"
+
+#~ msgid "Projects Overview (MTD)"
+#~ msgstr "Resumen de Proyectos (MTD)"
+
+#~ msgid "Questions Performance Ranking"
+#~ msgstr "Ranking de Performance de Preguntas"
+
+#~ msgid "Score Needed"
+#~ msgstr "Puntuación Necesaria"
+
+#~ msgid "Top 5 Scoring Questions (Weekly)"
+#~ msgstr "Primeras 5 Preguntas en Performance (Weekly)"
+
+#~ msgid "Today's Score"
+#~ msgstr "Resultado de Hoy"
+
+#~ msgid "Notice"
+#~ msgstr "Alerta"
+
+#~ msgid "Alert"
+#~ msgstr "Alerta"
+
+#~ msgid "Highest Intraweek Drop (Question)"
+#~ msgstr "Mayor Caída entre Semanas (Pregunta)"
+
+#~ msgid "Highest Intraweek Rise (Question)"
+#~ msgstr "Mayor Subida entre Semanas (Pregunta)"
+
+#~ msgid "Select a role"
+#~ msgstr "Seleccione un rol"
+
+#~ msgid "Please check your email to confirm your account and start using Quick Audits!"
+#~ msgstr "Por favor revise su casilla de correo para confirmar su cuenta y empezar a usar Quick Audits!"
+
+#~ msgid "Change Organization Membership"
+#~ msgstr "Modificar Membresía de la Organización"
+
+#~ msgid "The group %s  has a weight percentage of %s%"
+#~ msgstr "El % del grupo tiene un peso de %s%"
+
+#~ msgid "Manage Product"
+#~ msgstr "Administrar Producto"
+
+#~ msgid "Membership"
+#~ msgstr "Membresía"
+
+#~ msgid "Congratulations! You have completed successfully your training!"
+#~ msgstr "Felicitaciones! ha completado su capacitación con éxito!"
+
+#~ msgid "Your membership does not allow to create more Question Groups. Please upgrade your membership account <a href=\"%s\">here</a>."
+#~ msgstr "Su membresía no permite crear más grupos de pregunta. Por favor actualizar su cuenta de membresía <a href=\"%s\">aquí</a>."
+
+#~ msgid "Your membership doesn't allow to create more Question Groups. Please upgrade your membership account <a href=\"%s\">here</a>."
+#~ msgstr "Su membresía no permite crear más grupos de pregunta. Por favor actualizar su cuenta de membresía <a href=\"%s\">aquí</a>."
+
+#~ msgid "Skeleton Application"
+#~ msgstr "Aplicación Esqueleto"
+
+#~ msgid "All rights reserved."
+#~ msgstr "Todos los derechos reservados"
+
+#~ msgid "Welcome to %sZend Framework 2%s"
+#~ msgstr "Bienvenido al %sZend Framework 2%s"
+
+#~ msgid "Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2."
+#~ msgstr "¡Felicitaciones! Haz instalado correctamente el %sla aplicación esqueleto del ZF2%s. Estás corriendo la versión %s del Zend Framework. Este esqueleto te servirá como un punto de inicio sencillo para empezar a construir tu aplicación con el ZF2."
+
+#~ msgid "Fork Zend Framework 2 on GitHub"
+#~ msgstr "Hacer un Fork del Zend Framework 2 en GitHub"
+
+#~ msgid "Follow Development"
+#~ msgstr "Seguir el Desarrollo"
+
+#~ msgid "Zend Framework 2 is under active development. If you are interested in following the development of ZF2, there is a special ZF2 portal on the official Zend Framework website which provides links to the ZF2 %swiki%s, %sdev blog%s, %sissue tracker%s, and much more. This is a great resource for staying up to date with the latest developments!"
+#~ msgstr "El Zend Framework 2 está en pleno desarrollo. Si estás interesado en seguir el desarrollo del ZF2, existe un portal especial para el ZF2 en el sitio web oficial del Zend Framework el cual provee enlaces %sa la Wiki%s, %sal Blog de desarrollo%s, %sal issue tracker%s y mucho más. Este es un gran recurso para mantenerte al día con los últimos avances en el desarrollo!"
+
+#~ msgid "ZF2 Development Portal"
+#~ msgstr "Portal de Desarrollo del ZF2"
+
+#~ msgid "Discover Modules"
+#~ msgstr "Descubre Módulos"
+
+#~ msgid "The community is working on developing a community site to serve as a repository and gallery for ZF2 modules. The project is available %son GitHub%s. The site is currently live and currently contains a list of some of the modules already available for ZF2."
+#~ msgstr "La comunidad está trabajando en el desarrollo de una web comunitaria que servirá de repositorio y galería de los módulos del ZF2. El proyecto está disponible %sen GitHub%s. El sitio web está en línea y actualmente posee una lista de algunos módulos que ya están disponibles para el ZF2."
+
+#~ msgid "Explore ZF2 Modules"
+#~ msgstr "Explora los módulos del ZF2"
+
+#~ msgid "Help &amp; Support"
+#~ msgstr "Ayuda &amp; Soporte"
+
+#~ msgid "If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk on Freenode%s. We'd love to hear any questions or feedback you may have regarding the beta releases. Alternatively, you may subscribe and post questions to the %smailing lists%s."
+#~ msgstr "Si necesitas alguna ayuda o soporte mientras estás desarrollando con el ZF2, puedes encontrarnos via IRC: %s#zftalk en Freenode%s. Nos encantaría leer tus preguntas o cualquier feedback que puedas tener en relación a los lanzamientos de las versiones beta. También puedes subscribirte y enviar preguntas %sa la lista de correos%s"
+
+#~ msgid "Ping us on IRC"
+#~ msgstr "Escríbenos en el IRC"
+
+#~ msgid "A 404 error occurred"
+#~ msgstr "Ha ocurrido un error 404"
+
+#~ msgid "Exception"
+#~ msgstr "Excepción"

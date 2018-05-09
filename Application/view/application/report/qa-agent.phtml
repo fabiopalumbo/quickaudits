@@ -1,0 +1,178 @@
+<div class="block ">
+    <form class="form-horizontal" method="get" action="<?php echo $this->url('application/default', array('controller'=>'report','action'=>'qa-agent'));?>">
+        <div class="form-group">
+            <div class="col-md-3">
+            <select class="form-control input-sm select-chosen" name="project[]" data-placeholder="All Projects" multiple>
+                <?php foreach ($projects as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['project']) && in_array($item->id, $this->filter['project']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-2">
+            <select class="form-control input-sm select-chosen" name="channel[]" data-placeholder="All Channels" multiple>
+                <?php foreach ($channels as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['channel']) && in_array($item->id, $this->filter['channel']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-2">
+            <select class="form-control input-sm select-chosen" name="language[]" data-placeholder="All Languages" multiple>
+                <?php foreach ($languages as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['language']) && in_array($item->id, $this->filter['language']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-3">
+            <div class="input-group input-daterange" data-date-format="mm/dd/yyyy">
+                <input type="text" id="date_from" name="date_from" class="form-control text-center" placeholder="From" value="<?php echo $this->filter['date_from']; ?>">
+                <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+                <input type="text" id="date_to" name="date_to" class="form-control text-center" placeholder="To" value="<?php echo $this->filter['date_to']; ?>">
+            </div>
+            </div>
+
+            <div class="col-md-1">
+            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> Search</button>
+            </div>
+
+            
+        </div>
+    </form>    
+</div>
+
+<div class="block full">
+    <!-- Bars Chart Title -->
+    <div class="block-title">
+        <h2>QA Agent Report</h2>
+    </div>
+    <!-- END Bars Chart Title -->
+    
+    <h4 class="sub-header">Total Listenings</h4>
+    <div class="row">
+    <!-- Bars Chart Content -->
+    <!-- Flot Charts (initialized in js/pages/compCharts.js), for more examples you can check out http://www.flotcharts.org/ -->
+    <div id="chart-bars" class="chart"></div>
+    <!-- END Bars Chart Content -->
+    </div>
+    
+    <h4 class="sub-header">Total Time</h4>
+    <div class="row">
+    <!-- Bars Chart Content -->
+    <!-- Flot Charts (initialized in js/pages/compCharts.js), for more examples you can check out http://www.flotcharts.org/ -->
+    <div id="chart-bars2" class="chart"></div>
+    <!-- END Bars Chart Content -->
+    </div>
+</div>
+
+<div class="block">
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th>QA Agent</th>
+                    <th>Total Listenings</th>
+                    <th>Total Time</th>
+                    <th>Global QA Score</th>
+                    <th class="text-center" style="width: 150px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->paginator as $item) { ?>
+                <tr>
+                    <td><?php echo $item->qa_agent; ?></td>
+                    <td><?php echo $item->samples; ?></td>
+                    <td><?php echo $item->total_time; ?></td>
+                    <td><?php echo $item->score; ?></td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-xs">
+                            <?php $newFilter = $filter;?>
+                            <?php $newFilter['qa_agent'] = $item->id_qa_agent;?>
+                            <a class="btn btn-default" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'index'));?>?<?php echo http_build_query($newFilter); ?>" data-original-title="Details"><i class="fa fa-search"></i></a>
+                            <a class="btn btn-primary" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'report','action'=>'qa-agent-rolling'));?>?qa_agent=<?php echo $item->id_qa_agent; ?>" data-original-title="Last 12 Weeks & Last 6 Months"><i class="fa fa-history"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-right">
+        <?php 
+            echo $this->paginationControl(
+                // the paginator object
+                $this->paginator,
+                // the scrolling style
+                'sliding',
+                // the partial to use to render the control
+                'partial/paginator.phtml',
+                // the route to link to when a user clicks a control link
+                array('query' => $this->filter)
+            );
+        ?>
+    </div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li ul li a.qa-agent-report').addClass('active');
+    
+	<?php $data = array(); ?>
+    <?php foreach ($this->paginator as $item) { ?>
+    <?php array_push($data, '["'.$item->qa_agent.'", '.$item->samples.']'); ?>
+    <?php } ?>
+    var data = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-bars'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+    
+    <?php $data = array(); ?>
+    <?php foreach ($this->paginator as $item) { ?>
+    <?php array_push($data, '["'.$item->qa_agent.'", '.$item->total_time.']'); ?>
+    <?php } ?>
+    var data = [ <?php echo implode(', ', $data); ?> ];
+    
+    $.plot($('#chart-bars2'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+    
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>

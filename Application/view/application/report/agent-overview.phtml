@@ -1,0 +1,81 @@
+<div class="block">
+    <form class="form-horizontal" method="get" action="<?php echo $this->url('application/default', array('controller'=>'report','action'=>'agent-overview'));?>">
+        <div class="form-group">
+            <div class="col-md-12">
+           <select class="form-control input-sm select-chosen" name="agent[]" data-placeholder="<?php echo $this->translate('All Agents'); ?>" multiple>
+                <option value="">Select an Agent</option>
+			<?php foreach ($agents as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['agent']) && in_array($item->id, $this->filter['agent']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+            </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+            <select class="form-control input-sm select-chosen" name="project[]" data-placeholder="All Projects" multiple>
+                <?php foreach ($projects as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['project']) && in_array($item->id, $this->filter['project']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-2">
+            <select class="form-control input-sm select-chosen" name="channel[]" data-placeholder="All Channels" multiple>
+                <?php foreach ($channels as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['channel']) && in_array($item->id, $this->filter['channel']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-2">
+            <select class="form-control input-sm select-chosen" name="language[]" data-placeholder="All Languages" multiple>
+                <?php foreach ($languages as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['language']) && in_array($item->id, $this->filter['language']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-3">
+            <div class="input-group input-daterange" data-date-format="mm/dd/yyyy">
+                <input type="text" id="date_from" name="date_from" class="form-control text-center" placeholder="From" value="<?php echo $this->filter['date_from']; ?>">
+                <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+                <input type="text" id="date_to" name="date_to" class="form-control text-center" placeholder="To" value="<?php echo $this->filter['date_to']; ?>">
+            </div>
+            </div>
+
+            <div class="col-md-1">
+            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> Search</button>
+            </div>
+        </div>
+    </form>    
+</div>
+
+<div class="block full">
+    <!-- Responsive Full Content -->
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+		<th>Agents</th>
+
+                    <?php foreach ($questionsGroups as $questionGroup){ ?>
+                    <th><?php echo $questionGroup->name; ?></th>
+                    <?php } ?>
+                    <th>Samples</th>
+                    <th>Grand Total</th>
+                    <th class="text-center" style="width: 50px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($agentlist as $agentlist){ ?>
+                    <tr><td><?php echo $agentlist->name; ?></td><tr>
+                    <?php } ?>
+
+    
+            </tbody>
+        </table>
+    </div>
+    <!-- END Responsive Full Content -->
+</div>
+
+

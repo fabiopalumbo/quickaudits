@@ -1,0 +1,141 @@
+<div class="block ">
+    <form class="form-horizontal" method="get" action="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'question-weekly-progress'));?>">
+        <div class="form-group">
+            <div class="col-md-3">
+                <select class="form-control input-sm select-chosen" name="project[]" data-placeholder="<?php echo $this->translate('All Projects'); ?>" multiple>
+                    <?php foreach ($projects as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['project']) && in_array($item->id, $this->filter['project']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-control input-sm select-chosen" name="auditor[]" data-placeholder="<?php echo $this->translate('All Auditors'); ?>" multiple>
+                    <?php foreach ($auditors as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['qa_agent']) && in_array($item->id, $this->filter['qa_agent']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <?php if ($hasAgents) { ?>
+            <div class="col-md-3">
+                <select class="form-control input-sm select-chosen" name="operator[]" data-placeholder="<?php echo $this->translate('All Agents'); ?>" multiple>
+                    <?php foreach ($agents as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['agent']) && in_array($item->id, $this->filter['agent']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <?php } ?>
+            <div class="col-md-3">
+                <select class="form-control input-sm select-chosen" name="channel[]" data-placeholder="<?php echo $this->translate('All Channels'); ?>" multiple>
+                    <?php foreach ($channels as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['channel']) && in_array($item->id, $this->filter['channel']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> <?php echo $this->translate('Search'); ?></button>
+                <button class="btn btn-sm btn-info" type="submit" name="excel" value="1"><i class="fa fa-file-excel-o"></i> <?php echo $this->translate('Export to Excel'); ?></button>
+            </div>
+        </div>
+    </form>    
+</div>
+
+<div class="block full">
+    <!-- 
+    <form class="form-horizontal clearfix" method="get" action="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'question-weekly-progress'));?>">
+        <div class="form-group pull-right">
+            <div class="col-md-6">
+            <button class="btn btn-sm btn-info" type="submit" name="excel" value="1"><i class="fa fa-file-excel-o"></i> <?php echo $this->translate('Export to Excel'); ?></button>
+            </div>
+        </div>
+    </form>
+     -->
+    <div class="table-responsive">
+        <table class="table table-vcenter table-stripped report">
+            <thead>
+                <tr>
+                    <th class="col-md-7"><?php echo $this->translate('Weeks'); ?></th>
+                    <?php foreach ($weeksGrandTotal as $week) { ?>
+                    <th class="text-right"><?php echo $week->week; ?></th>
+                    <?php } ?>
+                    <th class="text-right"><?php echo $this->translate('Grand Total'); ?></th>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Samples'); ?></th>
+                    <?php $totalSamples = 0; ?>
+                    <?php foreach ($weeksGrandTotal as $week) { ?>
+                    <?php $totalSamples+=$week->samples; ?>
+                    <th class="text-right"><?php echo $week->samples?:0; ?></th>
+                    <?php } ?>
+                    <th class="text-right"><?php echo $totalSamples; ?></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <?php $newWeekGroupScoreAvg = $weekGroupScoreAvg->current(); ?>
+                <?php while ($newWeekGroupScoreAvg) { ?>
+                <?php $oldWeekGroupScoreAvg = $newWeekGroupScoreAvg; ?>
+                <tr>
+                    <td><?php echo $newWeekGroupScoreAvg->question_group; ?></td>
+                    <?php while ($newWeekGroupScoreAvg && $newWeekGroupScoreAvg->id_group==$oldWeekGroupScoreAvg->id_group) { ?>
+                    <td class="text-right"><?php echo $newWeekGroupScoreAvg->score?:0; ?>%</td>
+                    <?php $weekGroupScoreAvg->next(); ?>
+                    <?php $newWeekGroupScoreAvg = $weekGroupScoreAvg->current(); ?>
+                    <?php } ?>
+                    <td class="text-right"><?php echo $groupScoreTotal[$oldWeekGroupScoreAvg->id_group]; ?>%</td>
+                </tr>
+                <?php } ?>
+                <tr class="success">
+                    <th><?php echo $this->translate('Total Score'); ?></th>
+                    <?php foreach ($weeksGrandTotal as $week) { ?>
+                    <th class="text-right"><?php echo $week->score?:0; ?>%</th>
+                    <?php } ?>
+                    <th class="text-right"><?php echo $groupScoreGrandTotal->current()->score; ?>%</th>
+                </tr>
+            </tbody>            
+            
+            <?php $newWeekQuestionScoreAvg = $weekQuestionScoreAvg->current(); ?>
+            <?php while ($newWeekQuestionScoreAvg) { ?>
+            <?php $oldGroup = $newWeekQuestionScoreAvg->id_group; ?>
+            <thead>
+                <tr>
+                    <th colspan="100%"><?php echo $newWeekQuestionScoreAvg->question_group; ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($newWeekQuestionScoreAvg && $newWeekQuestionScoreAvg->id_group==$oldGroup) { ?>
+                <?php $oldQuestion = $newWeekQuestionScoreAvg->id_question; ?>
+                <tr>
+                    <td><?php echo $newWeekQuestionScoreAvg->question; ?></td>
+                    <?php while ($newWeekQuestionScoreAvg && $newWeekQuestionScoreAvg->id_group==$oldGroup && $newWeekQuestionScoreAvg->id_question==$oldQuestion) { ?>
+                    <td class="text-right"><?php echo $newWeekQuestionScoreAvg->score?:0; ?>%</td>                    
+                    <?php $weekQuestionScoreAvg->next(); ?>
+                    <?php $newWeekQuestionScoreAvg = $weekQuestionScoreAvg->current(); ?>
+                    <?php } ?>
+                    <td class="text-right"><?php echo $questionScoreTotal[$oldQuestion]; ?>1%</td>    
+                </tr>
+                <?php } ?>
+            </tbody>            
+            <?php } ?>
+            
+            <tfoot>
+                <tr class="success">
+                    <th><?php echo $this->translate('Total Score'); ?></th>
+                    <?php foreach ($weeksGrandTotal as $week) { ?>
+                    <th class="text-right"><?php echo $week->score?:0; ?>%</th>
+                    <?php } ?>
+                    <th class="text-right"><?php echo $groupScoreGrandTotal->current()->score; ?>%</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li ul li a.question-weekly-progress').addClass('active');
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>

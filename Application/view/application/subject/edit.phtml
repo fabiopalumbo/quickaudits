@@ -1,0 +1,30 @@
+<div class="block">
+    <!-- Horizontal Form Title -->
+    <div class="block-title">
+        <h2><strong>Subject</strong> Form</h2>
+    </div>
+    <!-- END Horizontal Form Title -->
+
+    <!-- Horizontal Form Content -->
+    <?php $form->prepare(); ?>
+    <?php echo $this->form()->openTag($form); echo $this->formHidden($form->get('id')); ?>
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                Subject
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <?php echo $this->formInput($form->get('name')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('name'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+                
+        <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3">
+                <?php echo $this->formSubmit($form->get('submit'));?>
+                <a class="btn btn-sm btn-warning" href="<?php echo $this->url('application/default', array('controller'=>'subject','action'=>'index'));?>"><i class="fa fa-repeat"></i> Return</a>
+            </div>
+        </div>
+    <?php echo $this->form()->closeTag(); ?>
+    <!-- END Horizontal Form Content -->
+</div>

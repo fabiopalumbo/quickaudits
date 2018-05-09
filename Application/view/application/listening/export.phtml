@@ -1,0 +1,141 @@
+<?php
+function enclose($x){
+	return is_numeric($x)?$x:'"'.$x.'"';
+};
+
+//"ID","QA AGENT","AGENT","DATE","SCORE","PUBLIC",
+
+$answers = $this->listening_answers->toArray();
+/*echo '<pre>';
+print_r($answers);
+echo '</pre>';
+die;*/
+
+$headers = ["FORM","DATE","QA AGENT","AGENT","SCORE","PUBLIC", "COMMENTS"];
+
+$pnHR = ['0' => 'Email',
+		 '1' => 'Telephone',
+		 '2' => 'Hotel Web',
+		 '3' => 'Company-Travel Agency',
+		 '4' => 'Online travel agency'];
+$pnHK = ['0' => 'Recommendation',
+		 '1' => 'Online travel agencies',
+		 '2' => 'Social Media',
+		 '3' => 'Press',
+		 '4' => 'Other'];
+
+if($answers[0]['pr_id']==676)
+{
+	$headers[] = 'ROOM';
+	$headers[] = 'NAME';
+	$headers[] = 'ARRIVAL';
+	$headers[] = 'DEPARTURE';
+	$headers[] = 'COMPANY';
+	$headers[] = 'CITY';
+	$headers[] = 'COUNTRY';
+	$headers[] = 'EMAIL';
+	$headers[] = 'HOW-KNOW';
+	$headers[] = 'HOW-RESERV';
+	$headers[] = 'EMPLOYER';
+}
+
+$idListening = $answers[0]['id_listening'];
+$idListeningOld = $idListening;
+$maxQ = 0;
+$i = 0;
+foreach ($answers as $answer)
+{
+
+	if ($answer['id_listening'] != $idListeningOld)
+	{
+		$idListeningOld = $answer['id_listening'];
+
+		if($i > $maxQ)
+		{
+			$maxQ = $i;
+		}
+
+		$i = 0;
+	}
+
+	$i++;
+}
+
+
+for ($i=1; $i <= $maxQ; $i++)
+{
+	$headers[] = "GROUP_$i";
+	$headers[] = "QUESTION_$i";
+	$headers[] = "TYPE_$i";
+	$headers[] = "ANSWER_$i";
+	$headers[] = "WEIGHT_$i";
+};
+
+echo implode(';', array_map('enclose', $headers) )."\n";
+
+$row = null;
+$idListeningOld = 0;
+
+foreach ($answers as $answer) {
+
+	if($answer['id_listening'] != $idListeningOld)
+	{
+		if($idListeningOld)
+		{
+			echo implode(';', array_map('enclose', $row) )."\n";
+		}
+
+		$idListeningOld = $answer['id_listening'];
+		$row = [
+			$answer['f_name'],
+			$answer['l_created'],
+			$answer['l_qa_agent'],
+			$answer['l_agent'],
+			$answer['l_score'],
+			$answer['l_is_public'],
+			$answer['l_comments']
+		];
+
+
+        if($answer['pr_id'] == 676)
+        {
+            $row[] = $answer['l_pnorte_room'];
+            $row[] = $answer['l_pnorte_name'];
+            $row[] = $answer['l_pnorte_arrival'];
+            $row[] = $answer['l_pnorte_departure'];
+            $row[] = $answer['l_pnorte_company'];
+            $row[] = $answer['l_pnorte_city'];
+            $row[] = $answer['l_pnorte_country'];
+            $row[] = $answer['l_pnorte_email'];
+
+            if(is_numeric($answer['l_pnorte_radio1']))
+            {
+            	$row[] = $pnHK[ $answer['l_pnorte_radio1'] ];
+            } else 
+            {
+            	$row[] = 'N/A';
+            }
+            if(is_numeric($answer['l_pnorte_radio2']))
+            {
+            	$row[] = $pnHR[ $answer['l_pnorte_radio2'] ];
+            } else 
+            {
+            	$row[] = 'N/A';
+            }
+            
+            $row[] = $answer['l_pnorte_recommend'];
+        }
+
+	}
+
+	$row[] = $answer['question_group'];
+	$row[] = $answer['question'];
+	$row[] = $answer['question_type'];
+	$row[] = (($answer['answer']*1) < 0)?'N/A':(in_array($answer['question_type'], ['closed', 'binary', 'inverted'])?$answer['answer']:$answer['free_answer']) ;
+	$row[] = $answer['weight'] ;
+}
+
+echo implode(';', array_map('enclose', $row) )."\n";
+
+
+?>

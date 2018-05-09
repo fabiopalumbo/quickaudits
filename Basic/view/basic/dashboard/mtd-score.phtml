@@ -1,0 +1,49 @@
+<div class="widget">
+    <div class="widget-extra-full clearfix">
+        <?php if ($this->layout()->getVariable('role')->hasPermission('organization_manage-dashboard')) {?>
+        <div class="widget-options">
+            <div class="btn-group btn-group-xs">
+                <a data-original-title="<?php echo $this->translate('Manage Dashboards'); ?>" href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-dashboard'));?>" class="btn btn-xs btn-default" data-toggle="tooltip" title="<?php echo $this->translate('Manage Dashboards'); ?>"><i class="fa fa-cog"></i></a>
+            </div>
+        </div>    
+        <?php } ?>
+        <div class="animation-fadeIn">
+            <div class="pie-chart-mtd-score" data-percent="<?php echo $mtdScore->current()->score; ?>" data-size="100" data-bar-color="<?php echo $mtdScore->current()->score >= $mtdScore->current()->min_performance_required ? '#27ae60' : '#e11b1b'; ?>">
+                <span><?php echo number_format($mtdScore->current()->score, 2); ?>%</span>
+            </div>
+        </div>
+        
+    </div>
+    <div class="widget-extra themed-background-spring text-center">
+        <h3 class="widget-content-light">
+            <strong class="<?php // echo $mtdScore->current()->score >= $mtdScore->current()->min_performance_required ? 'text-success' : 'text-danger'; ?>"><?php echo number_format($mtdScore->current()->score,2); ?>%</strong><br>
+            <small><?php echo $this->translate('MTD score'); ?></small>
+        </h3>
+    </div>
+</div>
+
+<script type="text/javascript">
+<!--
+
+$(function(){
+
+        $('.pie-chart-mtd-score').easyPieChart({
+            barColor: $(this).data('bar-color') ? $(this).data('bar-color') : '#777777',
+            trackColor: $(this).data('track-color') ? $(this).data('track-color') : '#eeeeee',
+            lineWidth: $(this).data('line-width') ? $(this).data('line-width') : 3,
+            size: $(this).data('size') ? $(this).data('size') : '80',
+            animate: 800,
+            scaleColor: false
+        });
+
+});
+
+//-->
+</script>
+<script type="text/javascript">
+<!--
+$(function(){
+$('[data-toggle="tooltip"], .enable-tooltip').tooltip({container: 'body', animation: false});
+});
+//-->
+</script>

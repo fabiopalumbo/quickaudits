@@ -1,0 +1,321 @@
+<div class="block">
+
+    <!-- Horizontal Form Content -->
+    <?php $form->prepare(); ?>
+    <?php echo $this->form()->openTag($form); echo $this->formHidden($form->get('id')); ?>
+    <?php echo $this->formhidden($form->get('score')); ?>
+        <fieldset>
+            <legend><?php echo $this->translate('General Information'); ?></legend>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->formlabel($form->get('id_project')); ?>
+                </label>
+                <div class="col-md-9">
+                    <p class="form-control-static"><?php echo $entity->project; ?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->formlabel($form->get('id_channel')); ?>
+                </label>
+                <div class="col-md-9">
+                    <p class="form-control-static"><?php echo $entity->channel; ?></p>
+                </div>
+            </div>
+    <?php if($entity->agent){ ?>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->formlabel($form->get('id_agent')); ?>
+                </label>
+                <div class="col-md-9">
+                    <p class="form-control-static"><?php echo $entity->agent->name; ?></p>
+                </div>
+            </div>
+    <?php } ?>
+	<?php if ($this->layout()->getVariable('role')->membership->package == 'contact_center') { echo "
+            <div class='form-group'>
+                <label for='' class='col-md-3 control-label'>
+                    TeamLead
+                </label>
+                <div class='col-md-9'>
+                    <p class='form-control-static'>"; echo $entity->teamlead; echo "</p>
+                </div>
+            </div>
+            <div class='form-group'>
+                <label for='' class='col-md-3 control-label'>
+                    Case
+                </label>
+                <div class='col-md-9'>
+                    <p class='form-control-static'>"; echo $entity->case; echo "</p>
+                </div>
+            </div>
+            <div class='form-group'>
+                <label for='' class='col-md-3 control-label'>
+                    Incident
+                </label>
+                <div class='col-md-9'>
+                    <p class='form-control-static'>"; echo $entity->incident; echo "</p>
+                </div>
+            </div>
+	"; } ?>
+
+            <input type="hidden" name="pnorte_radio1" value="-" />
+            <input type="hidden" name="pnorte_radio2" value="-" />
+            <input type="hidden" name="is_public_evaluation" value="<?= $entity->is_public ?>" />
+        </fieldset>
+    
+        <fieldset>
+            <legend><?php echo $this->translate('Questions'); ?> <span class="pull-right text-primary collapse" id="loading-form-questions"><small><i class="fa fa-spin fa-spinner"></i> <?php echo $this->translate('Loading form questions'); ?>...</small></span></legend>
+
+            <?php $entity->listenings_answers->rewind(); ?>
+
+            <div class="table-responsive" id="questions">
+            <table class="table table-vcenter table-striped">
+                <?php $count_groups=1; ?>
+                
+                <?php $newListeningAnswer = $entity->listenings_answers->current(); ?>
+                <?php while ($newListeningAnswer) { ?>
+                <?php $oldListeningAnswer = $newListeningAnswer; ?>
+                <thead class="group"  data-group-id="<?php echo $newListeningAnswer->id_group; ?>" data-is-fatal="<?php echo $newListeningAnswer->is_fatal ? 1 : 0; ?>" data-ml-fatal="<?php echo $newListeningAnswer->ml_fatal ? 1 : 0; ?>">
+                    <tr class="info">
+                        <th><?php echo $count_groups; ?></th>
+                        <th class=""><?php echo $newListeningAnswer->question_group;?></th>
+                        <th class="text-right" style=""><?php echo $this->translate('Score'); ?></th>
+                        <th class="text-right" style="width: 100px;"><?php echo $this->translate('Weight'); ?></th>
+                    </tr>
+                    <tr class="info">
+                        <th><input type="hidden" name="listenings_group_scores[<?= $count_groups-1 ?>][id_question_group]" value="<?= $newListeningAnswer->id_group ?>">
+                            <input type="hidden" name="listenings_group_scores[<?= $count_groups-1 ?>][score]" class="score" value="<?= $this->groupsScores[$newListeningAnswer->id_group] ?>">
+                            <input type="hidden" id="group_percentage_<?= $newListeningAnswer->id_group ?>_weight" name="listenings_group_scores[<?= $count_groups-1 ?>][weight]" value="<?= $this->groupsWeights[$newListeningAnswer->id_group] ?>"></th>
+                        <th><?php echo $this->translate('Questions'); ?></th>
+                        <th class="text-right"><span class="score"><?php echo number_format($this->groupsScores[$newListeningAnswer->id_group],2); ?></span>%</th>
+                        <th class="text-right" id="group_percentage_<?= $newListeningAnswer->id_group ?>" data-group-percentage="<?= $this->groupsWeights[$newListeningAnswer->id_group] ?>"><?php echo $this->groupsWeights[$newListeningAnswer->id_group]; ?>%</th>
+                    </tr>
+                </thead>
+                <tbody data-group-id="<?php echo $newListeningAnswer->id_group; ?>">
+                    <?php $count_questions=1;?>
+                    <?php while ($newListeningAnswer && $newListeningAnswer->id_group==$oldListeningAnswer->id_group) { 
+
+                        $inputType = $newListeningAnswer->question_type;
+
+                        ?>
+                    <tr class="<?= in_array($inputType, ['closed', 'binary','inverted'])?'closed':'' ?>">
+                        <td><?php echo $count_groups.'.'.$count_questions; ?></td>
+                        <!-- KHB Agregado class="col-xs-8" en tarea NA -->
+                        <td class="col-xs-8"><?php
+                        $agentName = $this->entity->id_agent?$entity->agent->name:$this->translate('Anonymous');
+                        echo str_replace('{{agent}}', $agentName, $newListeningAnswer->question) ; ?></td>
+                        <td class="text-right">
+                            <!-- KHB Agregado class="question" en tarea NA -->
+                            <input type="hidden" name="listenings_answers[<?php echo $entity->listenings_answers->key(); ?>][id_question]" value="<?php echo $newListeningAnswer->id_question; ?>" class="question question<?= !in_array($newListeningAnswer, ['closed', 'binary','inverted'])?'-free':'' ?>" />                
+                            <div class="btn-group">
+<?php
+
+    $inputValue = trim($newListeningAnswer->free_answer); 
+    switch ($inputType) {
+        case 'date':
+            $inputValue = substr($inputValue, 0,10);
+            break;
+    };
+
+    switch ($inputType) {
+        case 'datetime':
+            $inputType = 'datetime-local';
+        case 'date':
+        case 'text':                        
+        case 'email':                       
+        case 'number':
+            if((int)$newListeningAnswer->allow_na){
+?>
+                            <input class="hidden"
+                                type="checkbox"
+                                value="-1"
+                                id="listenings_answers_<?php echo $newListeningAnswer->id_question; ?>_na" />
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-free-na"
+                                        type="button"
+                                        data-for="listenings_answers_<?php echo $newListeningAnswer->id_question; ?>_free_answer"
+                                        data-na="listenings_answers_<?php echo $newListeningAnswer->id_question; ?>_na"
+                                        ><?= $this->translate('NA')?></button>
+                                </span>
+<?php
+            };
+?>
+                                <input type="hidden"
+                                    name="listenings_answers[<?php echo $entity->listenings_answers->key(); ?>][answer]"
+                                    value="0" />
+                                <input type="<?= $inputType ?>"
+                                    class="form-control free-answer"
+                                    id="listenings_answers_<?php echo $newListeningAnswer->id_question; ?>_free_answer"
+                                    name="listenings_answers[<?php echo $entity->listenings_answers->key(); ?>][free_answer]"   
+                                    value="<?= $inputValue ?>"
+                                />
+<?php
+            if((int)$this->forms_questions[$i]->allow_na) {
+?>
+                            </div>
+<?php
+            }
+
+            break;
+        case 'options':
+            if((int)$newListeningAnswer->allow_na){
+?>
+                            <input class="hidden"
+                                type="checkbox"
+                                value="-1"
+                                id="listenings_answers_<?php echo $newListeningAnswer->id_question; ?>_na" />
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-free-na"
+                                        type="button"
+                                        data-for="listenings_answers_<?php echo $newListeningAnswer->id_question; ?>_free_answer"
+                                        data-na="listenings_answers_<?php echo $newListeningAnswer->id_question; ?>_na"
+                                        ><?= $this->translate('NA')?></button>
+                                </span>
+<?php
+            };
+?>
+                                <input type="hidden"
+                                    name="listenings_answers[<?php echo $entity->listenings_answers->key(); ?>][answer]"
+                                    value="0" />
+                                <select class="form-control free-answer"
+                                    id="listenings_answers_<?php echo $newListeningAnswer->id_question; ?>_free_answer"
+                                    name="listenings_answers[<?php echo $entity->listenings_answers->key(); ?>][free_answer]"
+                                >
+                                    <option value=""><?= $this->translate('Choose an option') ?></option>
+<?php
+                                $opts = json_decode($newListeningAnswer->question_options);
+                                foreach ($opts as $opt) {
+                                    $selected = $inputValue==$opt->key?'selected="selected"':'';
+                                    echo '<option value="'.$opt->key.'" '.$selected.'>'.$opt->value.'</option>';
+                                }
+?>
+                                </select>
+<?php
+            if((int)$this->forms_questions[$i]->allow_na) {
+?>
+                            </div>
+<?php
+            }
+
+
+
+            break;
+        default:
+ 
+ ?>
+                            <!-- KHB Agregado en tarea NA -->    
+                            <?php if((int)$newListeningAnswer->allow_na){ ?>
+                                <label class="btn btn-warning <?php echo $newListeningAnswer->answer<0 ? 'active' : ''; ?>" for="listenings_answers_<?php echo $newListeningAnswer->id_question; ?>_na">
+
+                                    <input  type="radio"
+                                            id="listenings_answers_<?php echo $newListeningAnswer->id_question; ?>_na" 
+                                            name="listenings_answers[<?php echo $entity->listenings_answers->key(); ?>][answer]" 
+                                            value="-1" 
+                                            class="answer answer_na"
+                                            data-question="<?php echo $newListeningAnswer->id_question; ?>" 
+                                            data-weight="<?php echo $newListeningAnswer->weight; ?>" 
+                                            data-weight-percentage="<?php echo $newListeningAnswer->weight_percentage; ?>"
+                                            data-allow-na="<?= $newListeningAnswer->allow_na ?>" <?php echo $newListeningAnswer->answer<0 ? 'checked' : ''; ?>
+                                            style="display:none;" />
+                                            <?php echo $this->translate('NA'); ?> 
+                                            
+                                </label>
+                            <?php } ?>
+
+                            <?php for ($answer=0;$answer<$newListeningAnswer->answers;$answer++) { 
+                                $binaryAnswer = $newListeningAnswer->answers == 2; 
+
+                                $answerValue = $binaryAnswer?$answer:$answer+1;
+                                
+                                if($inputType=='inverted') {
+                                    $answerValue = $newListeningAnswer->answers - $answer;
+
+                                    if($binaryAnswer){
+                                        if($answer)
+                                            $answerValue = 0;
+                                        else
+                                            $answerValue = 1;
+                                    }
+
+                                }
+                            ?>
+
+                            <label class="btn btn-info <?php echo $newListeningAnswer->answer==$answerValue ? 'active' : ''; ?>" for="listenings_answers_<?php echo $newListeningAnswer->id_question; ?>_<?php echo $answer; ?>">
+                                <!-- KHB - Agregados campos data allow_na y question en tarea NA -->
+                                <input  type="radio"
+                                        id="listenings_answers_<?php echo $newListeningAnswer->id_question; ?>_<?php echo $answer; ?>" 
+                                        name="listenings_answers[<?php echo $entity->listenings_answers->key(); ?>][answer]" 
+                                        value="<?php echo $answerValue; ?>" 
+                                        class="answer"
+                                        data-question="<?php echo $newListeningAnswer->id_question; ?>"
+                                        data-weight="<?php echo $newListeningAnswer->weight; ?>" 
+                                        data-weight-percentage="<?php echo $newListeningAnswer->weight_percentage; ?>"  
+                                        data-allow-na="<?= $newListeningAnswer->allow_na ?>"
+                                        <?php echo $newListeningAnswer->answer==$answerValue ? 'checked' : ''; ?>
+                                        style="display:none;" />
+                                        <?php if ($binaryAnswer) { ?>
+                            			    <?php echo $answerValue===0 ? $this->translate('No') : $this->translate('Yes'); ?> 
+                            			<?php }else{ ?> 
+                                            <?php echo $answer+1; ?>
+                            			<?php } ?> 
+                            </label>
+                            <?php } ?>
+<?php
+            break;
+        }
+?>
+
+
+
+                            </div>
+                        </td>
+                        <td class="text-right" id="listenings_answers_<?php echo $newListeningAnswer->id_question; ?>_display"><?php echo in_array($newListeningAnswer->question_type, ['closed', 'binary','inverted'])?$newListeningAnswer->weight_percentage.'%':''; ?></td>
+                    </tr>
+                    <?php $count_questions++; ?>
+                    <?php $entity->listenings_answers->next(); ?>
+                    <?php $newListeningAnswer = $entity->listenings_answers->current(); ?>
+                    <?php } ?>
+                </tbody>
+                <?php $count_groups++; ?>
+                <?php } ?>
+                <tfoot>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th><?php echo $this->translate('Total Quality Score'); ?></th>
+                        <th class="text-right">
+                            <span id="score"><?php echo $entity->score; ?></span>%
+                        </th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </tfoot>
+            </table>
+            </div>
+        </fieldset>
+        
+        
+        <fieldset>
+            <legend><?php echo $this->translate('Comments'); ?></legend>
+            
+            <div class="form-group">
+                <div class="col-md-12">
+                    <?php echo $this->formtextarea($form->get('comments'));?>
+                </div>
+            </div>
+            
+        </fieldset>
+        
+        <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3">
+                <button type="submit" id="submitbutton" class="btn btn-sm btn-primary" name="submit"><span class="main-text"><i class="fa fa-check"></i> <?php echo $this->translate('Save Changes'); ?></span><span class="loading-text collapse"><i class="fa fa-spin fa-spinner"></i> <?php echo $this->translate('Saving Changes'); ?>...</span></button>
+                <a class="btn btn-sm btn-warning" href="<?php echo $rurl ?: $this->url('basic/default', array('controller'=>'listening','action'=>'index'));?>"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+            </div>
+        </div>
+        
+    <?php echo $this->form()->closeTag(); ?>
+    <!-- END Horizontal Form Content -->
+</div>
+
+<?php $this->inlineScript()->appendFile($this->basePath('/modules/basic/js/listening.js?'.time())); ?>

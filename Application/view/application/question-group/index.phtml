@@ -1,0 +1,205 @@
+<div class="block">
+    <form class="form-horizontal" method="get" action="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'index'));?>">
+        <div class="form-group">
+            <div class="col-md-3">
+                <input type="text" placeholder="<?php echo $this->translate('Enter keyword'); ?>.." class="form-control input-sm" name="keyword" id="keyword" value="<?=$this->filter['keyword'] ? $this->filter['keyword'] : ''?>">
+            </div>
+            <div class="col-md-2">
+                <select class="form-control input-sm" name="active">
+                    <option value="1" <?php echo $this->filter['active']==='1' ? 'selected' : ''; ?>><?php echo $this->translate('Enabled'); ?></option>
+                    <option value="0" <?php echo $this->filter['active']==='0' ? 'selected' : ''; ?>><?php echo $this->translate('Disabled'); ?></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> <?php echo $this->translate('Search'); ?></button>
+            <?php if($this->layout()->getVariable('role')->hasPermission('question-group_add')){ ?>
+            <a class="btn btn-sm btn-success joyride-step1" href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'add'));?>"><i class="fa fa-plus"></i> <?php echo $this->translate('Add New'); ?></a>
+            <?php } ?>        
+            </div>
+        </div>
+    </form>    
+</div>
+<div class="block">
+    
+    <?php if ($m==10) { ?>
+        <div class="alert alert-info alert-dismissable">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <i class="fa fa-info-circle"></i> 
+            <?php echo $this->translate(sprintf('Your membership doesn\'t allow to create more items. Please upgrade your membership account <a href="%s">here</a>.',$this->url('application/default', array('controller'=>'organization','action'=>'manage-subscription')))); ?>
+        </div>
+    <?php } ?>
+    <?php if ($m==20) { ?>
+        <div class="alert alert-success alert-dismissable">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <i class="fa fa-check-circle"></i> 
+            <?php echo $this->translate('Question group was deleted successfully!'); ?>
+        </div>
+    <?php } ?>
+
+    <!-- Responsive Full Content -->
+    <div class="table-responsive hidden-xs">
+        <table class="table table-vcenter table-striped draggable-rows">
+            <thead>
+                <tr>
+                    <th><?php echo $this->translate('Name'); ?></th>
+                    <?php if ($this->layout()->getVariable('role')->membership->package != 'basic') { ?>
+                    <th><?php echo $this->translate('Display order'); ?></th>
+                    <th><?php echo $this->translate('Is fatal'); ?></th>
+
+                    <?php } ?>
+                    <th><?php echo $this->translate('Status'); ?></th>
+                    <th><?php echo $this->translate('Blocked'); ?></th>
+                    <th class="text-center" style="width: 150px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->paginator as $item) { ?>
+                <tr class="draggable-row">
+                    <td><a href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'view','id'=>$item->id));?>"><?php echo $this->escapeHtml($item->name);?></a></td>
+                    <?php if ($this->layout()->getVariable('role')->membership->package != 'basic') { ?>
+                    <td><?php echo number_format($item->order);?></td>
+                    <td><?php echo $item->is_fatal ? $this->translate('Yes') : $this->translate('No');?></td>
+
+                    <?php } ?>
+                    <td>
+                        <?php if ($item->active) { ?>
+                        <span class="label label-success"><?php echo $this->translate('Enabled'); ?></span>
+                        <?php } else { ?>
+                        <span class="label label-default"><?php echo $this->translate('Disabled'); ?></span>
+                        <?php } ?>
+                    </td>
+                    <td>
+                        <?php if ($item->blocked) { ?>
+                        <span class="label label-success"><?php echo $this->translate('Blocked'); ?></span>
+                        <?php } else { ?>
+                        <span class="label label-default"><?php echo $this->translate('Unblocked'); ?></span>
+                        <?php } ?>
+                    </td>
+                    <td class="text-center joyride-step2">
+                        <div class="btn-group btn-group-xs">
+                        <?php if($this->layout()->getVariable('role')->hasPermission('question-group_view')){?>
+                            <a class="btn btn-default" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'view','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('View'); ?>"><i class="fa fa-search"></i></a>
+                        <?php }?>
+                        <?php if($this->layout()->getVariable('role')->hasPermission('question-group_edit')){?>
+                            <a class="btn btn-primary <?php echo $item->blocked ? 'disabled' : ''; ?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'edit','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Edit'); ?>"><i class="fa fa-pencil"></i></a>
+                        <?php }?>
+                        <?php if($this->layout()->getVariable('role')->hasPermission('question-group_change-status')){?>
+                            <?php if ($item->active) { ?>
+                                <a class="btn btn-danger <?php echo $item->blocked ? 'disabled' : ''; ?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'change-status','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Disable'); ?>"><i class="fa fa-times"></i></a>
+                            <?php } else { ?>
+                                <a class="btn btn-success <?php echo $item->blocked ? 'disabled' : ''; ?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'change-status','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Enable'); ?>"><i class="fa fa-check"></i></a>
+                            <?php } ?>
+                        <?php }?>
+                        <?php if($this->layout()->getVariable('role')->hasPermission('question-group_delete')){?>
+                                <a class="btn btn-warning <?php echo $item->blocked ? 'disabled' : ''; ?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'delete','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Delete'); ?>"><i class="fa fa-trash-o"></i></a>
+                        <?php }?>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <!-- END Responsive Full Content -->
+    
+    <?php foreach ($this->paginator as $item) { ?>
+    <div class="block visible-xs">
+        <!-- Info Title -->
+        <div class="block-title joyride-step2">
+            <div class="block-options pull-right">
+                <?php if($this->layout()->getVariable('role')->hasPermission('question-group_view')){?>
+                    <a class="btn btn-default btn-sm" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'view','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('View'); ?>"><i class="fa fa-search"></i></a>
+                <?php }?>
+                <?php if($this->layout()->getVariable('role')->hasPermission('question-group_edit')){?>
+                    <a class="btn btn-primary btn-sm <?php echo $item->blocked ? 'disabled' : ''; ?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'edit','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Edit'); ?>"><i class="fa fa-pencil"></i></a>
+                <?php }?>
+                <?php if($this->layout()->getVariable('role')->hasPermission('question-group_change-status')){?>
+                    <?php if ($item->active) { ?>
+                        <a class="btn btn-danger btn-sm <?php echo $item->blocked ? 'disabled' : ''; ?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'change-status','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Disable'); ?>"><i class="fa fa-times"></i></a>
+                    <?php } else { ?>
+                        <a class="btn btn-success btn-sm <?php echo $item->blocked ? 'disabled' : ''; ?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'change-status','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Enable'); ?>"><i class="fa fa-check"></i></a>
+                    <?php } ?>
+                <?php }?>
+                <?php if($this->layout()->getVariable('role')->hasPermission('question-group_delete')){?>
+                    <a class="btn btn-warning btn-sm <?php echo $item->blocked ? 'disabled' : ''; ?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'delete','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Delete'); ?>"><i class="fa fa-trash-o"></i></a>
+                <?php }?>
+            </div>
+            <h2>&nbsp;</h2>
+        </div>
+        <!-- END Info Title -->
+                    
+        <!-- Info Content -->
+        <table class="table table-borderless table-striped">
+            <tbody>
+                <tr>
+                    <td style="width: 25%"><strong><?php echo $this->translate('Name'); ?></strong></td>
+                    <td><a href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'view','id'=>$item->id));?>"><?php echo $this->escapeHtml($item->name);?></a></td>
+                </tr>
+                <?php if ($this->layout()->getVariable('role')->membership->package != 'basic') { ?>
+                <tr>
+                    <td><strong><?php echo $this->translate('Display Order'); ?></strong></td>
+                    <td><?php echo $item->order?:0;?></td>
+                </tr>
+                <tr>
+                    <td><strong><?php echo $this->translate('Is Fatal'); ?></strong></td>
+                    <td><?php echo $item->is_fatal ? $this->translate('Yes') : $this->translate('No');?></td>
+                </tr>
+
+                <?php } ?>
+                <tr>
+                    <td><strong><?php echo $this->translate('Status'); ?></strong></td>
+                    <td>
+                        <?php if ($item->active) { ?>
+                        <span class="label label-success"><?php echo $this->translate('Enabled'); ?></span>
+                        <?php } else { ?>
+                        <span class="label label-default"><?php echo $this->translate('Disabled'); ?></span>
+                        <?php } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong><?php echo $this->translate('Blocked'); ?></strong></td>
+                    <td>
+                        <?php if ($item->blocked) { ?>
+                        <span class="label label-success"><?php echo $this->translate('Blocked'); ?></span>
+                        <?php } else { ?>
+                        <span class="label label-default"><?php echo $this->translate('Unblocked'); ?></span>
+                        <?php } ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- END Info Content -->
+    </div>
+    <?php } ?>
+    
+    <div class="text-right">
+        <?php 
+            echo $this->paginationControl(
+                // the paginator object
+                $this->paginator,
+                // the scrolling style
+                'sliding',
+                // the partial to use to render the control
+                'partial/paginator.phtml',
+                // the route to link to when a user clicks a control link
+                array('query' => $this->filter)
+            );
+        ?>
+    </div>
+</div>
+
+<?php if ($this->layout()->getVariable('wizard') !== null) { ?>
+<?php $step=$this->layout()->getVariable('wizard')->getStepByKey('manage_question-group'); ?>
+<?php if (!$step->completed) { ?>
+<ol id="joyRideTipContent">
+  <li data-class="joyride-step1" data-button="<?php echo $this->translate('Next'); ?>" class="">
+    <p><?php echo $this->translate('Create your question group by clicking "Add New".'); ?></p>
+  </li>
+  <li data-class="joyride-step2" data-button="<?php echo $this->translate('Close'); ?>" class="" data-options="tipLocation:left">
+    <p><?php echo $this->translate('Edit your question group details by clicking on the pencil icon. You can only edit "unblocked" question groups'); ?></p>
+  </li>
+</ol>
+<?php } ?>
+<?php } ?>

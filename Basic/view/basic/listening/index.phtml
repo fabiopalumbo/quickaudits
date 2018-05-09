@@ -1,0 +1,323 @@
+<div class="block">
+	<form class="form-horizontal" method="get"
+		action="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'index'));?>">
+		<div class="form-group">
+			<div class="col-md-4">
+				<select class="form-control input-sm select-chosen" name="project[]"
+					data-placeholder="<?php echo $this->translate('All Projects'); ?>"
+					multiple>
+                <?php foreach ($projects as $item) { ?>
+                <option value="<?php echo $item->id; ?>"
+						<?php echo isset($this->filter['project']) && in_array($item->id, $this->filter['project']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+			</div>
+			<div class="col-md-4">
+				<select class="form-control input-sm select-chosen"
+					name="qa_agent[]"
+					data-placeholder="<?php echo $this->translate('All Auditors'); ?>"
+					multiple>
+                    <?php foreach ($auditors as $item) { ?>
+                    <option value="<?php echo $item->id; ?>"
+						<?php echo isset($this->filter['qa_agent']) && in_array($item->id, $this->filter['qa_agent']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+                </select>
+			</div>
+			<?php if ($hasAgents) { ?>
+			<div class="col-md-4">
+				<select class="form-control input-sm select-chosen" name="agent[]"
+					data-placeholder="<?php echo $this->translate('All Agents'); ?>"
+					multiple>
+                <?php foreach ($agents as $item) { ?>
+                <option value="<?php echo $item->id; ?>"
+						<?php echo isset($this->filter['agent']) && in_array($item->id, $this->filter['agent']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+                </select>
+			</div>
+            <?php } ?>
+		</div>
+		<div class="form-group">
+
+			<div class="col-md-4">
+				<select class="form-control input-sm select-chosen" name="channel[]"
+					data-placeholder="<?php echo $this->translate('All Channels'); ?>"
+					multiple>
+                <?php foreach ($channels as $item) { ?>
+                <option value="<?php echo $item->id; ?>"
+						<?php echo isset($this->filter['channel']) && in_array($item->id, $this->filter['channel']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+			</div>
+
+			<div class="col-md-4">
+				<div class="input-group input-daterange"
+					data-date-format="mm/dd/yyyy">
+					<input type="text" id="date_from" name="date_from"
+						class="form-control text-center"
+						placeholder="<?php echo $this->translate('From'); ?>"
+						value="<?php echo $this->filter['date_from']; ?>"> <span
+						class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+					<input type="text" id="date_to" name="date_to"
+						class="form-control text-center"
+						placeholder="<?php echo $this->translate('To'); ?>"
+						value="<?php echo $this->filter['date_to']; ?>">
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<select class="form-control input-sm" name="active">
+					<option value="1"
+						<?php echo $this->filter['active']==='1' ? 'selected' : ''; ?>><?php echo $this->translate('Enabled'); ?></option>
+					<option value="0"
+						<?php echo $this->filter['active']==='0' ? 'selected' : ''; ?>><?php echo $this->translate('Disabled'); ?></option>
+				</select>
+			</div>
+
+		</div>
+		<div class="form-group">
+
+			<div class="col-md-6">
+				<button class="btn btn-sm btn-primary" type="submit">
+					<i class="fa fa-search"></i> <?php echo $this->translate('Search'); ?></button>
+				<button class="btn btn-sm btn-info" type="submit" name="excel"
+					value="1">
+					<i class="fa fa-file-excel-o"></i> <?php echo $this->translate('Export to Excel'); ?></button>
+            <?php if($this->layout()->getVariable('role')->hasPermission('listening_add')){?>
+                <a class="btn btn-sm btn-success"
+					href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'add'));?>"><i
+					class="fa fa-plus"></i> <?php echo $this->translate('Add New'); ?></a>
+            <?php }?>
+            </div>
+		</div>
+	</form>
+</div>
+<div class="block">
+    <?php if ($m==10) { ?>
+        <div class="alert alert-danger alert-dismissable">
+		<button data-dismiss="alert" class="close" type="button">&times;</button>
+		<i class="fa fa-times-circle"></i> <?php echo $this->translate('Public evaluations cannot be edited!'); ?>
+        </div>
+    <?php } ?>
+
+    <!-- Responsive Full Content -->
+	<div class="table-responsive hidden-xs">
+		
+		<table class="table table-vcenter table-striped">
+			<thead>
+				<tr>
+					<th><?php echo $this->translate('Project'); ?></th>
+					<th><?php echo $this->translate('Channel'); ?></th>
+					<th><?php echo $this->translate('Auditor'); ?></th>
+                    <?php if ($this->hasAgents) { ?>
+                    <th><?php echo $this->translate('Agent'); ?></th>
+                    <?php } ?>
+                    <?php if ($this->hasTeamLead) { ?>
+                    <th><?php echo $this->translate('TeamLead'); ?></th>
+                    <?php } ?>
+                    <?php if ($this->hasCase) { ?>
+                    <th><?php echo $this->translate('Case'); ?></th>
+                    <?php } ?>
+                    <?php if ($this->hasIncident) { ?>
+                    <th><?php echo $this->translate('Incident'); ?></th>
+                    <?php } ?>
+                    <th><?php echo $this->translate('Public evaluation'); ?></th>
+					<th><?php echo $this->translate('Score'); ?></th>
+					<th><?php echo $this->translate('Created'); ?></th>
+					<th><?php echo $this->translate('Status'); ?></th>
+					<th class="text-center" style="width: 150px;">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+                <?php foreach ($this->paginator as $item) { ?>
+                <tr
+					class="<?php echo $item->min_performance_required > $item->score ? 'danger' : ''; ?>">
+					<td><a
+						href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'view','id'=>$item->id));?>"><?php echo $this->escapeHtml($item->project);?></a></td>
+					<td><?php echo $this->escapeHtml($item->channel);?></td>
+					<td><?php echo $item->qa_agent_fullname?$this->escapeHtml($item->qa_agent_fullname):'N/A';?></td>
+                    <?php if ($this->hasAgents) { ?>
+                    <td><?php echo $item->agent?$this->escapeHtml($item->agent):'N/A';?></td>
+                    <?php } ?>
+                    <?php if ($this->hasTeamLead) { ?>
+                    <td><?php echo $item->teamlead?$this->escapeHtml($item->teamlead):'N/A';?></td>
+                    <?php } ?>
+                    <?php if ($this->hasCase) { ?>
+                    <td><?php echo $item->case?$this->escapeHtml($item->case):'N/A';?></td>
+                    <?php } ?>
+                    <?php if ($this->hasIncident) { ?>
+                    <td><?php echo $item->incident?$this->escapeHtml($item->incident):'N/A';?></td>
+                    <?php } ?>
+                    <td><?php echo $item->is_public?$this->translate('Yes'):$this->translate('No');?></td>
+					<td><?php echo $this->escapeHtml($item->score);?>%</td>
+					<td><?php echo $this->dateFormat(strtotime($item->created), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE);?></td>
+					<td>
+                        <?php if ($item->active) { ?>
+                        <span class="label label-success"><?php echo $this->translate('Enabled'); ?></span>
+                        <?php } else { ?>
+                        <span class="label label-default"><?php echo $this->translate('Disabled'); ?></span>
+                        <?php } ?>
+                    </td>
+					<td class="text-center">
+						<div class="btn-group btn-group-xs">
+                        <?php if($this->layout()->getVariable('role')->hasPermission('listening_view')){?>
+                            <a class="btn btn-default" title=""
+								data-toggle="tooltip"
+								href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'view','id'=>$item->id), array('query'=>array('rurl'=>base64_encode($rurl))));?>"
+								data-original-title="<?php echo $this->translate('View'); ?>"><i
+								class="fa fa-search"></i></a>
+                        <?php }?>
+                        <?php if($this->layout()->getVariable('role')->hasPermission('listening_change-status')){?>
+                            <a
+								class="btn btn-primary <?php echo $item->blocked ? 'disabled': ''?>"
+								title="" data-toggle="tooltip"
+								<?php $url = $this->url('basic/default', array('controller'=>'listening','action'=>'edit','id'=>$item->id), array('query'=>array('rurl'=>base64_encode($rurl)))); ?>
+								<?php $printall[] = $url; ?>
+								href="<?php echo $url ;?>"
+								data-original-title="<?php echo $this->translate('Edit'); ?>"><i
+								class="fa fa-pencil"></i></a>
+								
+                            <?php if ($item->active) { ?>
+
+				<script>
+				console.log('<?php echo $url; ?>');			
+				</script>
+				<script>
+				console.log('<?php echo 'TeamLead '; echo $item->teamlead ?>');
+				console.log('<?php echo 'Case '; echo $item->case ?>');			
+				console.log('<?php echo 'incident '; echo $item->incident ?>');			
+				</script>
+                                <a class="btn btn-danger" title=""
+								data-toggle="tooltip"
+								href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'change-status','id'=>$item->id), array('query'=>array('rurl'=>base64_encode($rurl))));?>"
+								data-original-title="<?php echo $this->translate('Disable'); ?>"><i
+								class="fa fa-times"></i></a>
+                            <?php } else { ?>
+                                <a class="btn btn-success" title=""
+								data-toggle="tooltip"
+								href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'change-status','id'=>$item->id), array('query'=>array('rurl'=>base64_encode($rurl))));?>"
+								data-original-title="<?php echo $this->translate('Enable'); ?>"><i
+								class="fa fa-check"></i></a>
+                            <?php } ?>
+                        <?php }?>
+                        </div>
+					</td>
+				</tr>
+                <?php } ?>
+            </tbody>
+		</table>
+	</div>
+	<!-- END Responsive Full Content -->
+    
+    <?php foreach ($this->paginator as $item) { ?>
+    <div class="block visible-xs">
+		<!-- Info Title -->
+		<div class="block-title">
+			<div class="block-options pull-right">
+                <?php if($this->layout()->getVariable('role')->hasPermission('listening_view')){?>
+                    <a class="btn btn-default btn-sm" title=""
+					data-toggle="tooltip"
+					href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'view','id'=>$item->id), array('query'=>array('rurl'=>base64_encode($rurl))));?>"
+					data-original-title="<?php echo $this->translate('View'); ?>"><i
+					class="fa fa-search"></i></a>
+                <?php }?>
+                <?php if($this->layout()->getVariable('role')->hasPermission('listening_change-status')){?>
+                    <a
+					class="btn btn-primary btn-sm <?php echo $item->blocked ? 'disabled': ''?>"
+					title="" data-toggle="tooltip"
+					href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'edit','id'=>$item->id), array('query'=>array('rurl'=>base64_encode($rurl))));?>"
+					data-original-title="<?php echo $this->translate('Edit'); ?>"><i
+					class="fa fa-pencil"></i></a>
+                    <?php if ($item->active) { ?>
+                        <a class="btn btn-danger btn-sm" title=""
+					data-toggle="tooltip"
+					href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'change-status','id'=>$item->id), array('query'=>array('rurl'=>base64_encode($rurl))));?>"
+					data-original-title="<?php echo $this->translate('Disable'); ?>"><i
+					class="fa fa-times"></i></a>
+                    <?php } else { ?>
+                        <a class="btn btn-success btn-sm" title=""
+					data-toggle="tooltip"
+					href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'change-status','id'=>$item->id), array('query'=>array('rurl'=>base64_encode($rurl))));?>"
+					data-original-title="<?php echo $this->translate('Enable'); ?>"><i
+					class="fa fa-check"></i></a>
+                    <?php } ?>
+                <?php }?>
+            </div>
+			<h2>&nbsp;</h2>
+		</div>
+		<!-- END Info Title -->
+
+		<!-- Info Content -->
+		<table class="table table-borderless table-striped">
+			<tbody>
+				<tr>
+					<td style="width: 25%"><strong><?php echo $this->translate('Project'); ?></strong></td>
+					<td><a href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'view','id'=>$item->id));?>"><?php echo $this->escapeHtml($item->project);?></a></td>
+				</tr>
+				<tr>
+					<td><strong><?php echo $this->translate('Channel'); ?></strong></td>
+					<td><?php echo $this->escapeHtml($item->channel);?></td>
+				</tr>
+				<tr>
+					<td><strong><?php echo $this->translate('Auditor'); ?></strong></td>
+					<td><?php echo $item->qa_agent_fullname?$this->escapeHtml($item->qa_agent_fullname):'N/A';?></td>
+
+				</tr>
+				<?php if ($hasAgents) { ?>
+				<tr>
+					<td><strong><?php echo $this->translate('Agent'); ?></strong></td>
+					<td><?php echo $item->agent?$this->escapeHtml($item->agent):'N/A';?></td>
+				</tr>
+				<?php } ?>
+				<?php if ($hasTeamLead) { ?>
+				<tr>
+					<td><strong><?php echo $this->translate('TeamLead'); ?></strong></td
+					<td><?php echo $item->teamlead;?></td>
+				</tr>
+				<?php } ?>
+				<?php if ($hasCase) { ?>
+				<tr>
+					<td><strong><?php echo $this->translate('Case'); ?></strong></td
+					<td><?php echo $item->case;?></td>
+				</tr>
+				<?php } ?>
+				<?php if ($hasIncident) { ?>
+				<tr>
+					<td><strong><?php echo $this->translate('Incident'); ?></strong></td
+					<td><?php echo $item->incident; ?></td>
+				</tr>
+				<?php } ?>
+				<tr>
+					<td><strong><?php echo $this->translate('Score'); ?></strong></td>
+					<td><?php echo $this->escapeHtml($item->score);?>%</td>
+				</tr>
+				<tr>
+					<td><strong><?php echo $this->translate('Status'); ?></strong></td>
+					<td>
+                        <?php if ($item->active) { ?>
+                        <span class="label label-success"><?php echo $this->translate('Enabled'); ?></span>
+                        <?php } else { ?>
+                        <span class="label label-default"><?php echo $this->translate('Disabled'); ?></span>
+                        <?php } ?>
+                    </td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- END Info Content -->
+	</div>
+    <?php } ?>
+    <div class="text-right">
+        <?php
+        echo $this->paginationControl(
+            // the paginator object
+            $this->paginator, 
+            // the scrolling style
+            'sliding', 
+            // the partial to use to render the control
+            'partial/paginator.phtml', 
+            // the route to link to when a user clicks a control link
+            array(
+                'query' => $this->filter
+            ));
+        ?>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+<section class="site-section site-section-light site-section-top themed-background-dark">
+    <div class="container">
+        <h1 class="text-center animation-slideDown"><i class="fa fa-arrow-right"></i> <strong><?php echo $this->translate('Sign Up'); ?></strong></h1>
+        <h2 class="h3 text-center animation-slideUp"><?php echo $this->translate('Get your own dashboard in a few seconds!');?></h2>
+    </div>
+</section>            
+
+<section class="site-content site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6  col-lg-12  site-block">
+                
+<?php if ($this->error) { ?>
+    <div class="alert alert-danger alert-dismissable">
+        <button data-dismiss="alert" class="close" type="button">&times;</button>
+        <h4><i class="fa fa-times-circle"></i> <?php echo $this->translate('Error'); ?></h4> <?php echo $this->error?>
+    </div>
+<?php } ?>
+
+<!-- Login Form -->
+<?php $form->prepare(); ?>
+<?php echo $this->form()->openTag($form);?>
+<div class="row">
+	<div class="col-md-6">
+        <fieldset>
+            <legend><?php echo $this->translate('Personal Information'); ?></legend>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="gi gi-user"></i></span>
+                        <?php echo $this->formInput($form->get('firstname')->setAttributes(array('placeholder'=>$this->translate('First name')))); ?>
+                    </div>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('firstname'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+            <div class="form-group">                                                                                
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="gi gi-user"></i></span>
+                        <?php echo $this->formInput($form->get('lastname')->setAttributes(array('placeholder'=>$this->translate('Last name')))); ?>
+                    </div>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('lastname'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
+                        <?php echo $this->formInput($form->get('email')->setAttributes(array('placeholder'=>$this->translate('Email')))); ?>
+                    </div>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('email'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+        </fieldset>	
+	</div>
+	<div class="col-md-6">
+        <fieldset>
+            <legend><?php echo $this->translate('Organization Information'); ?></legend>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="gi gi-building"></i></span>
+                        <?php echo $this->formInput($form->get('name')->setAttributes(array('placeholder'=>$this->translate('Organization name')))); ?>
+                    </div>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('name'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="gi gi-earphone"></i></span>
+                        <?php echo $this->formInput($form->get('phone')->setAttributes(array('placeholder'=>$this->translate('Organization phone')))); ?>
+                    </div>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('phone'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <?php echo $this->formselect($form->get('id_membership')->setOptions(array('empty_option'=>$this->translate('Select a product')))); ?>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('id_membership'), array('class'=>'list-unstyled text-danger'))?></div>                                
+                </div>
+            </div>
+        </fieldset>	
+	</div>
+</div>
+<div class="form-group">
+    <div class="col-xs-12">
+        <?php echo sprintf($this->translate('By clicking "Register Account" you agree to the <a href="javascript:void(0)" class="text-success" data-toggle="modal" data-target="#modal-privacy">Privacy Policy</a> and <a href="javascript:void(0)"  class="text-success" data-toggle="modal" data-target="#modal-terms">Terms & Conditions</a>.')); ?>
+    </div>
+</div>
+<div class="form-group form-actions">
+    <div class="col-xs-12 text-center">
+        <button type="submit" class="btn btn-lg btn-success"><?php echo $this->translate('Register Account'); ?> <i class="fa fa-check"></i></button>
+        
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-xs-12 text-center">
+        <small><?php echo $this->translate('Do you have an account?'); ?></small> <a href="<?php echo $this->url('login');?>"><small><?php echo $this->translate('Login'); ?></small></a>
+    </div>
+</div>
+
+<?php echo $this->form()->closeTag(); ?>
+<!-- END Login Form -->
+
+            </div>
+        </div>
+        <hr>
+    </div>
+</section>

@@ -1,0 +1,69 @@
+<div class="block">
+    <div class="block-title">
+        <h2><?php echo $this->translate('Are you sure you want to <strong>cancel</strong> your subscription?'); ?></h2>
+    </div>
+    <!-- Info Content -->
+    
+    <?php if ($m==1) { ?>
+        <div class="alert alert-success alert-dismissable">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <i class="fa fa-check-circle"></i> <?php echo $this->translate('Plan details updated successfully!'); ?>
+        </div>
+    <?php } ?>
+    
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Product'); ?></strong></td>
+                <td><?php echo $entity->membership; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Total Users'); ?></strong></td>
+                <td><?php echo $entity->max_users; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Billing Period'); ?></strong></td>
+                <td><?php echo ucfirst($entity->billing_period); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Billing Since'); ?></strong></td>
+                <td><?php echo $this->dateFormat(strtotime($entity->start_date), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE, 'en_US'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Billing Amount'); ?></strong></td>
+                <td>$<?php echo $entity->total_price; ?></td>
+            </tr>
+            <?php if ($entity->last_billing_date) { ?>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Last Billing Date'); ?></strong></td>
+                <td><?php echo $this->dateFormat(strtotime($entity->last_billing_date), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE, 'en_US'); ?></td>
+            </tr>
+            <?php } ?>
+            <?php if ($entity->next_billing_date) { ?>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Next Billing Date'); ?></strong></td>
+                <td><?php echo $this->dateFormat(strtotime($entity->next_billing_date), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE, 'en_US'); ?></td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+        
+    <!-- END Info Content -->
+</div>
+
+<div class="block">
+    <form method="post" class="form-horizontal">
+        <div class="form-group form-actions">
+			<div class="col-md-12">
+                <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-times"></i> <?php echo $this->translate('Cancel Subscription'); ?></button>
+				<a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-subscription'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+			</div>
+		</div>
+    </form>        
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function(){
+    $('ul.sidebar-nav li a.subscription-details').addClass('active');
+});
+<?php $this->inlineScript()->captureEnd(); ?>

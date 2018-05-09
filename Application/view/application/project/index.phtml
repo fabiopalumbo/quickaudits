@@ -1,0 +1,166 @@
+<div class="block">
+    <form class="form-horizontal" method="get" action="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'index'));?>">
+        <div class="form-group">
+            <div class="col-md-3">
+                <input type="text" placeholder="<?php echo $this->translate('Enter keyword'); ?>.." class="form-control input-sm" name="keyword" id="keyword" value="<?=$this->filter['keyword'] ? $this->filter['keyword'] : ''?>">
+            </div>
+            <div class="col-md-2">
+                <select class="form-control input-sm" name="active">
+                    <option value="1" <?php echo $this->filter['active']==='1' ? 'selected' : ''; ?>><?php echo $this->translate('Enabled'); ?></option>
+                    <option value="0" <?php echo $this->filter['active']==='0' ? 'selected' : ''; ?>><?php echo $this->translate('Disabled'); ?></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> <?php echo $this->translate('Search'); ?></button>
+            <a class="btn btn-sm btn-success joyride-step1" href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'add'));?>"><i class="fa fa-plus"></i> <?php echo $this->translate('Add New'); ?></a>
+            </div>
+        </div>
+    </form>    
+</div>
+<div class="block">
+    
+    <?php if ($m==10) { ?>
+        <div class="alert alert-info alert-dismissable">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <i class="fa fa-info-circle"></i> 
+            <?php echo $this->translate(sprintf('Your membership doesn\'t allow to create more items. Please upgrade your membership account <a href="%s">here</a>.',$this->url('application/default', array('controller'=>'organization','action'=>'manage-subscription')))); ?>
+        </div>
+    <?php } ?>
+
+    <!-- Responsive Full Content -->
+    <div class="table-responsive hidden-xs">
+        <table class="table table-vcenter table-striped">
+            <thead>
+                <tr>
+                    <th><?php echo $this->translate('Name'); ?></th>
+                    <th><?php echo $this->translate('Required performance'); ?></th>
+                    <th><?php echo $this->translate('Public evaluations'); ?></th>
+                    <th><?php echo $this->translate('Status'); ?></th>
+                    <th class="text-center" style="width: 150px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->paginator as $item) { ?>
+                <tr>
+                    <td>
+                    <?php if($this->layout()->getVariable('role')->hasPermission('project_view')){?>
+                        <a href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'view','id'=>$item->id));?>"><?php echo $this->escapeHtml($item->name);?></a>
+                    <?php }?>
+                    </td>
+                    <td><?php echo $item->min_performance_required; ?>%</td>
+                    <td><?php echo $item->enable_public?$this->translate('Enabled'):$this->translate('Disabled'); ?></td>
+                    <td>
+                        <?php if ($item->active) { ?>
+                        <span class="label label-success"><?php echo $this->translate('Enabled'); ?></span>
+                        <?php } else { ?>
+                        <span class="label label-default"><?php echo $this->translate('Disabled'); ?></span>
+                        <?php } ?>
+                    </td>
+                    <td class="text-center joyride-step2">
+                        <div class="btn-group btn-group-xs">
+                            <?php if($this->layout()->getVariable('role')->hasPermission('project_view')){?>
+                                <a class="btn btn-default" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'view','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('View'); ?>"><i class="fa fa-search"></i></a>
+                            <?php }?>
+                            <?php if($this->layout()->getVariable('role')->hasPermission('project_edit')){?>
+                                <a class="btn btn-primary <?php echo $item->blocked ? 'disabled': ''?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'edit','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Edit'); ?>"><i class="fa fa-pencil"></i></a>
+                            <?php }?>
+                            <?php if($this->layout()->getVariable('role')->hasPermission('project_change-status')){?>
+                                <?php if ($item->active) { ?>
+                                    <a class="btn btn-danger" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'change-status','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Disable'); ?>"><i class="fa fa-times"></i></a>
+                                <?php } else { ?>
+                                    <a class="btn btn-success" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'change-status','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Enable'); ?>"><i class="fa fa-check"></i></a>
+                                <?php } ?>
+                            <?php }?>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <!-- END Responsive Full Content -->
+    
+    <?php foreach ($this->paginator as $item) { ?>
+	<?php	//if ($org_id_test == 177) { ?>
+    <div class="block visible-xs hidden-md hidden-lg">
+        <!-- Info Title -->
+        <div class="block-title joyride-step2">
+            <div class="block-options pull-right">
+                <?php if($this->layout()->getVariable('role')->hasPermission('project_view')){?>
+                    <a class="btn btn-default btn-sm" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'view','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('View'); ?>"><i class="fa fa-search"></i></a>
+                <?php }?>
+                <?php if($this->layout()->getVariable('role')->hasPermission('project_edit')){?>
+                    <a class="btn btn-primary btn-sm <?php echo $item->blocked ? 'disabled': ''?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'edit','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Edit'); ?>"><i class="fa fa-pencil"></i></a>
+                <?php }?>
+                <?php if($this->layout()->getVariable('role')->hasPermission('project_change-status')){?>
+                    <?php if ($item->active) { ?>
+                        <a class="btn btn-danger btn-sm" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'change-status','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Disable'); ?>"><i class="fa fa-times"></i></a>
+                    <?php } else { ?>
+                        <a class="btn btn-success btn-sm" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'change-status','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Enable'); ?>"><i class="fa fa-check"></i></a>
+                    <?php } ?>
+                <?php //}?>
+            </div>
+
+	  <?php }?>
+
+        </div>
+        <!-- END Info Title -->
+                    
+        <!-- Info Content -->
+        <table class="table table-borderless table-striped hidden-md hidden-lg">
+            <tbody>
+                <tr>
+                    <td style="width: 25%"><strong><?php echo $this->translate('Name'); ?></strong></td>
+                    <td><a href="<?php echo $this->url('application/default', array('controller'=>'project  ','action'=>'view','id'=>$item->id));?>"><?php echo $this->escapeHtml($item->name);?></a></td>
+                </tr>
+                <tr>
+                    <td><strong><?php echo $this->translate('Required Performance'); ?></strong></td>
+                    <td><?php echo $item->min_performance_required; ?>%</td>
+                </tr>
+                <tr>
+                    <td><strong><?php echo $this->translate('Status'); ?></strong></td>
+                    <td>
+                        <?php if ($item->active) { ?>
+                        <span class="label label-success"><?php echo $this->translate('Enabled'); ?></span>
+                        <?php } else { ?>
+                        <span class="label label-default"><?php echo $this->translate('Disabled'); ?></span>
+                        <?php } ?>
+                    </td>
+                </tr>                
+            </tbody>
+        </table>
+        <!-- END Info Content -->
+    </div>
+    <?php } ?>
+    
+    <div class="text-right">
+        <?php 
+            echo $this->paginationControl(
+                // the paginator object
+                $this->paginator,
+                // the scrolling style
+                'sliding',
+                // the partial to use to render the control
+                'partial/paginator.phtml',
+                // the route to link to when a user clicks a control link
+                array('query' => $this->filter)
+            );
+        ?>
+    </div>
+</div>
+
+<?php if ($this->layout()->getVariable('wizard') !== null) { ?>
+<?php $step=$this->layout()->getVariable('wizard')->getStepByKey('manage_project'); ?>
+<?php if (!$step->completed) { ?>
+<ol id="joyRideTipContent">
+  <li data-class="joyride-step1" data-button="<?php echo $this->translate('Next'); ?>" class="">
+    <p><?php echo $this->translate('Create your project by clicking "Add New".'); ?></p>
+  </li>
+  <li data-class="joyride-step2" data-button="<?php echo $this->translate('Close'); ?>" class="" data-options="tipLocation:left">
+    <p><?php echo $this->translate('Edit your project details by clicking on the pencil icon.'); ?></p>
+  </li>
+</ol>
+<?php } ?>
+<?php } ?>

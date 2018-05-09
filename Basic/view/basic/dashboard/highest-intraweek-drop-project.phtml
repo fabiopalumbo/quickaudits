@@ -1,0 +1,50 @@
+<div class="widget">
+    <div class="widget-extra themed-background-spring text-center">
+        <?php if ($this->layout()->getVariable('role')->hasPermission('organization_manage-dashboard')) {?>
+        <div class="widget-options">
+            <div class="btn-group btn-group-xs">
+                <a data-original-title="<?php echo $this->translate('Manage Dashboards'); ?>" href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-dashboard'));?>" class="btn btn-xs btn-default" data-toggle="tooltip" title="<?php echo $this->translate('Manage Dashboards'); ?>"><i class="fa fa-cog"></i></a>
+            </div>
+        </div>    
+        <?php } ?>
+        <h3 class="widget-content-light"><?php echo $this->translate('Highest intraweek drop project'); ?><br/><small><?php echo $this->translate('(Weekly)')?></small></h3>
+    </div>
+    <div class="widget-extra-full clearfix">
+		<div class="pull-left animation-fadeIn">
+			<div class="pie-chart-highest-intraweek-drop-project" data-percent="100" data-size="100" data-bar-color="#e11b1b">
+<!-- 				<span class="text-danger"><i class="gi gi-circle_arrow_down"></i></span> -->
+				<span class="text-danger"><?php echo number_format($highestIntraweekDropProject->current()->score,2); ?>%</span>
+			</div>
+		</div>
+        <h3 class="text-right animation-pullDown">
+            <!-- <strong class="text-danger"><?php echo number_format($highestIntraweekDropProject->current()->score,2); ?>%</strong><br> -->
+            <small><?php echo $highestIntraweekDropProject->current()->project?:$this->translate('There is not enough data to display this report.'); ?></small>
+        </h3>
+    </div>
+</div>
+
+<script type="text/javascript">
+<!--
+
+$(function(){
+
+        $('.pie-chart-highest-intraweek-drop-project').easyPieChart({
+            barColor: $(this).data('bar-color') ? $(this).data('bar-color') : '#777777',
+            trackColor: $(this).data('track-color') ? $(this).data('track-color') : '#eeeeee',
+            lineWidth: $(this).data('line-width') ? $(this).data('line-width') : 3,
+            size: $(this).data('size') ? $(this).data('size') : '80',
+            animate: 800,
+            scaleColor: false
+        });
+
+});
+
+//-->
+</script>
+<script type="text/javascript">
+<!--
+$(function(){
+$('[data-toggle="tooltip"], .enable-tooltip').tooltip({container: 'body', animation: false});
+});
+//-->
+</script>

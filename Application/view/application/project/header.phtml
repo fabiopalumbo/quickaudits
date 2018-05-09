@@ -1,0 +1,35 @@
+<?php $org_id_test = $this->layout()->getVariable('subscription')->id_organization; ?>
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li ul li a.projects').addClass('active');
+});
+
+<?php if ($this->layout()->getVariable('wizard') !== null) { ?>
+<?php $step=$this->layout()->getVariable('wizard')->getStepByKey('manage_project'); ?>
+<?php if (!$step->completed) { ?>
+$(window).load(function() {
+    $('#joyRideTipContent').joyride({
+        autoStart : true,
+        modal:false,
+        expose: false
+    });
+});
+<?php } ?>
+<?php } ?>
+
+<?php $this->inlineScript()->captureEnd(); ?>
+
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="hi hi-tasks"></i><?= $org_id_test == 177?$this->translate('Stores'):$this->translate('Projects') ?><br>
+            <small><?php echo $org_id_test==177?$this->translate('Stores list'):$this->viewmodel()->getCurrent()->getChildren()[0]->subtitle ?></small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li><?php echo $this->translate('Home'); ?></li>
+    <li><a href=""><?= $org_id_test == 177?$this->translate('Stores'):$this->translate('Projects') ?></a></li>
+    <li><a href=""><?php echo $this->viewmodel()->getCurrent()->getChildren()[0]->subtitle; ?></a></li>
+</ul>

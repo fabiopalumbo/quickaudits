@@ -1,0 +1,118 @@
+<div class="block">
+    <?php if ($m==1) { ?>
+        <div class="alert alert-success alert-dismissable fade in">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <i class="fa fa-check-circle"></i> 
+            <?php echo $this->translate(sprintf('Congratulations the user was added successfully. If you want to add another user press <a href="%s">here</a>.',$this->url('application/default', array('controller'=>'user','action'=>'add')))); ?>
+        </div>
+    <?php } ?>
+    <?php if ($m==20) { ?>
+        <div class="alert alert-success alert-dismissable fade in">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <i class="fa fa-check-circle"></i> 
+            <?php echo $this->translate(sprintf('Congratulations the user was edited successfully')); ?>
+        </div>
+    <?php } ?>
+
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Name'); ?></strong></td>
+                <td><?php echo $this->entity->name; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Email'); ?></strong></td>
+                <td><?php echo $this->entity->email; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Role'); ?></strong></td>
+                <td><?php echo $this->entity->role->name; ?></td>
+            </tr>
+            <!-- 
+            <tr>
+                <td style="width: 20%;"><strong>Languages</strong></td>
+                <td>
+                    <?php echo $this->entity->getLanguagesFormatted(); ?>
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Password'); ?></strong></td>
+                <td>
+                    <a href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'change-password','id'=>$this->entity->id));?>"><?php echo $this->translate('Change Password'); ?></a>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Status'); ?></strong></td>
+                <td><?php echo $this->entity->active ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Confirmed'); ?></strong></td>
+                <td><?php echo $this->entity->tokenConfirm ? $this->translate('Confirmed') : $this->translate('Not Confirmed'); ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<div class="block">
+    <!-- Horizontal Form Title -->
+    <div class="block-title">
+        <h2><i class="fa fa-pencil"></i> <?php echo $this->translate('Projects'); ?></h2>
+    </div>
+    <!-- END Horizontal Form Title -->
+    
+    <?php if ($userProjects->count()>0) { ?>
+    
+    <div class="table-responsive">
+        
+            
+        <?php $newUserProjects = $userProjects->current(); ?>
+        
+        <?php while ($newUserProjects) { ?>
+        <?php $oldUserProjects = $newUserProjects; ?>
+        <table class="table table-vcenter table-striped report">
+        <thead>
+            <tr>
+                <th colspan="100%"><?php echo $oldUserProjects->project; ?></th>
+            </tr>
+            <tr>
+                <th><?php echo $this->translate('Role'); ?></th>
+                <th><?php echo $this->translate('Enabled'); ?></th>
+                <th><?php echo $this->translate('Blocked'); ?></th>
+            </tr>
+        </thead>
+        <tbody>                
+            <?php while ($newUserProjects && $newUserProjects->id_project==$oldUserProjects->id_project) { ?>
+            <tr>
+                <td><?php echo $newUserProjects->project_role; ?></td>
+                <td><?php echo $newUserProjects->active?$this->translate('Yes'):$this->translate('No'); ?></td>
+                <td><?php echo $newUserProjects->blocked?$this->translate('Yes'):$this->translate('No'); ?></td>
+            </tr>
+            <?php $userProjects->next(); ?>
+            <?php $newUserProjects = $userProjects->current(); ?>
+            <?php } ?>                    
+        </tbody>
+        </table>
+        <?php } ?>
+    </div>
+    
+    <?php } else { ?>    
+    <div class="alert alert-info"><?php echo $this->translate('User is not assigned to any project.'); ?></div>
+    <?php } ?>
+</div>
+
+<div class="block full">
+	<div class="row">
+		<div class="col-md-12">
+			<a href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'edit','id'=>$this->id));?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> <?php echo $this->translate('Edit'); ?></a>
+			<?php if ($this->entity->active) { ?>
+			 <a href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'change-status','id'=>$this->id));?>" class="btn btn-sm btn-danger"><i class="fa fa-times"></i> <?php echo $this->translate('Disable'); ?></a>
+			<?php } else { ?>
+			 <a href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'change-status','id'=>$this->id));?>" class="btn btn-sm btn-success"><i class="fa fa-check"></i> <?php echo $this->translate('Enable'); ?></a>
+			<?php } ?>
+			<a href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'index'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+		</div>
+	</div>
+</div>

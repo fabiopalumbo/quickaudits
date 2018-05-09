@@ -1,0 +1,22 @@
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    if (!$('ul.sidebar-nav li ul li a.perform-qa').hasClass('active'))
+        $('ul.sidebar-nav li ul li a.listenings').addClass('active');
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>
+
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="gi gi-ok"></i><?php echo $this->translate('Evaluations'); ?><br>
+            <small><?php echo $this->viewmodel()->getCurrent()->getChildren()[0]->subtitle; ?></small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li><?php echo $this->translate('Home'); ?></li>
+    <li><a href=""><?php echo $this->translate('Evaluations'); ?></a></li>
+    <li><a href=""><?php echo $this->viewmodel()->getCurrent()->getChildren()[0]->subtitle; ?></a></li>
+</ul>

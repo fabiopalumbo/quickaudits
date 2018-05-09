@@ -1,0 +1,130 @@
+<div class="block">
+
+    <!-- Horizontal Form Content -->
+    <?php $form->prepare(); ?>
+    <?php echo $this->form()->openTag($form); echo $this->formHidden($form->get('id')); ?>
+    <?php echo $this->formhidden($form->get('score')); ?>
+        <fieldset>
+            <legend>General Information</legend>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->formlabel($form->get('id_project')); ?>
+                </label>
+                <div class="col-md-9">
+                    <p class="form-control-static"><?php echo $entity->project; ?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->formlabel($form->get('id_channel')); ?>
+                </label>
+                <div class="col-md-9">
+                    <p class="form-control-static"><?php echo $entity->channel; ?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->formlabel($form->get('id_agent')); ?>
+                </label>
+                <div class="col-md-9">
+                    <p class="form-control-static"><?php echo $entity->agent; ?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->formlabel($form->get('id_language')); ?>
+                </label>
+                <div class="col-md-9">
+                    <p class="form-control-static"><?php echo $entity->language; ?></p>
+                </div>
+            </div>
+        </fieldset>
+    
+        <fieldset>
+            <legend>Questions <span class="pull-right text-primary collapse" id="loading-form-questions"><small><i class="fa fa-spin fa-spinner"></i> Loading form questions...</small></span></legend>
+
+            <?php $entity->listenings_answers->rewind(); ?>
+
+            <div class="table-responsive" id="questions">
+            <table class="table table-vcenter table-striped">
+                <?php $count_groups=1; ?>
+                
+                <?php $newListeningAnswer = $entity->listenings_answers->current(); ?>
+                <?php while ($newListeningAnswer) { ?>
+                <?php $oldListeningAnswer = $newListeningAnswer; ?>
+                <thead class="group"  data-group-id="<?php echo $newListeningAnswer->id_group; ?>" data-is-fatal="<?php echo $newListeningAnswer->is_fatal ? 1 : 0; ?>" data-ml-fatal="<?php echo $newListeningAnswer->ml_fatal ? 1 : 0; ?>">
+                    <tr class="info"> 
+                        <th><?php echo $count_groups; ?></th>
+                        <th class=""><?php echo $newListeningAnswer->question_group;?></th>
+                        <th class="text-right" style="width: 100px;">Score</th>
+                        <th class="text-right" style="width: 100px;">Weight</th>
+                    </tr>
+                    <tr class="info">
+                        <th>&nbsp;</th>
+                        <th>Questions</th>
+                        <th class="text-right"><span class="score"><?php echo $this->groupsScores[$newListeningAnswer->id_group]; ?></span>%</th>
+                        <th class="text-right"><?php echo $this->groupsWeights[$newListeningAnswer->id_group]; ?>%</th>
+                    </tr>
+                </thead>
+                <tbody data-group-id="<?php echo $newListeningAnswer->id_group; ?>">
+                    <?php $count_questions=1;?>
+                    <?php while ($newListeningAnswer && $newListeningAnswer->id_group==$oldListeningAnswer->id_group) { ?>
+                    <tr>
+                        <td><?php echo $count_groups.'.'.$count_questions; ?></td>
+                        <td><?php echo $newListeningAnswer->question; ?></td>
+                        <td class="text-right">
+                            <input type="hidden" name="listenings_answers[<?php echo $entity->listenings_answers->key(); ?>][id_question]" value="<?php echo $newListeningAnswer->id_question; ?>" />
+                            <select class="form-control input-sm text-right answer" name="listenings_answers[<?php echo $entity->listenings_answers->key(); ?>][answer]" data-weight="<?php echo $newListeningAnswer->weight; ?>" data-weight-percentage="<?php echo $newListeningAnswer->weight_percentage; ?>">
+                            <option value=""></option>
+                            <?php for ($answer=0;$answer<$newListeningAnswer->answers;$answer++) { ?>
+                            <option value="<?php echo $answer; ?>" <?php echo $newListeningAnswer->answer==$answer ? 'selected' : ''; ?>><?php echo $answer; ?></option>
+                            <?php } ?>
+                            </select>
+                        </td>
+                        <td class="text-right"><?php echo $newListeningAnswer->weight_percentage; ?>%</td>
+                    </tr>
+                    <?php $count_questions++; ?>
+                    <?php $entity->listenings_answers->next(); ?>
+                    <?php $newListeningAnswer = $entity->listenings_answers->current(); ?>
+                    <?php } ?>
+                </tbody>
+                <?php $count_groups++; ?>
+                <?php } ?>
+                <tfoot>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Total Quality Score</th>
+                        <th class="text-right">
+                            <span id="score"><?php echo $entity->score; ?></span>%
+                        </th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </tfoot>
+            </table>
+            </div>
+        </fieldset>
+        
+        
+        <fieldset>
+            <legend>Comments</legend>
+            
+            <div class="form-group">
+                <div class="col-md-12">
+                    <?php echo $this->formtextarea($form->get('comments'));?>
+                </div>
+            </div>
+            
+        </fieldset>
+        
+        <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3">
+                <button type="submit" id="submitbutton" class="btn btn-sm btn-primary" name="submit"><span class="main-text"><i class="fa fa-check"></i> Save Changes</span><span class="loading-text collapse"><i class="fa fa-spin fa-spinner"></i> Saving Changes...</span></button>
+                <a class="btn btn-sm btn-warning" href="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'index'));?>"><i class="fa fa-repeat"></i> Return</a>
+            </div>
+        </div>
+        
+    <?php echo $this->form()->closeTag(); ?>
+    <!-- END Horizontal Form Content -->
+</div>
+
+<?php $this->inlineScript()->appendFile('/modules/application/js/listening.js'); ?>

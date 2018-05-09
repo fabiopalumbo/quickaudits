@@ -1,0 +1,37 @@
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li ul li a.forms').addClass('active');
+});
+
+var displayJoyride = false;
+
+<?php if ($this->layout()->getVariable('wizard') !== null) { ?>
+<?php $step=$this->layout()->getVariable('wizard')->getStepByKey('manage_form'); ?>
+<?php if (!$step->completed) { ?>
+displayJoyride = true;
+$(window).load(function() {
+    $('#joyRideTipContent').joyride({
+        autoStart : true,
+        modal:false,
+        expose: false,
+    });
+});
+<?php } ?>
+<?php } ?>
+
+<?php $this->inlineScript()->captureEnd(); ?>
+
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="hi hi-tasks"></i><?php echo $this->translate('QA Forms'); ?><br>
+            <small><?php echo $this->viewmodel()->getCurrent()->getChildren()[0]->subtitle; ?></small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li><?php echo $this->translate('Home'); ?></li>
+    <li><a href=""><?php echo $this->translate('QA Forms'); ?></a></li>
+    <li><a href=""><?php echo $this->viewmodel()->getCurrent()->getChildren()[0]->subtitle; ?></a></li>
+</ul>

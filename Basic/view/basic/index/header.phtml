@@ -1,0 +1,40 @@
+<?php if (  ($this->layout()->getVariable('role')->membership->package == 'basic') ||
+            ($this->layout()->getVariable('subscription')->end_date && (strtotime($this->layout()->getVariable('subscription')->end_date) > strtotime(date('Y-m-d')))) ||
+            $this->layout()->getVariable('subscription')->in_trial) { ?>
+<div class="content-header">
+    <div class="header-section">
+        
+        <h1>
+            <?php if ($this->layout()->getVariable('role')->membership->package ==  'basic') { ?>
+                <?php if ($this->layout()->getVariable('role')->hasPermission('organization_manage-subscription')) { ?>
+                <a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-subscription'));?>" class="themed-color-spring"><?php echo $this->translate('Upgrade your plan'); ?></a>
+                <?php }else{?>
+                <?php echo $this->translate('Upgrade your plan'); ?>
+                <?php } ?>
+                <br/>
+                <small><?php echo sprintf($this->translate('You\'re currently using the %s plan'), $this->layout()->getVariable('role')->membership->membership); ?></small>
+            <?php } ?>
+            
+            <?php if ($this->layout()->getVariable('subscription')->end_date) { ?>
+                <?php if ($this->layout()->getVariable('role')->hasPermission('organization_manage-subscription')) { ?>
+                <a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-subscription'));?>" class="themed-color-spring"><?php echo $this->translate('Upgrade your plan'); ?></a>
+                <?php }else{?>
+                <?php echo $this->translate('Upgrade your plan'); ?>
+                <?php } ?>
+                <br/>
+                <small class="text-danger"><?php echo sprintf($this->translate('Your subscription for the %s plan is about to expire in %s days!<br/>You should renew your subscription!'), $this->layout()->getVariable('subscription')->membership, $this->layout()->getVariable('subscriptionsubscription_last_end_date')->getRemainingDays()); ?></small>
+            <?php } ?>
+            
+            <?php if ($this->layout()->getVariable('subscription')->in_trial) { ?>
+                <?php if ($this->layout()->getVariable('role')->hasPermission('organization_manage-subscription')) { ?>
+                <a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-subscription'));?>" class="themed-color-spring"><?php echo $this->translate('Upgrade your plan'); ?></a>
+                <?php }else{?>
+                <?php echo $this->translate('Upgrade your plan'); ?>
+                <?php } ?>
+                <br/>
+                <small class="text-danger"><?php echo sprintf($this->translate('Trial expires in %s days!'), $this->layout()->getVariable('subscription')->getTrialRemainingDays()); ?></small>
+            <?php } ?>
+        </h1>
+    </div>
+</div>
+<?php } ?>

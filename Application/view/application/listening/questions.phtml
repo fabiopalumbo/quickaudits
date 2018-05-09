@@ -1,0 +1,61 @@
+<?php if (!empty($this->forms_questions)) { ?>
+<input type="hidden" name="id_form" value="<?php echo $form->id; ?>" />
+<input type="hidden" name="score" id="score" value="0" />
+<div class="testing"></div>
+<table class="table table-vcenter table-striped edit_class_jose">
+    <?php $i=0; ?>
+    <?php $count_groups=1; ?>
+    
+    <?php while ($i < count($this->forms_questions)) { ?>
+    <?php $form_question = $this->forms_questions[$i]; ?>
+    <thead class="group" data-group-id="<?php echo $form_question->id_group; ?>" data-is-fatal="<?php echo $form_question->is_fatal ? 1 : 0; ?>" data-ml-fatal="<?php echo $form_question->ml_fatal ? 1 : 0; ?>">
+        <tr class="info">
+            <th><?php echo $count_groups; ?></th>
+            <th class=""><?php echo $form_question->question_group;?></th>
+            <th class="text-right" style="width: 100px;">Score</th>
+            <th class="text-right" style="width: 100px;">Weight</th>
+        </tr>
+        <tr class="info">
+            <th>&nbsp;</th>
+            <th>Questions</th>
+            <th class="text-right"><span class="score">0.00</span>%</th>
+            <th class="text-right"><?php echo number_format($this->groupsWeights[$form_question->id_group], 2); ?>%</th>
+        </tr>
+    </thead>
+    <tbody data-group-id="<?php echo $form_question->id_group; ?>">
+        <?php $count_questions=1;?>
+        <?php while ($i < count($this->forms_questions) && $this->forms_questions[$i]->id_group==$form_question->id_group) { ?>
+        <tr>
+            <td><?php echo $count_groups.'.'.$count_questions; ?></td>
+            <td><?php
+                    echo str_replace('{{agent}}', $this->agent['name'], $this->forms_questions[$i]->question); 
+                ?></td>
+            <td class="text-right">
+                <input type="hidden" name="listenings_answers[<?php echo $i; ?>][id_question]" value="<?php echo $this->forms_questions[$i]->id_question; ?>" />
+                <select class="form-control input-sm text-right answer" name="listenings_answers[<?php echo $i; ?>][answer]" data-weight="<?php echo $this->forms_questions[$i]->weight; ?>" data-weight-percentage="<?php echo $this->forms_questions[$i]->weight_percentage; ?>">
+                <option value=""></option>
+                <?php for ($answer=0;$answer<$this->forms_questions[$i]->answers;$answer++) { ?>
+                <option value="<?php echo $answer; ?>"><?php echo $answer; ?></option>
+                <?php } ?>
+                </select>
+            </td>
+            <td class="text-right"><?php echo $this->forms_questions[$i]->weight_percentage; ?>%</td>
+        </tr>
+        <?php $count_questions++; ?>
+        <?php $i++; ?>
+        <?php } ?>
+    </tbody>
+    <?php $count_groups++; ?>
+    <?php } ?>
+    <tfoot>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Total Quality Score</th>
+            <th class="text-right">
+                <span id="score">0.00</span>%
+            </th>
+            <th>&nbsp;</th>
+        </tr>
+    </tfoot>
+</table>
+<?php } ?>

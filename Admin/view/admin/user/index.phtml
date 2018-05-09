@@ -1,0 +1,69 @@
+<div class="block full block-alt-noborder">
+    <div class="block-title">
+        <div class="block-options pull-right">
+            <?php  if($this->layout()->getVariable('role')->hasPermission('user_add')){?>
+            <a href="<?php echo $this->url('admin/default', array('controller'=>'user','action'=>'add'));?>" class="btn btn-sm btn-default">add new user</a>
+            <?php }?>
+        </div>
+        <h2>&nbsp;</h2>
+    </div>    
+        
+ <table class="table table-striped table-vcenter">
+ <thead>
+     <tr>
+         <th>First name</th>
+         <th>Last name</th>
+         <th>Email</th>
+         <th>Role</th>
+         <th class="text-center" style="width: 150px;">Actions</th>
+     </tr>
+ </thead>
+ <tbody>
+     <?php foreach ($this->paginator as $user) { ?>
+     <tr>
+         <td><?php echo $this->escapeHtml($user->firstname);?></td>
+         <td><?php echo $this->escapeHtml($user->lastname);?></td>
+         <td><?php echo $this->escapeHtml($user->email);?></td>
+         <td><?php echo $this->escapeHtml($user->role);?></td>
+         <td class="text-center">
+            <div class="btn-group btn-group-xs">
+                <?php  if($this->layout()->getVariable('role')->hasPermission('user_edit')){?>
+                <a class="btn btn-default" title="" data-toggle="tooltip" href="<?php echo $this->url('admin/default',
+                     array('controller'=>'user', 'action'=>'edit', 'id' => $user->id));?>" data-original-title="Editar"><i class="fa fa-pencil"></i></a>
+                 <?php }?>
+                <?php  if($this->layout()->getVariable('role')->hasPermission('user_view')){?>
+                <a class="btn btn-primary" title="" data-toggle="tooltip" href="<?php echo $this->url('admin/default',
+                    array('controller'=>'user', 'action'=>'view', 'id' => $user->id));?>" data-original-title="Ver"><i class="fa fa-search"></i></a>
+               <?php }?>
+               <?php if($this->layout()->getVariable('role')->hasPermission('user_delete') && $user->active){?>
+                <a class="btn btn-danger" title="" data-toggle="tooltip" href="<?php echo $this->url('admin/default',
+                    array('controller'=>'user', 'action'=>'delete', 'id' => $user->id));?>" data-original-title="Desactivar"><i class="fa fa-times"></i></a>
+                <?php }else if($this->layout()->getVariable('role')->hasPermission('user_delete') && !$user->active){?>
+                <a class="btn btn-success" title="" data-toggle="tooltip" href="<?php echo $this->url('admin/default',
+                    array('controller'=>'user', 'action'=>'delete', 'id' => $user->id));?>" data-original-title="Activar"><i class="fa fa-check"></i></a>
+                <?php }?>
+            </div>
+         </td>
+     </tr>
+     <?php }?>
+ </tbody>
+ </table>
+ <?php 
+  echo $this->paginationControl(
+     // the paginator object
+     $this->paginator,
+     // the scrolling style
+     'sliding',
+     // the partial to use to render the control
+     'partial/paginator.phtml',
+     // the route to link to when a user clicks a control link
+     array('route' => 'admin/default',
+        'options' => array(
+                'controller' => 'user',
+                'action' => 'index'
+        )
+)
+ );
+?>
+
+</div>

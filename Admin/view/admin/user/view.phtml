@@ -1,0 +1,56 @@
+ <?php
+  $url = $this->url('admin/default', array(
+    'controller'=>'user',
+    'action' => 'index',
+    'id'     => $this->id,
+ ));
+ ?>
+  
+ <div class="row">
+	<div class="col-md-12">
+		<!-- Info Block -->
+		<div class="block">
+			<!-- Info Title -->
+			<div class="block-title">
+				<h2><?=$this->escapeHtml($user->name)?></h2>
+			</div>
+			<!-- END Info Title -->
+
+			<!-- Info Content -->
+			<table class="table table-borderless table-striped">
+				<tbody>
+					<tr>
+						<td style="width: 20%;"><strong>Nombre</strong></td>
+						<td><?=$this->escapeHtml($user->firstname)?></td>
+					</tr>
+					<tr>
+						<td style="width: 20%;"><strong>Apellido</strong></td>
+						<td><?=$this->escapeHtml($user->lastname)?></td>
+					</tr>
+					<tr>
+						<td style="width: 20%;"><strong>Email</strong></td>
+						<td><?=$this->escapeHtml($user->email)?></td>
+					</tr>
+					<tr>
+						<td style="width: 20%;"><strong>Role</strong></td>
+						<td><?=$this->escapeHtml($user->role->name)?></td>
+					</tr>
+					<tr>
+						<td style="width: 20%;"><strong>Activo</strong></td>
+						<td><?=$user->active ? 'Sí' : 'No'?></td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- END Info Content -->
+		</div>
+
+		<div class="block">
+			<div class="row">
+				<div class="col-md-12">
+					<a href="/admin/user/edit/<?=$user->id?>" class="btn btn-sm btn-primary">Editar</a>
+					<a href="/admin/user" class="btn btn-sm btn-warning">Volver al Listado</a>
+					<div class="clearfix">&nbsp;</div>
+				</div>
+			</div>
+        </div>
+</div>

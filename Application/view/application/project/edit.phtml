@@ -1,0 +1,148 @@
+<div class="block">
+    <!-- Horizontal Form Content -->
+    <?php $form->prepare(); ?>
+    <?php echo $this->form()->openTag($form); echo $this->formHidden($form->get('id')); ?>
+        
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Project name'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9 joyride-step1">
+                <?php echo $this->formInput($form->get('name')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('name'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label"><?php echo $this->translate('Minimum required performance'); ?> <span class="text-danger">*</span></label>
+            <div class="col-md-9 joyride-step2">
+                <?php echo $this->formInput($form->get('min_performance_required')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('min_performance_required'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label" for=""><?php echo $this->translate('Enable public evaluations'); ?></label>
+            <div class="col-md-9">
+                <label class="switch switch-primary"><?php echo $this->formcheckbox($form->get('enable_public')); ?><span></span></label>
+                <span class="help-block"><?php echo $this->translate('If this field is set to true, you will be able to make public evaluations of this project.'); ?></span>
+            </div>
+        </div>
+        <fieldset id="public-options" style="<?= $form->get('enable_public')?'':'display:none;' ?>">
+        	<legend><i class="fa fa-angle-right"></i> <?php echo $this->translate('Public options'); ?></legend>
+        	
+        	<div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->translate('Public short subtitle'); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-9 joyride-step1">
+                    <?php echo $this->formtext($form->get('public_description')); ?>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('public_description'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label" for=""><?php echo $this->translate('By agents'); ?></label>
+            <div class="col-md-9">
+                <label class="switch switch-primary"><?php echo $this->formcheckbox($form->get('public_by_agents')); ?><span></span></label>
+                <span class="help-block"><?php echo $this->translate('If this field is set to true, you will be able to make public evaluations for each agent.'); ?></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label" for=""><?php echo $this->translate('Enable form selection'); ?></label>
+            <div class="col-md-9">
+                <label class="switch switch-primary"><?php echo $this->formcheckbox($form->get('enable_form_selector')); ?><span></span></label>
+                <span class="help-block"><?php echo $this->translate('If this field is set to true, the evaluation form will depend on the answer to the next question.'); ?></span>
+            </div>
+        </div>
+
+        <div class="form-group" style="<?= $form->get('enable_form_selector')->getValue()?'':'display:none;'?>" id="formSelectorQuestion">
+            <label for="" class="col-md-3 control-label">
+                    <?php echo $this->translate('Form selection question'); ?>
+                    <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9 joyride-step1">
+                    <?php echo $this->formtext($form->get('form_selector_question')); ?>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('public_description'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label" for=""><?php echo $this->translate('Be anonymous'); ?></label>
+            <div class="col-md-9">
+                <label class="switch switch-primary"><?php echo $this->formcheckbox($form->get('be_anonymous')); ?><span></span></label>
+                <span class="help-block"><?php echo $this->translate('If this field is set to true, the evaluation will be anonymous.'); ?></span>
+            </div>
+        </div>
+
+        	<div class="form-group" style="<?= $form->get('be_anonymous')->getValue()?'display:none;':''?>" id="requirePublicNames">
+                <label class="col-md-3 control-label" for=""><?php echo $this->translate('Require enter names'); ?></label>
+                <div class="col-md-9">
+                    <label class="switch switch-primary"><?php echo $this->formcheckbox($form->get('require_public_names')); ?><span></span></label>
+                    <span class="help-block"><?php echo $this->translate('If this field is set to true, people will have to enter their names.'); ?></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-3 control-label"><?php echo $this->translate('Language'); ?> <span class="text-danger">*</span></label>
+                <div class="col-md-9">
+                    <?php echo $this->formselect($form->get('id_locale')->setOptions(array('empty_option'=>$this->translate('Select your language')))); ?>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('id_locale'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+        	
+        </fieldset>
+        <fieldset>
+            <legend class="joyride-step3"><i class="fa fa-angle-right"></i> <?php echo $this->translate('Form Channels'); ?></legend>
+          <?php $org_id_test = $this->layout()->getVariable('subscription')->id_organization; ?>
+            <?php $projects_channels = $form->get('projects_channels'); ?>
+            <?php //foreach ($projects_channels as $key => $project_channel) { ?>
+	  <?php foreach ($projects_channels as $key => $project_channel) { ?>
+		<?php $org_id_channel_test = $project_channel->get('id_channel')->getValue() ?>
+            <?php if($org_id_test==177 && $org_id_channel_test < 5) continue; ?>
+            <?php if($org_id_test!=177 && $org_id_channel_test >= 5) continue; ?>
+
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label"><?php echo $this->translate($project_channel->get('channel')->getValue()); ?></label>
+                <div class="col-md-9">
+                    <?php echo $this->formhidden($project_channel->get('id_channel')); ?>
+                    <?php echo $this->formhidden($project_channel->get('channel')); ?>
+                    <?php echo $this->formselect($project_channel->get('id_form')->setAttributes(array('data-placeholder'=>$this->translate('Choose a QA Form')))); ?>
+                </div>
+            </div>
+            <?php } ?>
+        </fieldset>
+        
+        <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3 joyride-step4">
+                <?php echo $this->formSubmit($form->get('submit'));?>
+                <a class="btn btn-sm btn-warning" href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'index'));?>"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+            </div>
+        </div>
+    <?php echo $this->form()->closeTag(); ?>
+    <!-- END Horizontal Form Content -->
+</div>
+
+<?php $this->inlineScript()->appendFile($this->basePath('/modules/application/js/project.js?'.microtime())); ?>
+<?php if ($this->layout()->getVariable('wizard') !== null) { ?>
+<?php $step=$this->layout()->getVariable('wizard')->getStepByKey('manage_project'); ?>
+<?php if (!$step->completed) { ?>
+<ol id="joyRideTipContent">
+  <li data-class="joyride-step1" data-button="<?php echo $this->translate('Next'); ?>" class="">
+    <p><?php echo $this->translate('Enter yout project name.'); ?></p>
+  </li>
+  <li data-class="joyride-step2" data-button="<?php echo $this->translate('Next'); ?>" class="">
+    <p><?php echo $this->translate('Establish a desired performance.'); ?></p>
+  </li>
+  <li data-class="joyride-step3" data-button="<?php echo $this->translate('Next'); ?>" class="">
+    <p><?php echo $this->translate('Attach an evaluation form to the different channels you will use.'); ?></p>
+  </li>
+  <li data-class="joyride-step4" data-button="<?php echo $this->translate('Close'); ?>" class="" data-options="tipLocation:top">
+    <p><?php echo $this->translate('Press "Save Changes" to complete your project.'); ?></p>
+  </li>
+</ol>
+<?php } ?>
+<?php } ?>

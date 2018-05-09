@@ -1,0 +1,106 @@
+<?php $this->inlineScript()->captureStart(); ?>
+$(function(){
+    $('ul.sidebar-nav li a.dashboard').addClass('active');
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+
+<?php if (!$this->layout()->getVariable('remove_users_needed') && !$this->layout()->getVariable('subscription_expired') && !$this->layout()->getVariable('trial_expired')) { ?>
+    <div class="block full <?php echo $this->projects->count()<=1 ? 'hide' : '';?> ">
+        <form method="POST" id="dashboard">
+        <input type="hidden" name="project" id="project" value="<?php echo $this->selectedProject->id; ?>" />
+        <div class="row">
+        	<div class="col-md-8">
+                <?php echo $this->translate('View dashboard for ')?>
+                <div class="btn-group">
+                    <a href="javascript:void(0)" data-toggle="dropdown" class="btn btn-alt btn-success btn-sm dropdown-toggle"><?php echo $this->selectedProject->name; ?> <span class="caret"></span></a>
+                    <ul class="dropdown-menu text-left">
+                        <?php foreach ($this->projects as $item) { ?>
+                        <?php if ($item->id != $this->selectedProject->id) { ?>
+                        <li><a href="javascript:void(0)" class="change-dashboard" data-project-id="<?php echo $item->id; ?>"><?php echo $item->name; ?></a></li>
+                        <?php } ?>
+                        <?php } ?>
+                    </ul>
+                </div>    	
+        	</div>
+        </div>
+        </form>
+    </div>
+
+    <div class="row contenedor">
+<?php
+        foreach ($dashboardReports as $key => $report) {
+            $col=($report->widget_size=='small'?'col-md-3':($report->widget_size=='medium'?'col-md-6':'col-md-12'))
+?>
+        <div class="<?php echo $col; ?> wdgt" data-dashboard="<?php echo $report->id_dashboard_report; ?>">
+            <div id="dashboard_report_<?php echo $report->id_dashboard_report; ?>">
+                <h3 class="text-left"><i class="fa fa-refresh fa-spin"></i> <?php echo $this->translate('Loading');?> <strong><?php echo $this->translate($report->dashboard_report); ?></strong></h3>
+            </div>
+        </div>
+<?php
+        }
+?>
+    </div>
+    
+    <?php $this->inlineScript()->captureStart(); ?>
+    $(function(){
+        <?php foreach ($dashboardReports as $report) { ?>
+        $( "#dashboard_report_<?php echo $report->id_dashboard_report; ?>" ).load('<?php echo $this->url('basic/default', array('controller'=>'dashboard', 'action'=>$report->action), array('query'=>array('project'=>$this->selectedProject->id))); ?>', function() {});
+        <?php } ?>
+        
+        $('form#dashboard a.change-dashboard').click(function(){
+        
+            $('input#project').val($(this).data('project-id'));
+        
+            $(this).closest('form').submit();
+            
+        });
+        
+        console.log((navigator.userAgent)); //iPad fuera
+        if(! /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+
+            $('div.contenedor').sortable({
+                beforeStop:function(evt,ui){
+                    var data = {role:'<?= $this->roleId ?>', dashboard_reports:false};
+                    $('div.contenedor').children('div.wdgt').each(function(k,e)
+                        {
+                            var dash = $(e).data('dashboard');
+                            if(dash!=undefined)
+                            {
+                                if(!data.dashboard_reports)
+                                {
+                                    data.dashboard_reports = dash;    
+                                }
+                                else
+                                {
+                                    data.dashboard_reports += ',' + dash;    
+                                }
+                            }
+                        }
+                    );
+                    $.ajax({
+                        url: baseUrl + "application/organization/sort-dashboard",
+                        method: "POST",
+                        data: data,
+                        dataType: "json"
+                    }).done(function( data, textStatus, jqXHR ) {
+                        if (data.success)
+                        {
+                            if (successMessage == undefined)
+                                showGrowlSuccess(data.message);
+                            else
+                                showGrowlSuccess(successMessage);
+                        }
+                        else
+                            showGrowlError(data.message);
+                    }).fail(function( jqXHR, textStatus, errorThrown ) {
+                        showGrowlError(errorThrown);
+                    }).always(function( jqXHR, textStatus, errorThrown ) { });
+                }
+            });
+        };
+    });
+    
+
+    
+    <?php $this->inlineScript()->captureEnd(); ?>
+<?php } ?>

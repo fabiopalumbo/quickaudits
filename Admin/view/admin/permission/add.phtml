@@ -1,0 +1,65 @@
+ <?php
+ $form->prepare();
+?>
+<div class="block">
+    <div class="block-title">
+        <h2><strong>Add </strong>new permission</h2>
+    </div>
+    <?php 
+     echo $this->form()->openTag($form);
+     echo $this->formHidden($form->get('id'));
+     ?>
+     <div class="form-group">
+        <label class="col-md-3 control-label">Name</label>
+         <div class="col-md-9">
+         <?php 
+         echo $this->formInput($form->get('name'));
+         ?>
+            <div class="help-block"><?=$this->formElementErrors($form->get('name'), array('class'=>'list-unstyled text-danger'))?></div>
+         </div>
+     </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Category</label>
+         <div class="col-md-9">
+         <?php 
+         echo $this->formInput($form->get('category'));
+         ?>
+            <div class="help-block"><?=$this->formElementErrors($form->get('category'), array('class'=>'list-unstyled text-danger'))?></div>
+         </div>
+     </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Key</label>
+         <div class="col-md-9">
+         <?php 
+         echo $this->formInput($form->get('key'));
+         ?>
+            <div class="help-block"><?=$this->formElementErrors($form->get('key'), array('class'=>'list-unstyled text-danger'))?></div>
+         </div>
+     </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Controller</label>
+         <div class="col-md-9">
+         <?php 
+         echo $this->formInput($form->get('controller'));
+         ?>
+            <div class="help-block"><?=$this->formElementErrors($form->get('controller'), array('class'=>'list-unstyled text-danger'))?></div>
+         </div>
+     </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Action</label>
+         <div class="col-md-9">
+         <?php 
+         echo $this->formInput($form->get('action'));
+         ?>
+            <div class="help-block"><?=$this->formElementErrors($form->get('action'), array('class'=>'list-unstyled text-danger'))?></div>
+         </div>
+     </div>
+    <div class="form-group form-actions">
+        <div class="col-md-9 col-md-offset-3">
+            <?php echo $this->formSubmit($form->get('submit'));?>
+        </div>
+     </div>
+         <?php
+         echo $this->form()->closeTag();
+         ?>
+ </div>

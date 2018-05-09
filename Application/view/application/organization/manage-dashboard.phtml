@@ -1,0 +1,41 @@
+<div class="block">
+    <div class="row">
+        <?php $newdashboardReports = $dashboardReports->current(); ?>
+        <?php while ($newdashboardReports) { ?>
+        <?php $olddashboardReports = $newdashboardReports; ?>
+        <div class="col-md-6">
+        <form>
+        <input type="hidden" name="role" value="<?php echo $newdashboardReports->id_role; ?>" />
+        <fieldset>
+        <legend><?php echo $newdashboardReports->role; ?></legend>
+            <div class="list-group">
+                <?php while ($newdashboardReports && $newdashboardReports->id_role == $olddashboardReports->id_role) { ?>
+                <label class="list-group-item <?php echo $newdashboardReports->selected?'checked':''; ?>" for="dashboard_report_<?php echo $newdashboardReports->id_role; ?>_<?php echo $newdashboardReports->id_dashboard_report; ?>">
+                    <span class="pull-right">
+                        <label class="switch switch-primary">
+                        <input 
+                            type="checkbox" 
+                            id="dashboard_report_<?php echo $newdashboardReports->id_role; ?>_<?php echo $newdashboardReports->id_dashboard_report; ?>" 
+                            data-role="<?php echo $newdashboardReports->id_role; ?>"
+                            data-dashboard-report="<?php echo $newdashboardReports->id_dashboard_report; ?>"
+                            <?php echo $newdashboardReports->selected?'checked':''; ?>
+                            name="dashboard_reports[]"
+                            value="<?php echo $newdashboardReports->id_dashboard_report; ?>" />
+                        <span></span>
+                        </label>
+                    </span>
+                    <h4 class="list-group-item-heading"><?php echo $this->translate($newdashboardReports->dashboard_report); ?></h4>
+                    <p class="list-group-item-text"><?php echo $this->translate($newdashboardReports->dashboard_report_description)?:'&nbsp;'; ?></p>
+                </label>
+                <?php $dashboardReports->next(); ?>
+                <?php $newdashboardReports = $dashboardReports->current(); ?>
+                <?php } ?>
+            </div>
+        </fieldset>
+        </form>
+        </div>
+        <?php } ?>
+    </div>
+</div>
+
+<?php $this->inlineScript()->appendFile($this->basePath('/modules/application/js/manage_dashboard.js')); ?>

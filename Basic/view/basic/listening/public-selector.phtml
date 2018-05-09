@@ -1,0 +1,156 @@
+<?php $org_id_test = $this->layout()->getVariable('subscription')->id_organization; ?>
+<?php 
+error_reporting (E_ALL );
+	/*@var $form \Basic\Form\ListeningForm */
+	/*@var $organization \Application\Model\Organization */ 
+?>
+<div class="content-header">
+
+		<ul class="nav navbar-nav-custom pull-right" style="margin-right: 45px; margin-top:11px;">
+		<div class="btn-group dropdown">
+			<button type="button" class="btn btn-default dropdown-toggle" style="background:transparent; border: none;" data-toggle="dropdown">
+			<?php if ($locale[1] == 'AR') {
+				$flag = 'Spanish';
+				} else if ($locale[1] == 'PL') {
+				$flag = 'Polish';
+								} else if ($locale[1] == 'BR') {
+								$flag = 'Portuguese';
+								} else if ($locale[1] == 'FR') {
+								$flag = 'French';
+				} else {
+				$flag = 'English';
+				};
+			//print_r ($locale);
+			//echo $flag;
+
+			?>
+
+				<span class="lang-xs" lang="en"><img  alt='<?php echo $flag; ?>' src='/flags/<?php echo $flag; ?>.png' class="img-responsive"></span><b class="caret" style="border-top:4px solid black;";></b></span>
+			</button>
+			<ul class="dropdown-menu" style="min-width: 40px; background: solid white" role="menu">
+				<?php if ($projectChannels->id_project == 676 ) { ?>
+				<?php echo "<li><a href='?locale=en-US'><span class='lang-xs' lang='en'><img  alt='English' src='/flags/English.png' class='img-responsive'></span></a></li>"; ?>
+				<?php echo "<li><a href='?locale=es-AR'><span class='lang-xs' lang='en'><img  alt='Spanish' src='/flags/Spanish.png' class='img-responsive'></span></a></li>"; ?>
+				
+				<?php } else { ?>
+				<?php echo "<li><a href='?locale=en-US'><span class='lang-xs' lang='en'><img  alt='English' src='/flags/English.png' class='img-responsive'></span></a></li>"; ?>
+				<?php echo "<li><a href='?locale=es-AR'><span class='lang-xs' lang='en'><img  alt='Spanish' src='/flags/Spanish.png' class='img-responsive'></span></a></li>"; ?>
+				<?php echo "<li><a href='?locale=pt-BR'><span class='lang-xs' lang='pt'><img  alt='Portuguese' src='/flags/Portuguese.png' class='img-responsive'></span></a></li>"; ?>
+					<?php echo "<li><a href='?locale=pl-PL'><span class='lang-xs' lang='pl'><img  alt='Polish' src='/flags/Polish.png' class='img-responsive'></span></a></li>"; ?>
+				<?php } ?>
+			</ul>
+		</div>
+		</ul>   
+
+	<div class="header-section">
+		<h1>
+			<i class="fa fa-check-circle"></i><?php echo $this->translate($project->name); ?><br><small><?php echo $this->translate($project->public_description)?:'&nbsp;'; ?></small>
+		</h1>
+	</div>
+</div>
+
+<div class="block" style="font-size: 140%">
+	<div class="row">
+		<div class="col-sm-12">
+			<!-- Wizard Progress Bar, functionality initialized in js/pages/formsWizard.js -->
+			<div class="progress progress-striped active">
+				<div id="progress" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="width: 1"></div>
+			</div>
+			<!-- END Wizard Progress Bar -->
+
+			<form method="GET" name="public-selector" class="form-horizontal ui-formwizard" action="<?= $this->url('public_listening',array(), array('force_canonical' => true));?>">
+				<?php $step = 0; ?>
+				<div id="progress-<?php echo $step=$step+1; ?>" class="step" data-step="<?php echo $step; ?>" data-required="1">
+					<div class="form-group">
+
+						<label class="col-md-3 control-label" for="example-text-input">
+							<?php
+								$agentName = $this->agent?$this->agent->name:$this->translate('
+Anonymous');
+								echo str_replace('{{agent}}', $agentName, $this->translate($this->project->form_selector_question));
+							?>
+						</label>
+						<div class="col-md-9">
+								<select class="form-control" name="token">
+									<option value=""><?= $this->translate('Choose an option') ?></option>
+							<?php
+								foreach ($this->project->projects_channels as $channel) {
+									if(trim($channel->form))
+										echo '<option value="'.$this->tokens[$channel->id_channel].'">'.$channel->form.'</option>';
+								}
+
+							?>
+								</select>
+							<span class="help-block">
+								<?php //echo $this->translate('Please, enter your email to start the survey')?>
+							</span> 
+						</div>
+
+
+					</div>
+				</div>
+
+
+				<!-- Form Buttons -->
+				<div>&nbsp;</div>
+				<div class="form-group form-actions">
+					<div class="col-md-12 text-center">
+						<input type="button" class="btn btn-primary" value="<?= $this->translate('Next'); ?>" data-text-submit="<?php echo $this->translate('Submit'); ?>" data-text-next="<?= $this->translate('Next'); ?>" id="submitBtn">
+					</div>
+
+				</div>
+				<!-- END Form Buttons -->
+			<?php echo $this->form()->closeTag(); ?>
+			<!-- END Progress Wizard Content -->
+		</div>
+	</div>
+</div>
+
+<?php if ($projectChannels->id_project == 233 or $projectChannels->id_project == 256) {
+	echo "<img src='/img/footer-destinationservices.png' class='img-responsive'";        
+} ?>
+
+<?php
+	// Nota, agrego el ?time() al final para garantizar que siempre cargue el script, en vez de usar uno cacheado
+	$this->inlineScript()->appendFile($this->basePath('/modules/basic/js/listening_public.js?'.time())); 
+?>
+<?php $this->inlineScript()->captureStart(); ?>
+var steps = <?php echo $step+1; ?>;
+$(function(){ 
+	FormsWizard.init(); 
+});
+$(document).ready(function(){ 
+
+	$('#submitBtn').click(function(){
+		var act = $('form[name="public-selector"]').attr('action');
+		console.log(act);
+		act += '/' + $('select[name="token"]').val();
+		window.location.href = act;
+	});
+
+
+	$("input[name$='Comments1']").click(function() {
+		
+	if ($(this).val() == 'Yes') {
+	$('#Comments').show();
+		}
+		else {
+			$('#Comments').hide();
+		}
+	}); 
+
+	$('button.free_answer').click(function(){
+		var n = $(this).data('value');
+		var i = $(this).data('input');
+		if($(this).hasClass('active')){
+			$('input[name="'+n+'"]').val(0);
+			$('input[name="'+i+'"]').attr('disabled',false);
+		} else {
+			$('input[name="'+n+'"]').val(-1);
+			$('input[name="'+i+'"]').attr('disabled',true);
+		}
+		
+		$(this).toggleClass('active');
+	});
+});
+<?php $this->inlineScript()->captureEnd(); ?>

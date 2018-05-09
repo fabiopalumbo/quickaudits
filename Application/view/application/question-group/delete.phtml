@@ -1,0 +1,58 @@
+<div class="block">
+    <div class="block-title">
+        <h2><?php echo $this->translate('Are you sure you want to <strong>delete</strong> this record? This action can not be undone.'); ?></h2>
+    </div>
+    
+    <?php if ($this->totalQuestions) { ?>
+    <div class="alert alert-danger">
+        <i class="fa fa-info-circle"></i>
+        <?php echo $this->translate(sprintf('%s has %s questions. You have to delete its questions before you can delete this Question Group. <a href="%s">Delete Questions</a>',$this->entity->name,$this->totalQuestions, $this->url('application/default',array('controller'=>'question','action'=>'index'),array('query'=>array('question_group'=>$entity->id))))); ?>
+    </div>
+    <?php } ?>
+    
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Question Group'); ?></strong></td>
+                <td><?php echo $this->entity->name; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Display order'); ?></strong></td>
+                <td><?php echo number_format($this->entity->order); ?></td>
+            </tr>
+            <?php if ($this->layout()->getVariable('role')->membership->package != 'basic') { ?>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Is Fatal?'); ?></strong></td>
+                <td><?php echo $this->entity->is_fatal ? $this->translate('Yes') : $this->translate('No'); ?></td>
+            </tr>
+             <tr style="display: none">
+                <td style="width: 20%;"><strong><?php echo $this->translate('Met Life Fatal?'); ?></strong></td>
+                <td><?php echo $this->entity->ml_fatal ? $this->translate('Yes') : $this->translate('No'); ?></td>
+            </tr>
+            <?php } ?>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Status'); ?></strong></td>
+                <td><?php echo $this->entity->active ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Blocked'); ?></strong></td>
+                <td><?php echo $this->entity->blocked ? $this->translate('Blocked') : $this->translate('Unblocked'); ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<div class="block">
+    <form method="post" class="form-horizontal">
+        <div class="form-group form-actions">
+			<div class="col-md-12">
+                <?php if (!$this->totalQuestions) { ?>
+                <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash-o"></i> <?php echo $this->translate('Delete'); ?></button>
+                <?php } ?>
+				<a href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'index'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+			</div>
+		</div>
+    </form>        
+</div>

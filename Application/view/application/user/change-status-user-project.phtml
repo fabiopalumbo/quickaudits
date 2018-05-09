@@ -1,0 +1,42 @@
+<div class="block">
+    <div class="block-title">
+        <h2><?php echo sprintf($this->translate('Are you sure you want to <strong>%s</strong> this record?'), $this->entity->active ? $this->translate('disable') : $this->translate('enable')); ?></h2>
+    </div>
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('User'); ?></strong></td>
+                <td><?php echo $this->entity->user; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Project'); ?></strong></td>
+                <td><?php echo $this->entity->project; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Role'); ?></strong></td>
+                <td><?php echo $this->entity->project_role; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Status'); ?></strong></td>
+                <td><?php echo $this->entity->active ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<div class="block">
+    <form method="post" class="form-horizontal">
+        <div class="form-group form-actions">
+			<div class="col-md-12">
+                <?php if ($this->entity->active) { ?>
+                <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-times"></i> <?php echo $this->translate('Disable'); ?></button>
+                <?php } else { ?>
+				<button class="btn btn-sm btn-success" type="submit"><i class="fa fa-check"></i> <?php echo $this->translate('Enable'); ?></button>
+				<?php } ?>
+ 				<a href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'edit','id'=>$id));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+			</div>
+		</div>
+    </form>        
+</div>

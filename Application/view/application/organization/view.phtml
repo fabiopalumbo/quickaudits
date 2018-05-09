@@ -1,0 +1,45 @@
+<div class="block">
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong>Organization</strong></td>
+                <td><?php echo $this->entity->name; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong>Status</strong></td>
+                <td><?php echo $this->entity->active ? 'Enabled' : 'Disabled'; ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<div class="block full">
+	<div class="row">
+		<div class="col-md-12">
+			<?php if($this->layout()->getVariable('role')->hasPermission('organization_edit')){?>
+			 <a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'edit','id'=>$this->entity->id));?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
+			<?php }?>
+			<a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'index'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Return</a>
+		</div>
+	</div>
+</div>
+
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function(){
+    
+    /* Initialize Bootstrap Datatables Integration */
+    App.datatables();
+
+    $('#example-datatable').dataTable({
+        "aoColumnDefs": [ { "bSortable": false, "aTargets": [ 4 ] } ],
+        "iDisplayLength": 10,
+        "aLengthMenu": [[10, 20, 30, -1], [10, 20, 30, "All"]]
+    });
+    
+    /* Add placeholder attribute to the search input */
+    $('.dataTables_filter input').attr('placeholder', 'Search');
+});
+<?php $this->inlineScript()->captureEnd(); ?>

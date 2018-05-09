@@ -1,0 +1,63 @@
+<div class="block full">
+    <h4><strong><?php echo $qaAgent->name; ?></strong> - Last 12 Weeks & Last 6 Months</h4>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Last 12 Weeks Rolling</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <?php foreach ($weekRollingScoreTotal as $item) { ?>
+                    <th><?php echo $item->week; ?></th>
+                    <?php } ?>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Score</td>
+                    <?php foreach ($weekRollingScoreTotal as $item) { ?>
+                    <td><?php echo $item->score; ?></td>
+                    <?php } ?>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Last 6 Months Rolling</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <?php foreach ($monthRollingScoreTotal as $item) { ?>
+                    <th><?php echo date('F', mktime(0, 0, 0, $item->month, 10)); ?></th>
+                    <?php } ?>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Score</td>
+                    <?php foreach ($monthRollingScoreTotal as $item) { ?>
+                    <td><?php echo $item->score; ?></td>
+                    <?php } ?>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li ul li a.qa-agent-report').addClass('active');
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>

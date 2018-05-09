@@ -1,0 +1,637 @@
+<?php $org_id_test = $this->layout()->getVariable('subscription')->id_organization; ?>
+<?php 
+error_reporting (E_ALL );
+	/*@var $form \Basic\Form\ListeningForm */
+	/*@var $organization \Application\Model\Organization */ 
+?>
+<div class="content-header">
+
+		<ul class="nav navbar-nav-custom pull-right" style="margin-right: 45px; margin-top:11px;">
+		<div class="btn-group dropdown">
+			<button type="button" class="btn btn-default dropdown-toggle" style="background:transparent; border: none;" data-toggle="dropdown">
+			<?php if ($locale[1] == 'AR') {
+				$flag = 'Spanish';
+				} else if ($locale[1] == 'PL') {
+				$flag = 'Polish';
+								} else if ($locale[1] == 'BR') {
+								$flag = 'Portuguese';
+								} else if ($locale[1] == 'FR') {
+								$flag = 'French';
+				} else {
+				$flag = 'English';
+				};
+			//print_r ($locale);
+			//echo $flag;
+
+			?>
+
+				<span class="lang-xs" lang="en"><img  alt='<?php echo $flag; ?>' src='/flags/<?php echo $flag; ?>.png' class="img-responsive"></span><b class="caret" style="border-top:4px solid black;";></b></span>
+			</button>
+			<ul class="dropdown-menu" style="min-width: 40px; background: solid white" role="menu">
+				<?php if ($projectChannels->id_project == 676 ) { ?>
+				<?php echo "<li><a href='?locale=en-US'><span class='lang-xs' lang='en'><img  alt='English' src='/flags/English.png' class='img-responsive'></span></a></li>"; ?>
+				<?php echo "<li><a href='?locale=es-AR'><span class='lang-xs' lang='en'><img  alt='Spanish' src='/flags/Spanish.png' class='img-responsive'></span></a></li>"; ?>
+				
+				<?php } else { ?>
+				<?php echo "<li><a href='?locale=en-US'><span class='lang-xs' lang='en'><img  alt='English' src='/flags/English.png' class='img-responsive'></span></a></li>"; ?>
+				<?php echo "<li><a href='?locale=es-AR'><span class='lang-xs' lang='en'><img  alt='Spanish' src='/flags/Spanish.png' class='img-responsive'></span></a></li>"; ?>
+				<?php echo "<li><a href='?locale=pt-BR'><span class='lang-xs' lang='pt'><img  alt='Portuguese' src='/flags/Portuguese.png' class='img-responsive'></span></a></li>"; ?>
+					<?php echo "<li><a href='?locale=pl-PL'><span class='lang-xs' lang='pl'><img  alt='Polish' src='/flags/Polish.png' class='img-responsive'></span></a></li>"; ?>
+				<?php } ?>
+			</ul>
+		</div>
+		</ul>   
+
+<?php if ($projectChannels->id_project == 233 or $projectChannels->id_project == 256) {
+
+	echo "<img  alt='Hotel' src='/img/back-destinationservices.png' class='img-responsive'>";
+	} else if ($projectChannels->id_project == 676 ) {
+	echo "<center><img  alt='Puerto Norte' src='/img/back-puertonorte.jpg' class='img-responsive'></center>";
+	}
+
+?>
+	<div class="header-section">
+		<h1>
+			<i class="fa fa-check-circle"></i><?php echo $this->translate($projectChannels->project); ?><br><small id="<?= ($projectChannels->id_project == 676)?'PN':''?>PublicDescription" style="display:none"><?php echo $this->translate($projectChannels->public_description)?:'&nbsp;'; ?></small>
+		</h1>
+	</div>
+</div>
+
+<div class="block" style="font-size: 140%">
+	<div class="row">
+		<div class="col-sm-12">
+			<!-- Wizard Progress Bar, functionality initialized in js/pages/formsWizard.js -->
+			<div class="progress progress-striped active">
+				<div id="progress-bar-wizard" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0"></div>
+			</div>
+			<!-- END Wizard Progress Bar -->
+
+			<!-- Progress Wizard Content -->
+			<?php $form->prepare(); ?>
+			<?php $form->setAttribute('id', 'progress-wizard'); ?>
+			<?php $form->removeAttribute('class');?>
+			<?php $form->setAttribute('class', 'form-horizontal'); ?>
+			
+			<?php echo $this->form()->openTag($form);
+				echo $this->formHidden($form->get('id'));
+				echo $this->formHidden($form->get('score')); 
+			?>
+			<?php
+				$step = 0;
+				$step1 = 0;
+			?>
+<?php if($projectChannels->id_project != 676) {?>
+				<!-- Campos requeridos, deben aparecer si no es puerto norte -->
+				<input type="hidden" name="pnorte_radio1" value="-" />
+				<input type="hidden" name="pnorte_radio2" value="-" />
+<?php } ?>
+<!-- ARRANCA EL PRIMER FORMULARIO -->
+<?php
+			if ($projectChannels->id_project == 233 or $projectChannels->id_project == 256) {
+				// SOLO PROJECTOS 233 O 256 - INICIO
+?>
+				<div id="progress-<?php echo $step=$step+1; ?>" class="step" data-step="<?php echo $step; ?>" data-required="<?php echo 0;//echo $projectChannels->require_public_names?'1':'0'; ?>">
+					<div class="form-group">
+
+						<label class="col-md-3 control-label" for="example-text-input">
+							   <?php echo $this->translate('Enter your reservation number or your first and last name'); ?>
+
+							<?php if ($projectChannels->require_public_names) { ?>
+							<span class="text-danger">*</span>
+							<?php } ?>
+						</label>
+						<div class="col-md-9">
+							<?php echo $this->formtext($form->get('qa_agent_fullname'));?>
+							<span class="help-block">
+								<?php //echo $this->translate('Please, enter your email to start the survey')?>
+								<?=$this->formElementErrors($form->get('qa_agent_fullname'), array('class'=>'list-unstyled text-danger'))?>
+							</span> 
+						</div>
+					</div>
+				</div>
+<?php
+				$step1 = 1;
+				// SOLO PROJECTOS 233 O 256 - FIN
+			} elseif ($projectChannels->id_project == 676 ) { 
+				// SOLO PROYECTO 676 - INICIO
+?>
+				<div id="progress-<?php echo $step=$step+1; ?>" class="step" data-step="<?php echo $step; ?>" data-required="<?php echo '1'; //echo $projectChannels->require_public_names?'1':'0'; ?>">
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="example-text-input">
+						<?php echo $this->translate('Email'); ?>
+							<?php if ($projectChannels->require_public_names) { ?>
+							<span class="text-danger">*</span>
+							<?php } ?>
+						</label>
+						<div class="col-md-9">
+							<?php echo $this->formtext($form->get('pnorte_email'));?>
+							<span class="help-block">
+								<?php //echo $this->translate('Please, enter your email to start the survey')?>
+								<?=$this->formElementErrors($form->get('qa_agent_fullname'), array('class'=>'list-unstyled text-danger'))?>
+							</span> 
+						</div>
+						<label class="col-md-3 control-label" for="example-text-input">
+
+							<?php echo $this->translate('Last Name - First Name'); ?>
+							<?php if ($projectChannels->require_public_names) { ?>
+								<span class="text-danger">*</span>
+							<?php } ?>
+						</label>
+						<div class="col-md-9">
+							<?php echo $this->formtext($form->get('pnorte_name'));?>
+							<span class="help-block">
+								<?php //echo $this->translate('Please, enter your email to start the survey')?>
+								<?=$this->formElementErrors($form->get('qa_agent_fullname'), array('class'=>'list-unstyled text-danger'))?>
+							</span> 
+						</div>
+						<label class="col-md-3 control-label" for="example-text-input">
+							<?php echo $this->translate('Arrival'); ?>
+							<?php if ($projectChannels->require_public_names) { ?>
+								<span class="text-danger">*</span>
+							<?php } ?>
+						</label>
+						<div class="col-md-9">
+							<fieldset>
+								<div class='input-group input-daterange'
+									data-date-format='mm/dd/yyyy'>
+									<input type='text' id='pnorte_arrival' name='pnorte_arrival'
+										class='form-control text-center'
+										placeholder=''
+										value=''> <span	class='input-group-addon'><i class='fa fa-angle-right'></i></span>
+								</div>
+							</fieldset>
+							<span class="help-block">
+								<?php //echo $this->translate('Please, enter your email to start the survey')?>
+								<?=$this->formElementErrors($form->get('qa_agent_fullname'), array('class'=>'list-unstyled text-danger'))?>
+							</span> 
+						</div>
+						<label class="col-md-3 control-label" for="example-text-input">
+							<?php echo $this->translate('Departure'); ?>
+							<?php if ($projectChannels->require_public_names) { ?>
+								<span class="text-danger">*</span>
+							<?php } ?>
+						</label>
+						<div class="col-md-9">
+							<fieldset>
+								<div class='input-group input-daterange'
+									data-date-format='mm/dd/yyyy'>
+									<input type='text' id='pnorte_departure' name='pnorte_departure'
+										class='form-control text-center'
+										placeholder=''
+										value=''> <span	class='input-group-addon'><i class='fa fa-angle-right'></i></span>
+								</div>
+							</fieldset>
+							<span class="help-block">
+								<?php //echo $this->translate('Please, enter your email to start the survey')?>
+								<?=$this->formElementErrors($form->get('qa_agent_fullname'), array('class'=>'list-unstyled text-danger'))?>
+							</span> 
+						</div>
+						<label class="col-md-3 control-label" for="example-text-input">
+							<?php echo $this->translate('Company'); ?>
+							<?php if ($projectChannels->require_public_names) { ?>
+								<span class="text-danger">*</span>
+							<?php } ?>
+						</label>
+						<div class="col-md-9">
+							<?php echo $this->formtext($form->get('pnorte_company'));?>
+							<span class="help-block">
+								<?=$this->formElementErrors($form->get('qa_agent_fullname'), array('class'=>'list-unstyled text-danger'))?>
+							</span> 
+						</div>
+						<label class="col-md-3 control-label" for="example-text-input">
+							<?php echo $this->translate('City'); ?>
+							<?php if ($projectChannels->require_public_names) { ?>
+								<span class="text-danger">*</span>
+							<?php } ?>
+						</label>
+						<div class="col-md-9">
+							<?php echo $this->formtext($form->get('pnorte_city'));?>
+							<span class="help-block">
+								<?=$this->formElementErrors($form->get('qa_agent_fullname'), array('class'=>'list-unstyled text-danger'))?>
+							</span> 
+						</div>
+						<label class="col-md-3 control-label" for="example-text-input">
+							<?php echo $this->translate('Country'); ?>
+							<?php if ($projectChannels->require_public_names) { ?>
+								<span class="text-danger">*</span>
+							<?php } ?>
+						</label>
+						<div class="col-md-9">
+							<?php echo $this->formtext($form->get('pnorte_country'));?>
+							<span class="help-block">
+								<?=$this->formElementErrors($form->get('qa_agent_fullname'), array('class'=>'list-unstyled text-danger'))?>
+							</span> 
+						</div>
+						<label class="col-md-3 control-label" for="example-text-input">
+							<?php echo $this->translate('Room Number'); ?>
+							<?php if ($projectChannels->require_public_names) { ?>
+								<span class="text-danger">*</span>
+							<?php } ?>
+						</label>
+						<div class="col-md-9">
+							<?php echo $this->formtext($form->get('pnorte_room'));?>
+							<span class="help-block">
+								
+								<?=$this->formElementErrors($form->get('qa_agent_fullname'), array('class'=>'list-unstyled text-danger'))?>
+							</span> 
+						</div>
+						<label class="col-md-3 control-label" for="example-text-input">
+
+							<?php echo $this->translate('How did know the Hotel?'); ?>
+							<?php if ($projectChannels->require_public_names) { ?>
+								<span class="text-danger">*</span>
+							<?php } ?>
+						</label>
+						<br /><br />
+						<div class="checkbox col-md-9">
+							<?php echo $this->formradio($form->get('pnorte_radio1'));?>
+							<span class="help-block">
+								<?php //echo $this->translate('Please, enter all the information to start the survey')?>
+								<?=$this->formElementErrors($form->get('qa_agent_fullname'), array('class'=>'list-unstyled text-danger'))?>
+							</span> 
+						</div>
+						<label class="col-md-3 control-label" for="example-text-input">
+							<?php echo $this->translate('How did you make your reservation?'); ?>
+							<?php if ($projectChannels->require_public_names) { ?>
+								<span class="text-danger">*</span>
+							<?php } ?>
+						</label>
+						<br /><br />
+						<div class="checkbox col-md-9">
+							<?php echo $this->formradio($form->get('pnorte_radio2'));?>
+							<span class="help-block">
+								<?php //echo $this->translate('Please, enter all the information to start the survey')?>
+								<?=$this->formElementErrors($form->get('qa_agent_fullname'), array('class'=>'list-unstyled text-danger'))?>
+							</span> 
+						</div>
+						<label class="col-md-3 control-label" for="example-text-input">
+							<?php echo $this->translate('If you would you like to highlight an employee for his/her work during your stay, please write his/her name here:'); ?>
+						</label>
+						<br /><br />
+						<div class="checkbox col-md-9">
+							<?php echo $this->formtext($form->get('pnorte_recommend'));?>
+						</div>
+					</div>
+				</div>
+<?php
+				$step1 = 1;
+				// SOLO PROYECTO 676 - FIN
+			} else {
+				// ESTANDAR GENERICO - INICIO
+				if(!$projectChannels->be_anonymous) { 
+					// SOLO SI NO ES ANONIMO - INICIO
+?>
+				<div id="progress-<?php echo $step=$step+1; ?>" class="step" data-step="<?php echo $step; ?>" data-required="<?php echo 0;//echo $projectChannels->require_public_names?'1':'0'; ?>">
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="example-text-input">
+							<?php echo $this->translate('Email'); ?>
+							<?php if ($projectChannels->require_public_names) { ?>
+								<span class="text-danger">*</span>
+							<?php } ?>
+						</label>
+						<div class="col-md-9">
+							<?php echo $this->formtext($form->get('qa_agent_fullname'));?>
+							<span class="help-block">
+								<?php //echo $this->translate('Please, enter your email to start the survey')?>
+								<?=$this->formElementErrors($form->get('qa_agent_fullname'), array('class'=>'list-unstyled text-danger'))?>
+							</span> 
+						</div>
+					</div>
+				</div>
+<?php
+					$step1 = 1;
+					// SOLO SI NO ES ANONIMO - FIN
+				}
+?>
+<?php
+			// ESTANDAR GENERICO - FIN
+
+			}
+?>
+<!-- FINALIZA EL PRIMER FORMULARIO -->
+<?php
+				//SOLO DEBE SUMAR SI SE MOSTRO UN PASO DE CAMPOS INICIALES
+				//$step = $step+$step1;
+				$step = $step+1;
+
+				$i=0;
+				$count_groups=1;
+
+				while ($i < count($this->questions)) {
+					$form_question = $this->questions[$i];
+					$count_questions=1;
+?>
+					<!--input type="hidden" name="listenings_group_scores[<?= $i; ?>][id_question_group]" value="<?= $this->questions[$i]->id_group ?>" >
+					<input type="hidden" id="grpScore<?= trim($this->questions[$i]->id_group) ?>" class="score" name="listenings_group_scores[<?= $i; ?>][score]" value="0">
+					<input type="hidden" id="grpWeight<?= trim($this->questions[$i]->id_group) ?>" id="group_percentage_<?= $form_question->id_group ?>_weight" name="listenings_group_scores[<?= $i; ?>][weight]" value="0"-->
+<?php
+
+					while ($i < count($this->questions) && $this->questions[$i]->id_group==$form_question->id_group) {
+
+						$tquestion_group = $this->questions[$i]->question_group;
+						$tquestion = $this->questions[$i]->question;
+						$binaryAnswer = $this->questions[$i]->answers == 2;
+						$inputType = $this->questions[$i]->question_type;
+
+						if(in_array($inputType, ['closed', 'binary', 'inverted']) ) {
+?>
+							<!-- Step Preguntas cerradas -->
+							<div id="progress-<?php echo $step; ?>" class="step" data-step="<?php echo $step; ?>">
+								<fieldset>
+									<legend><?= sprintf('%s. %s', $count_groups, $this->translate($tquestion_group));?></legend>
+									<div class="row">
+										<div class="col-md-12">
+											<p><?php
+											$agentName = $this->agent?$this->agent->name:$this->translate('
+Anonymous');
+											echo sprintf('%s. %s', $count_questions, str_replace('{{agent}}', $agentName, $this->translate($tquestion)) ); 
+											?></p>  
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<input type="hidden" name="listenings_answers[<?= $i ?>][answers]" value="<?= $this->questions[$i]->answers ?>" />
+											<input type="hidden" name="listenings_answers[<?= $i ?>][weight]" value="<?= $this->questions[$i]->weight ?>" />
+											<input type="hidden" name="listenings_answers[<?= $i ?>][weight_percentage]" value="<?= $this->questions[$i]->weight_percentage ?>" />
+											<input type="hidden" name="listenings_answers[<?= $i ?>][is_fatal]" value="<?= $this->questions[$i]->is_fatal ?>" />
+											
+											<input type="hidden" name="listenings_answers[<?= $i ?>][id_question]" value="<?= $this->questions[$i]->id_question ?>" />
+											<div class="btn-group">
+<?php // KHB Bloque IF agregado en tarea NNA 
+											if($this->questions[$i]->allow_na){ 
+?>
+												<label class="btn btn-warning" for="listenings_answers_<?= $this->questions[$i]->id_question; ?>_na">
+													<input  type="radio" 
+															id="listenings_answers_<?= $this->questions[$i]->id_question ?>_na" 
+															name="listenings_answers[<?= $i ?>][answer]" 
+															value="-1" 
+															class="answer answer_na" 
+															data-weight="0" 
+															data-weight-percentage="0"
+															data-weight-percentage-d="<?= $this->questions[$i]->weight_percentage ?>"
+															data-group-id="<?= $this->questions[$i]->id_group ?>"
+															data-group-percentage="<?= (round($this->questions[$i]->weight, 2) / round($this->questions[$i]->weight_percentage, 2) * 100) ?>"
+															data-answers="<?= $this->questions[$i]->answers ?>"
+															style="display:none;" />
+															<?= $this->translate('N/A') ?> 
+															
+												</label>
+<?php
+											};
+
+											for ($answer=0;$answer<$this->questions[$i]->answers;$answer++) {
+
+												$answerValue = $binaryAnswer?$answer:$answer+1;
+												
+												if($inputType=='inverted') {
+													$answerValue = $this->questions[$i]->answers - $answer;
+
+													if($binaryAnswer){
+														if($answer)
+															$answerValue = 0;
+														else
+															$answerValue = 1;
+													}
+
+												}
+?>
+												<label class="btn btn-info" for="listenings_answers_<?= $this->questions[$i]->id_question ?>_<?= $answer ?>">
+													<input  type="radio" 
+														id="listenings_answers_<?= $this->questions[$i]->id_question ?>_<?= $answer ?>" 
+														name="listenings_answers[<?= $i ?>][answer]" 
+														value="<?= $answerValue ?>" 
+														class="answer" 
+														data-weight="<?= round($this->questions[$i]->weight, 2) ?>" 
+														data-weight-percentage="<?= $this->questions[$i]->weight_percentage ?>"
+														data-group-id="<?= $this->questions[$i]->id_group ?>"
+														data-group-percentage="<?= (round($this->questions[$i]->weight, 2) / round($this->questions[$i]->weight_percentage, 2) * 100) ?>"
+														data-answers="<?= $this->questions[$i]->answers ?>"     
+														style="display:none;" />
+<?php 
+												if ($binaryAnswer) {
+													if ($projectChannels->id_project == 233 or $projectChannels->id_project == 256) {
+														if ($answer===0) {
+															echo  $this->translate('Yes');
+														} else {
+															echo $this->translate('No');
+														}
+													} else {
+														echo $answer===0 ? $this->translate('No') : $this->translate('Yes'); 
+													}
+												} else {
+													if ($projectChannels->id_project == 233 or $projectChannels->id_project == 256) {
+														if ($answer+1 ===1) {
+															echo '<img src=/emojis/1.png style="margin:10px;max-width:18px"/>';
+														} elseif ($answer+1 ===2) {
+															echo '<img src=/emojis/2.png style="max-width:18px; margin:10px;"/>';
+														} elseif ($answer+1 ===3) {
+															echo '<img src=/emojis/3.png style="max-width:18px;margin:10px;"/>';
+														} elseif ($answer+1 ===4) { 
+															echo '<img src=/emojis/4.png style="max-width:18px;margin:10px;"/>';
+														}
+													} else { 
+														echo $answer+1;
+													} 
+												}
+?>
+												</label>
+<?php 
+										}
+?>
+											</div>
+											
+										</div>
+									</div>
+								</fieldset>
+							</div>
+							<!-- END Step Preguntas cerradas -->
+<?php
+						} else {
+							if($inputType=='datetime') {
+								$inputType = 'datetime-local';
+							};
+?>
+							<!-- Step Preguntas libres -->
+							<div id="progress-<?php echo $step; ?>" class="step" data-step="<?php echo $step; ?>">
+								<fieldset>
+									<legend><?= sprintf('%s. %s', $count_groups, $this->translate($tquestion_group));?></legend>
+									<div class="row">
+										<div class="col-md-12">
+											<p><?php
+											$agentName = $this->agent?$this->agent->name:$this->translate('
+Anonymous');
+											echo sprintf('%s. %s', $count_questions, str_replace('{{agent}}', $agentName, $this->translate($tquestion)) ); 
+											?></p>  
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<input type="hidden" name="listenings_answers[<?= $i ?>][answers]" value="<?= $this->questions[$i]->answers ?>" />
+											<input type="hidden" name="listenings_answers[<?= $i ?>][weight]" value="<?= $this->questions[$i]->weight ?>" />
+											<input type="hidden" name="listenings_answers[<?= $i ?>][weight_percentage]" value="<?= $this->questions[$i]->weight_percentage ?>" />
+											
+											<input type="hidden" name="listenings_answers[<?= $i ?>][id_question]" value="<?= $this->questions[$i]->id_question ?>" />
+											<input type="hidden" name="listenings_answers[<?= $i ?>][answer]" value="0" />
+											<div class="input-group">
+<?php // KHB Bloque IF agregado en tarea NNA 
+											if($this->questions[$i]->allow_na){ 
+?>
+												<span class="input-group-btn">
+													<button type="button" 
+														id="listenings_answers_<?= $this->questions[$i]->id_question ?>_na" 
+														data-value="listenings_answers[<?= $i ?>][answer]" 
+														data-input="listenings_answers[<?= $i ?>][free_answer]" 
+														value="-1" 
+														class="btn btn-warning free_answer" >
+														<?= $this->translate('N/A') ?></button>
+												</span>
+<?php
+											}
+
+											if($inputType == 'options') {
+?>
+												<select	id="listenings_answers_<?= $this->questions[$i]->id_question ?>" 
+													name="listenings_answers[<?= $i ?>][free_answer]" 
+													class="form-control free_answer" 
+													data-weight="0" 
+													data-weight-percentage="0">
+													<option value=""><?= $this->translate('Choose an option') ?></option>
+<?php
+												$opts = json_decode($this->questions[$i]->question_options);
+												foreach ($opts as $opt) {
+													echo '<option value="'.$opt->key.'">'.$opt->value.'</option>';
+												};
+?>
+												</select>
+<?php
+											} else {
+?>
+												<input type="<?= $inputType ?>" 
+													id="listenings_answers_<?= $this->questions[$i]->id_question ?>" 
+													name="listenings_answers[<?= $i ?>][free_answer]" 
+													class="form-control free_answer" 
+													data-weight="0" 
+													data-weight-percentage="0"	/>
+<?php
+											}
+?>
+											</div>
+											
+										</div>
+									</div>
+								</fieldset>
+							</div>
+							<!-- END Step Preguntas libres -->
+
+<?php
+						}
+
+						$step++;
+						$count_questions++;
+						$i++;
+					}
+
+					$count_groups++;
+				}
+?>
+				<div id="progress-<?php echo $step+1; ?>" class="step" data-step="<?php echo $step+1; ?>">
+<?php
+				if ($projectChannels->id_project == 279) { 
+?>
+					<fieldset>
+						<legend><?php echo $this->translate('Sugerencias / Reclamos / Observaciones'); ?></legend>
+						<div class="form-group">
+							<div class="col-md-12">
+								<?= $this->formtextarea($form->get('comments'));?>
+							</div>
+						</div>
+					</fieldset>
+<?php 
+				} elseif ($projectChannels->id_project == 676 ) { 
+?>
+					<fieldset>
+						<legend><?php echo $this->translate('Comments'); ?></legend>
+						<div class="form-group">
+							<div class="col-md-12">
+								<?= $this->formtextarea($form->get('comments'));?>
+							</div>  
+						</div>
+					</fieldset>
+					<fieldset>
+						<legend><?php echo $this->translate('YOUR PRIVACY IS OUR PRIORITY'); ?></legend>
+						<div class="form-group">
+							<div class="col-md-12">
+								<?= $this->translate('All information submitted to us to one of our members will remain confidential and in no way will it be shared with third parties.');?>
+							</div>  
+						</div>
+					</fieldset>
+<?php
+				} else { 
+?>
+					<fieldset>  
+						<legend><?php echo $this->translate('Comments'); ?></legend>
+						<div class="form-group">
+							<div class="col-md-12">
+								<?= $this->formtextarea($form->get('comments'));?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+				} 
+?>
+				</div>
+
+				<!-- Form Buttons -->
+				<div>&nbsp;</div>
+				<div class="form-group form-actions">
+					<div class="col-md-12 text-center">
+						<input type="reset" class="btn btn-warning" value="<?= $this->translate('Back'); ?>" data-text-back="<?= $this->translate('Back'); ?>">
+						<input type="submit" class="btn btn-primary" value="<?= $this->translate('Next'); ?>" data-text-submit="<?php echo $this->translate('Submit'); ?>" data-text-next="<?= $this->translate('Next'); ?>" >
+					</div>
+				</div>
+				<!-- END Form Buttons -->
+			<?php echo $this->form()->closeTag(); ?>
+			<!-- END Progress Wizard Content -->
+		</div>
+	</div>
+</div>
+
+<?php if ($projectChannels->id_project == 233 or $projectChannels->id_project == 256) {
+	echo "<img src='/img/footer-destinationservices.png' class='img-responsive'";        
+} ?>
+
+<?php
+	// Nota, agrego el ?time() al final para garantizar que siempre cargue el script, en vez de usar uno cacheado
+	$this->inlineScript()->appendFile($this->basePath('/modules/basic/js/listening_public.js?'.time())); 
+?>
+<?php $this->inlineScript()->captureStart(); ?>
+var steps = <?php echo $step+$step1; ?>;
+$(function(){ 
+	FormsWizard.init(); 
+});
+$(document).ready(function(){ 
+	$("input[name$='Comments1']").click(function() {
+		
+	if ($(this).val() == 'Yes') {
+	$('#Comments').show();
+		}
+		else {
+			$('#Comments').hide();
+		}
+	}); 
+
+	$('button.free_answer').click(function(){
+		var n = $(this).data('value');
+		var i = $(this).data('input');
+		if($(this).hasClass('active')){
+			$('input[name="'+n+'"]').val(0);
+			$('input[name="'+i+'"]').attr('disabled',false);
+		} else {
+			$('input[name="'+n+'"]').val(-1);
+			$('input[name="'+i+'"]').attr('disabled',true);
+		}
+		
+		$(this).toggleClass('active');
+	});
+});
+<?php $this->inlineScript()->captureEnd(); ?>

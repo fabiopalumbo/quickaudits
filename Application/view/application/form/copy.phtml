@@ -1,0 +1,73 @@
+<div class="block">
+    <div class="block-title">
+        <h2>
+            <?php echo $this->translate('Are you sure you want to copy this form?'); ?>
+        </h2>
+    </div>
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Form'); ?></strong></td>
+                <td><?php echo $this->entity->name; ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<div class="block">
+    <div class="block-title"><h2><?php echo $this->translate('Form Questions'); ?></h2></div>
+    <table class="table table-vcenter table-striped">
+        <?php $i=0; ?>
+        <?php $count_groups=1; ?>
+        
+        <?php while ($i < count($this->entity->forms_questions)) { ?>
+        <?php $form_question = $this->entity->forms_questions[$i]; ?>
+        <thead style="" >
+            <tr>
+                <th><?php echo $count_groups; ?></th>
+                <th class="" colspan="4"><?php echo $form_question->question_group;?></th>
+                <th class="text-right" style="width: 150px;"><?php echo $this->groupsWeights[$form_question->id_group]; ?>%</th>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <th><?php echo $this->translate('Questions'); ?></th>
+                <th class="text-right"><?php echo $this->translate('Answers'); ?></th>
+                <th class="text-right"><?php echo $this->translate('Type'); ?></th>
+                <th class="text-right"><?php echo $this->translate('Allow NA'); ?></th>
+
+                <th class="text-right"><?php echo $this->translate('Scores'); ?></th>
+            </tr>
+        </thead>
+        <tbody style="">
+            <?php $count_questions=1;?>
+            <?php while ($i < count($this->entity->forms_questions) && $this->entity->forms_questions[$i]->id_group==$form_question->id_group) { ?>
+            <tr>
+                <td><?php echo $count_groups.'.'.$count_questions; ?></td>
+                <td><?php echo $this->entity->forms_questions[$i]->question; ?></td>
+                <td class="text-right"><?php echo $this->entity->forms_questions[$i]->answers; ?></td>
+                <td class="text-right"><span class="label label-info"><?php echo ucfirst($this->translate($this->entity->forms_questions[$i]->question_type)); ?></span></td>
+                <td class="text-right"><?php echo $this->entity->forms_questions[$i]->allow_na?$this->translate('Yes'):$this->translate('No'); ?></td>
+                <td class="text-right"><?php echo in_array($this->entity->forms_questions[$i]->question_type, ['binary','closed','inverted'])?$this->entity->forms_questions[$i]->weight_percentage.'%':''; ?></td>
+
+            </tr>
+            <?php $count_questions++; ?>
+            <?php $i++; ?>
+            <?php } ?>
+        </tbody>
+        <?php $count_groups++; ?>
+        <?php } ?>
+    </table>
+</div>
+
+<div class="block">
+    <form method="post" class="form-horizontal">
+        <div class="form-group form-actions">
+			<div class="col-md-12">
+                <button class="btn btn-sm btn-success" type="submit"><i class="fa fa-copy"></i> <?php echo $this->translate('Copy'); ?></button>
+				<a href="<?php echo $this->url('application/default', array('controller'=>'form','action'=>'index'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+			</div>
+		</div>
+    </form>        
+</div>

@@ -1,0 +1,102 @@
+<?php $datesScores = array(); ?>
+<?php foreach ($agentDatesScores as $item) { ?>
+<?php $datesScores[$item->created] = array('score'=>$item->score,'samples'=>$item->samples); ?>
+<?php } ?>
+
+<div class="block full">
+    <!-- Bars Chart Title -->
+    <div class="block-title">
+        <h2>Agent: <strong><?php echo $agent->name; ?></strong> / Project: <strong><?php echo $project->name; ?></strong></h2>
+    </div>
+    <!-- END Bars Chart Title -->
+
+    <!-- Bars Chart Content -->
+    <!-- Flot Charts (initialized in js/pages/compCharts.js), for more examples you can check out http://www.flotcharts.org/ -->
+    <div id="chart-bars" class="chart"></div>
+    <!-- END Bars Chart Content -->
+</div>
+
+<div class="block full">
+    <!-- Responsive Full Content -->
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th>Date / Group</th>
+                    <?php foreach ($questionsGroups as $questionGroup){ ?>
+                    <th><?php echo $questionGroup->name; ?></th>
+                    <?php } ?>
+                    <th>Samples</th>
+                    <th>Grand Total</th>
+                    <th class="text-center" style="width: 50px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <?php $newDatesGroupsScores = $datesGroupsScores->current(); ?>
+                
+                <?php while ($newDatesGroupsScores) { ?>
+                <?php $oldDatesGroupsScores = $newDatesGroupsScores; ?>
+                <tr>
+                    <td><?php echo $newDatesGroupsScores->created; ?></td>
+                    <?php while ($newDatesGroupsScores && $newDatesGroupsScores->created==$oldDatesGroupsScores->created) { ?>
+                    <td><?php echo $newDatesGroupsScores->score ?: '0'; ?></td>
+                    <?php $datesGroupsScores->next(); ?>
+                    <?php $newDatesGroupsScores = $datesGroupsScores->current(); ?>
+                    <?php } ?>
+                    <td><?php echo $datesScores[$oldDatesGroupsScores->created]['samples']; ?></td>
+                    <td><?php echo $datesScores[$oldDatesGroupsScores->created]['score']; ?></td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-xs">
+                            <?php $newFilter = $filter;?>
+                            <?php $newFilter['date_from'] = $oldDatesGroupsScores->created; ?>
+                            <?php $newFilter['date_to'] = $oldDatesGroupsScores->created; ?>
+                            <?php unset($newFilter['organization']); ?>
+                            <a class="btn btn-default" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'index'));?>?<?php echo http_build_query($newFilter); ?>" data-original-title="View"><i class="fa fa-search"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+                
+            </tbody>
+        </table>
+    </div>
+    <!-- END Responsive Full Content -->
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li ul li a.agents-overview').addClass('active');
+    
+	<?php $data = array(); ?>
+    <?php foreach ($agentDatesScores as $item) { ?>
+    <?php array_push($data, '["'.$item->created.'", '.$item->score.']'); ?>
+    <?php } ?>
+    
+    var data = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-bars'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+    
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>

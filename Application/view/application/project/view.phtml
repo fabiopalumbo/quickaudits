@@ -1,0 +1,538 @@
+<?php /*@var $entity Application\Model\Project */ ?>
+<?php $org_id_test = $this->layout()->getVariable('subscription')->id_organization; ?>
+<?php
+$users = [];
+foreach ($this->users as $user) {
+    $users[$user->id] = $user->name;        
+};
+?>
+
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "af7605b1-8658-42b1-9e2a-af96a1d47fb7", doNotHash: false, doNotCopy: false, hashAddressBar: true, onhover: false});</script>
+<style>
+<!--
+span.stButton {
+	display:none!important;
+}
+-->
+</style>
+<div class="block">
+    
+    <?php if ($m==1) { ?>
+        <div class="alert alert-success alert-dismissable fade in">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <i class="fa fa-check-circle"></i> 
+            <?php echo $this->translate('Successful operation!'); ?>
+        </div>
+    <?php } ?>
+
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $org_id_test==177?$this->translate('Store'):$this->translate('Project'); ?></strong></td>
+                <td><?php echo $this->entity->name; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Minimum required performance'); ?></strong></td>
+                <td><?php echo $this->entity->min_performance_required; ?></td>
+            </tr>
+            <!--
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Languages'); ?></strong></td>
+                <td>
+                    <?php echo $this->entity->getLanguagesString(); ?>
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Public evaluations'); ?></strong></td>
+                <td><?php echo $this->entity->enable_public ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Status'); ?></strong></td>
+                <td><?php echo $this->entity->active ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<?php if ($this->entity->enable_public) { ?>
+<div class="block">
+    <div class="block-title"><h2><?php echo $this->translate('Public options'); ?></h2></div>
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Public short subtitle'); ?></strong></td>
+                <td colspan="2"><?php echo $entity->public_description?:'N/A'; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('By agents'); ?></strong></td>
+                <td><?php echo $this->entity->public_by_agents ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+                <td>
+                </td>
+
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Require enter names'); ?></strong></td>
+                <td colspan="2"><?php echo $this->entity->require_public_names ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Language'); ?></strong></td>
+                <td colspan="2"><?php echo $entity->locale?:'N/A'; ?></td>
+            </tr>
+<!--  Botones generales por selector en encuesta. Inicio  -->
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Enable form selector'); ?></strong></td>
+                <td colspan="2"><?php echo $this->entity->enable_form_selector ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+            <?php if($this->entity->enable_form_selector) { ?>
+                <tr>
+                    <td style="width: 20%;"><strong><?php echo $this->translate('Form selection question'); ?></strong></td>
+                    <td colspan="2"><?php echo $entity->form_selector_question; ?></td>
+                </tr>
+
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Link to form\'s selector'); ?></strong></td>
+                <td>
+<?php
+                $publicToken = $entity->public_token;
+
+                if ($publicToken) { 
+                    if($entity->public_by_agents) {
+?>
+                    <!-- Link directo por agente: Inicio -->
+                    <a  href="#modal-link" 
+                        data-toggle="modal" 
+                        class="btn btn-primary enable-tooltip" 
+                        title="<?php echo $this->translate('Evaluate'); ?>" 
+                        data-placement="top" 
+                        data-token="<?= $publicToken ?>"
+                        >
+                        <i class="fa fa-link"></i>
+                    </a>
+                    <!-- Link directo por agente: Fin -->
+<?php
+                    } else {
+?>
+                    <!-- Link directo a la encuesta: Inicio -->
+                    <a href="<?php echo $this->url('public_listening',array('token'=>$publicToken), array('force_canonical' => true));?>" target="_blank" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="<?php echo $this->translate('Go to evaluation'); ?>"><i class="fa fa-link"></i></a>
+                    <!-- Link directo a la encuesta: Fin -->
+<?php                       
+                    }
+?>
+                    <!-- generacion QR. Inicio -->
+                    <a  href="#modal-qrcode" 
+                        data-toggle="modal" 
+                        class="btn btn-primary enable-tooltip" 
+                        title="<?php echo $this->translate('Generate QR Code'); ?>" 
+                        data-placement="top" 
+                        data-token="<?= $publicToken ?>"
+                        data-url="<?= $this->url(
+                            'application/default', 
+                            array('controller'=>'project','action'=>'render-qr-code'), 
+                            array()
+                            );?>"
+                        data-qrcode-url="<?= $this->url('application/default', array('controller'=>'project','action'=>'render-qr-code'), array('query'=>array('url'=>base64_encode($this->url('public_listening',array('token'=>$publicToken), array('force_canonical' => true))))));?>">
+                        <i class="fa fa-qrcode"></i>
+                    </a>
+                    <!-- generacion QR. Fin -->
+<?php
+                    if($entity->public_by_agents) {
+?>
+                    <!-- Share por agente: Inicio -->
+                    <a  href="#modal-share" 
+                        data-toggle="modal" 
+                        class="btn btn-success enable-tooltip" 
+                        title="<?php echo $this->translate('Share evaluation'); ?>" 
+                        data-placement="top" 
+                        data-token="<?= $publicToken ?>"
+                        >
+                        <i class="fa fa-share-alt"></i>
+                    </a>
+                    <!-- Share por agente: Inicio -->
+<?php
+                    } else {
+?>
+                        <!-- Share de la encuesta: Inicio -->
+                        <span id="button_<?php echo $publicToken; ?>" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="<?php echo $this->translate('Share evaluation'); ?>"><i class="fa fa-share-alt"></i></span>
+                        <script type="text/javascript">
+                        stWidget.addEntry({
+                            "service":"sharethis",
+                            "element":document.getElementById('button_<?= $publicToken ?>'),
+                            "url":"<?php echo $this->url('public_listening',array('token'=>$publicToken), array('force_canonical' => true));?>",
+                            "title":"<?php echo $entity->name?:''; ?>",
+                            "type":"large",
+                            "text":"<?php echo $entity->name?:''; ?>" ,
+                            "summary":"<?php echo $entity->public_description?:''; ?>"
+                        });
+                        </script>
+                        <!-- Share de la encuesta: Inicio -->
+<?php
+                    }
+                } 
+?>
+                </td>
+            </tr>
+        <?php } ?>
+
+<!--  Botones generales por selector en encuesta. Fin  -->
+
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+<?php } ?>
+
+<div class="block">
+    <div class="block-title"><h2><?php echo $org_id_test==177?$this->translate('Store Regions'):$this->translate('Project Channels'); ?></h2></div>
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <?php foreach ($this->entity->projects_channels as $project_channel) { ?>
+            <?php if($org_id_test==177 && $project_channel->id_channel < 5) continue; ?>
+            <?php if($org_id_test!=177 && $project_channel->id_channel >= 5) continue; ?>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate($project_channel->channel); ?></strong></td>
+                <td><?php echo $project_channel->form?:'N/A'; ?></td>
+<?php
+                if ($entity->enable_public) {
+?>
+                <td>
+<?php
+                    //Busco token especifico de este canal
+                    $publicToken = $entity->getPublicToken($project_channel->id_channel, $project_channel->id_form);    
+
+                    if ($publicToken) { 
+                        if($entity->public_by_agents) {
+?>
+                        <!-- Link directo por agente. Inicio -->
+                        <a  href="#modal-link" 
+                            data-toggle="modal" 
+                            class="btn btn-primary enable-tooltip" 
+                            title="<?php echo $this->translate('Evaluate'); ?>" 
+                            data-placement="top" 
+                            data-token="<?= $publicToken ?>"
+                            >
+                            <i class="fa fa-link"></i>
+                        </a>
+                        <!-- Link directo por agente. Fin -->
+<?php
+                        } else {
+?>
+                        <!-- Link directo al formulario. Inicio -->
+                        <a href="<?php echo $this->url('public_listening',array('token'=>$publicToken), array('force_canonical' => true));?>" target="_blank" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="<?php echo $this->translate('Go to evaluation'); ?>"><i class="fa fa-link"></i></a>
+                        <!-- Link directo al formulario. Fin -->
+<?php
+                        } 
+?>
+                        <!-- Generacion QR por formulario. Inicio -->
+                        <a  href="#modal-qrcode" 
+                            data-toggle="modal" 
+                            class="btn btn-primary enable-tooltip" 
+                            title="<?php echo $this->translate('Generate QR Code'); ?>" 
+                            data-placement="top" 
+                            data-token="<?= $publicToken ?>"
+                            data-url="<?= $this->url(
+                                'application/default', 
+                                array('controller'=>'project','action'=>'render-qr-code'), 
+                                array()
+                                );?>"
+                            data-qrcode-url="<?= $this->url('application/default', array('controller'=>'project','action'=>'render-qr-code'), array('query'=>array('url'=>base64_encode($this->url('public_listening',array('token'=>$publicToken), array('force_canonical' => true))))));?>">
+                            <i class="fa fa-qrcode"></i>
+                        </a>
+                        <!-- Generacion QR por formulario. Inicio -->
+<?php
+                        if($entity->public_by_agents) {
+?>
+                        <!-- Share con selector de agente. Inicio -->
+                        <a  href="#modal-share" 
+                            data-toggle="modal" 
+                            class="btn btn-success enable-tooltip" 
+                            title="<?php echo $this->translate('Share evaluation'); ?>" 
+                            data-placement="top" 
+                            data-token="<?= $publicToken ?>"
+                            >
+                            <i class="fa fa-share-alt"></i>
+                        </a>
+                        <!-- Share con selector de agente. Fin -->
+<?php
+                        } else {
+?>
+                        <!-- Share directo al formulario -->
+                        <span id="button_<?php echo $publicToken; ?>" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="<?php echo $this->translate('Share evaluation'); ?>"><i class="fa fa-share-alt"></i></span>
+                        <script type="text/javascript">
+                        stWidget.addEntry({
+                            "service":"sharethis",
+                            "element":document.getElementById('button_<?= $publicToken ?>'),
+                            "url":"<?php echo $this->url('public_listening',array('token'=>$publicToken), array('force_canonical' => true));?>",
+                            "title":"<?php echo $entity->name?:''; ?>",
+                            "type":"large",
+                            "text":"<?php echo $entity->name?:''; ?>" ,
+                            "summary":"<?php echo $entity->public_description?:''; ?>"
+                        });
+                        </script>
+                        <!-- Share directo al formulario -->
+<?php
+                        }
+                    }
+?>
+                </td>
+                <?php } ?>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+
+<div class="block full">
+	<div class="row">
+		<div class="col-md-12">
+		<?php if($this->layout()->getVariable('role')->hasPermission('project_edit')){?>
+			<a href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'edit','id'=>$this->id));?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> <?php echo $this->translate('Edit'); ?></a>
+		<?php }?>
+		<?php if($this->layout()->getVariable('role')->hasPermission('project_index')){?>
+			<a href="<?php echo $this->url('application/default', array('controller'=>'project','action'=>'index'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+		<?php }?>
+		</div>
+	</div>
+</div>
+
+<div id="modal-qrcode" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Body -->
+            <div class="modal-body text-center">
+                <?php if ($entity->public_by_agents) { ?>
+                    <div class="row">
+                        <form>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label"><?= $this->translate('Choose an Agent') ?></label>
+                                <div class="col-md-8">
+                                    <select 
+                                        name="agents"
+                                        class="select-chosen form-control"
+                                        data-placeholder='<?= $this->translate('Choose an Agent') ?>'>
+                                        <option value="0"></option>
+                                    <?php
+                                        foreach ($users as $key => $user) {
+                                            echo '<option value="'.$key.'">'.$user.'</option>';        
+                                        };
+                                    ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>  
+                <?php } ?>
+                <div class="row"><div class="col-md-12 text-center qrcode"></div></div>
+                <br/>
+                <p><a href="javascript:void(0)" data-dismiss="modal"><?php echo $this->translate('Close')?></a></p>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
+
+<div id="modal-link" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Body -->
+            <div class="modal-body text-center">
+                <?php if ($entity->public_by_agents) { ?>
+                    <div class="row">
+                        <form>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label"><?= $this->translate('Choose an Agent') ?></label>
+                                <div class="col-md-8">
+                                    <select 
+                                        name="agents"
+                                        class="select-chosen form-control"
+                                        data-placeholder='<?= $this->translate('Choose an Agent') ?>'>
+                                        <option value="0"></option>
+                                    <?php
+                                        foreach ($users as $key => $user) {
+                                            echo '<option value="'.$key.'">'.$user.'</option>';        
+                                        };
+                                    ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>  
+                <?php } ?>
+                <div class="row"><div class="col-md-12 text-center link" style="padding-top: 15px"></div></div>
+                <br/>
+                <p><a href="javascript:void(0)" data-dismiss="modal"><?php echo $this->translate('Close')?></a></p>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
+
+<div id="modal-share" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Body -->
+            <div class="modal-body text-center">
+                <?php if ($entity->public_by_agents) { ?>
+                    <div class="row">
+                        <form>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label"><?= $this->translate('Choose an Agent') ?></label>
+                                <div class="col-md-8">
+                                    <select 
+                                        name="agents"
+                                        class="select-chosen form-control"
+                                        data-placeholder='<?= $this->translate('Choose an Agent') ?>'>
+                                        <option value="0"></option>
+                                    <?php
+                                        foreach ($users as $key => $user) {
+                                            echo '<option value="'.$key.'">'.$user.'</option>';        
+                                        };
+                                    ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>  
+                <?php } ?>
+                <div class="row"><div class="col-md-12 text-center link" style="padding-top: 15px"></div></div>
+                <br/>
+                <p><a href="javascript:void(0)" data-dismiss="modal"><?php echo $this->translate('Close')?></a></p>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
+
+<?php
+    $this->inlineScript()->captureStart();
+?>
+var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9+/=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/rn/g,"n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}};
+
+
+<?php
+        if(!$entity->public_by_agents) {
+    
+?>
+$('#modal-qrcode').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); 
+    var url = button.data('qrcode-url'); 
+  
+    var modal = $(this);
+    $( "#modal-qrcode div.qrcode" ).load( url );
+});
+<?php
+        } else {
+?>
+$('#modal-qrcode').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+
+    var token = button.data('token');
+
+    $( "#modal-qrcode select" )
+        .attr( 'data-token', button.data('token') )
+        .attr( 'data-url', button.data('qrcode-url') );
+
+    $( "#modal-qrcode select" ).val('0').trigger("chosen:updated");
+
+});
+
+$('#modal-qrcode select').on('change', function (event) {
+
+
+    var token = $(this).attr('data-token')+$(this).val();
+
+    var lnk = "<?= $this->url('public_listening',[], ['force_canonical' => true]) ?>"+'/'+token;
+
+    var qrurl = "<?= $this->url(
+                            'application/default', 
+                            array('controller'=>'project','action'=>'render-qr-code'), 
+                            array()
+                            );?>?url="+encodeURIComponent(Base64.encode(lnk));
+
+console.log(qrurl);
+  
+    $( "#modal-qrcode div.qrcode" ).load( qrurl );
+});
+
+$('#modal-link').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+
+    var token = button.data('token');
+
+    $( "#modal-link select" )
+        .attr( 'data-token', button.data('token') );
+
+    $( "#modal-link select" ).val('0').trigger("chosen:updated");
+
+});
+
+$('#modal-share').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+
+    var token = button.data('token');
+
+    $( "#modal-share select" )
+        .attr( 'data-token', button.data('token') );
+
+    $( "#modal-share select" ).val('0').trigger("chosen:updated");
+
+});
+
+
+$('#modal-link select').on('change', function (event) {
+
+    var token = $(this).attr('data-token')+$(this).val();
+
+    var lnk = "<?= $this->url('public_listening',[], ['force_canonical' => true]) ?>"+'/'+token;
+
+    var html = '<a href="'+lnk+'" class="btn btn-block btn-success" target="_blank" onclick="$(\'#modal-link\').modal(\'hide\');"><?= $this->translate('Evaluate') ?> </a>';
+  
+    $( "#modal-link div.link" ).html( html );
+});
+
+$('#modal-share select').on('change', function (event) {
+
+    var token = $(this).attr('data-token')+$(this).val();
+
+    var lnk = "<?= $this->url('public_listening',[], ['force_canonical' => true]) ?>"+'/'+token;
+
+    var html = '<span id="share-'+token+'" class="btn btn-block btn-success" ><i class="fa fa-share-alt"></i> <?= $this->translate('Share') ?> </span>';
+
+    $( "#modal-share div.link" ).html( html );
+
+    stWidget.addEntry({
+        "service":"sharethis",
+        "element":document.getElementById('share-'+token),
+        "url":"<?php echo $this->url('public_listening',array(), array('force_canonical' => true));?>/"+token,
+        "title":"<?php echo $entity->name?:''; ?>",
+        "type":"large",
+        "text":"<?php echo $entity->name?:''; ?>" ,
+        "summary":"<?php echo $entity->public_description?:''; ?>"
+    });
+
+});
+
+
+
+<?php
+        }
+    $this->inlineScript()->captureEnd();
+?>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$('#modal-qrcode').on('hidden.bs.modal', function (e) {
+  $( "#modal-qrcode div.qrcode" ).html('');
+});
+
+$('#modal-link').on('hidden.bs.modal', function (e) {
+  $( "#modal-link div.link" ).html('');
+});
+<?php $this->inlineScript()->captureEnd(); ?>

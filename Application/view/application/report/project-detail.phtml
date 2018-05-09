@@ -1,0 +1,165 @@
+<?php $projectsScores = array(); ?>
+<?php foreach ($this->paginator as $item) { ?>
+<?php $projectsScores[$item->id_agent] = array('score'=>$item->score,'samples'=>$item->samples); ?>
+<?php } ?>
+
+<div class="block full">
+    <h4>Project Details - <strong><?php echo $project->name; ?></strong></h4>
+</div>
+
+<div class="block full">
+    <!-- Bars Chart Content -->
+    <!-- Flot Charts (initialized in js/pages/compCharts.js), for more examples you can check out http://www.flotcharts.org/ -->
+    <div id="chart-bars" class="chart"></div>
+    <!-- END Bars Chart Content -->
+</div>
+
+<div class="block full">
+    <!-- Responsive Full Content -->
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th>Agent / Group</th>
+                    <?php foreach ($questionsGroups as $questionGroup){ ?>
+                    <th><?php echo $questionGroup->name; ?></th>
+                    <?php } ?>
+                    <th>Grand Total</th>
+                    <th>Samples</th>
+                    <th class="text-center" style="width: 50px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <?php $newProjectsGroupsScores = $projectsGroupsScores->current(); ?>
+                
+                <?php while ($newProjectsGroupsScores) { ?>
+                <?php $oldProjectsGroupsScores = $newProjectsGroupsScores; ?>
+                <tr>
+                    <td><?php echo $newProjectsGroupsScores->agent; ?></td>
+                    <?php while ($newProjectsGroupsScores && $newProjectsGroupsScores->id_agent==$oldProjectsGroupsScores->id_agent) { ?>
+                    <td><?php echo $newProjectsGroupsScores->score; ?></td>
+                    <?php $projectsGroupsScores->next(); ?>
+                    <?php $newProjectsGroupsScores = $projectsGroupsScores->current(); ?>
+                    <?php } ?>
+                    <td><?php echo $projectsScores[$oldProjectsGroupsScores->id_agent]['score']; ?></td>
+                    <td><?php echo $projectsScores[$oldProjectsGroupsScores->id_agent]['samples']; ?></td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-xs">
+                            <?php $newFilter = $filter; ?>
+                            <?php $newFilter['agent'] = $oldProjectsGroupsScores->id_agent; ?>
+                            <?php unset($newFilter['organization']); ?>
+                            <a class="btn btn-default" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'index'));?>?<?php echo http_build_query($newFilter); ?>" data-original-title="View"><i class="fa fa-search"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+                
+            </tbody>
+        </table>
+    </div>
+    <!-- END Responsive Full Content -->
+    <div class="text-right">
+        <?php 
+            echo $this->paginationControl(
+                // the paginator object
+                $this->paginator,
+                // the scrolling style
+                'sliding',
+                // the partial to use to render the control
+                'partial/paginator.phtml',
+                // the route to link to when a user clicks a control link
+                array('query' => $this->filter)
+            );
+        ?>
+    </div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Last 12 Weeks Rolling</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <?php foreach ($weekRollingScoreTotal as $item) { ?>
+                    <th><?php echo $item->week; ?></th>
+                    <?php } ?>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Score</td>
+                    <?php foreach ($weekRollingScoreTotal as $item) { ?>
+                    <td><?php echo $item->score; ?></td>
+                    <?php } ?>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Last 6 Months Rolling</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <?php foreach ($monthRollingScoreTotal as $item) { ?>
+                    <th><?php echo date('F', mktime(0, 0, 0, $item->month, 10)); ?></th>
+                    <?php } ?>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Score</td>
+                    <?php foreach ($monthRollingScoreTotal as $item) { ?>
+                    <td><?php echo $item->score; ?></td>
+                    <?php } ?>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li ul li a.projects-overview').addClass('active');
+    <?php $data = array(); ?>
+    <?php foreach ($this->paginator as $item) { ?>
+    <?php array_push($data, '["'.$item->agent.'", '.$item->score.']'); ?>
+    <?php } ?>
+    
+	    
+	var data = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-bars'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+    
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>

@@ -1,0 +1,44 @@
+ <?php
+  $url = $this->url('admin/default', array(
+    'controller'=>'role',
+    'action' => 'delete',
+    'id'     => $this->id,
+ ));
+ ?>
+  
+ <div class="row">
+	<div class="col-md-12">
+		<!-- Info Block -->
+		<div class="block">
+			<!-- Info Title -->
+			<div class="block-title">
+				<h2>¿Seguro que desea <?=$role->active ? 'des' : '' ?>habilitar: '<?=$this->escapeHtml($role->name)?>'?</h2>
+			</div>
+			<!-- END Info Title -->
+
+			<!-- Info Content -->
+			<table class="table table-borderless table-striped">
+				<tbody>
+					<tr>
+						<td style="width: 20%;"><strong>Nombre</strong></td>
+						<td><?=$this->escapeHtml($role->name)?></td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- END Info Content -->
+		</div>
+		<!-- END Info Block -->
+		<div class="block">
+             <form action="<?php echo $url; ?>" method="post" class="form-horizontal">
+                <input type="hidden" name="id" value="<?php echo (int) $role->id; ?>" />		
+                <div class="form-group form-actions">
+        			<div class="col-md-12">
+        				<button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-angle-right"></i> <?=$role->active ? 'Desh' : 'H' ?>abilitar</button>
+        				<a href="/admin/role" class="btn btn-sm btn-warning">Volver al Listado</a>
+        			</div>
+        		</div>
+            </form>        
+        </div>
+        
+	</div>
+</div>

@@ -1,0 +1,57 @@
+ <?php
+  $url = $this->url('admin/default', array(
+    'controller'=>'permission',
+    'action' => 'index',
+    'id'     => $this->id,
+ ));
+ ?>
+  
+ <div class="row">
+	<div class="col-md-12">
+		<!-- Info Block -->
+		<div class="block">
+			<!-- Info Title -->
+			<div class="block-title">
+				<h2><?=$this->escapeHtml($permission->name)?></h2>
+			</div>
+			<!-- END Info Title -->
+
+			<!-- Info Content -->
+			<table class="table table-borderless table-striped">
+				<tbody>
+					<tr>
+						<td style="width: 20%;"><strong>Nombre</strong></td>
+						<td><?=$this->escapeHtml($permission->name)?></td>
+					</tr>
+					<tr>
+						<td style="width: 20%;"><strong>Category</strong></td>
+						<td><?=$this->escapeHtml($permission->category)?></td>
+					</tr>
+					<tr>
+						<td style="width: 20%;"><strong>Key</strong></td>
+						<td><?=$this->escapeHtml($permission->key)?></td>
+					</tr>
+					<tr>
+						<td style="width: 20%;"><strong>Controller</strong></td>
+						<td><?=$this->escapeHtml($permission->controller)?></td>
+					</tr>
+					<tr>
+						<td style="width: 20%;"><strong>Action</strong></td>
+						<td><?=$this->escapeHtml($permission->action)?></td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- END Info Content -->
+		</div>
+
+		<div class="block">
+			<div class="row">
+				<div class="col-md-12">
+					<a href="/admin/permission/edit/<?=$permission->id?>" class="btn btn-sm btn-primary">Editar</a>
+					<a href="/admin/permission" class="btn btn-sm btn-warning">Volver al Listado</a>
+					<div class="clearfix">&nbsp;</div>
+				</div>
+			</div>
+        </div>                
+	</div>
+</div>

@@ -1,0 +1,160 @@
+<style>
+div.bootstrap-touchspin input {
+	border-top-left-radius: 4px!important;
+	border-bottom-left-radius: 4px!important;
+}
+</style>
+
+<div class="block">
+    <?php if ($this->error) { ?>
+        <div class="alert alert-danger alert-dismissable">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <h4><i class="fa fa-times-circle"></i> <?php echo $this->translate('Error'); ?></h4> <?php echo $this->error?>
+        </div>
+    <?php } ?>
+    
+    <!-- Horizontal Form Content -->
+    <?php $form->prepare(); ?>
+    <?php echo $this->form()->openTag($form); ?>
+    <fieldset>
+    	<legend><?php echo $this->translate('Plan Details'); ?></legend>
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Product'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+                <?php echo $this->formselect($form->get('id_membership')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('id_membership'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Total Users'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+                <?php echo $this->formtext($form->get('max_users')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('max_users'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Billing Period'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+                <?php echo $this->formselect($form->get('billing_period')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('billing_period'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>    	
+	</fieldset>
+	<fieldset>
+        <legend><?php echo $this->translate('Total'); ?></legend>
+        <div class="form-group success">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('SUBTOTAL PER USER'); ?>
+            </label>
+            <div class="col-md-4">
+                <p class="form-control-static text-success"><strong>$<span class="unit-price">0</span></strong></p>
+            </div>
+        </div>
+        <div class="form-group success">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('TOTAL TO PAY'); ?> <span style="text-transform: uppercase;" class="billing-period text-info"></span>
+            </label>
+            <div class="col-md-4">
+                <p class="form-control-static text-success"><strong>$<span class="total-due">0</span></strong></p>
+            </div>
+        </div>
+        <div class="form-group success">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('TOTAL TO PAY <span class="text-info">NOW</span>'); ?> 
+            </label>
+            <div class="col-md-4">
+                <p class="form-control-static text-success"><strong>$<span class="payment-total">0</span></strong></p>
+            </div>
+        </div>        
+        <div class="col-md-4 col-md-offset-3">
+            <p class="text-warning form-control-static"><i class="fa fa-info-circle"></i> <?php echo $this->translate('Taxes are included in price.')?></p>
+            <p class="text-warning form-control-static"><i class="fa fa-info-circle"></i> <?php echo $this->translate('All prices are in US dollar.')?></p>
+        </div>
+    </fieldset>    
+	<?php if ($billing) { ?>
+    <fieldset>
+    	<legend><?php echo $this->translate('Existing Credit Card')?></legend>
+    	<div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Type'); ?>
+            </label>
+            <div class="col-md-4"><p class="form-control-static"><?php echo $billing->cardtype; ?></p></div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Card Number'); ?>
+            </label>
+            <div class="col-md-4"><p class="form-control-static"><?php echo $billing->cardnumber; ?></p></div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Expiration'); ?>
+            </label>
+            <div class="col-md-4"><p class="form-control-static"><?php echo $billing->exp_month.'/'.$billing->exp_year; ?></p></div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Cardholder Name'); ?>
+            </label>
+            <div class="col-md-4"><p class="form-control-static"><?php echo $billing->cardholder_name; ?></p></div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Update Credit Card Details'); ?>
+            </label>
+            <div class="col-md-4">
+                <label class="switch switch-primary"><?php echo $this->formcheckbox($form->get('update_cc')); ?><span></span></label>
+                <span class="help-block"><?php echo sprintf($this->translate('You can update later your credit card details in the section <a href="%s">Billing Details</a>.'),$this->url('application/default',array('controller'=>'organization','action'=>'manage-billing-details')))?></span>
+            </div>
+        </div>
+    </fieldset>
+    <?php } else { ?>
+    <input type="hidden" name="update_cc" value="1" />
+    <?php } ?>
+    <fieldset id="update-cc" style="<?php echo !$form->get('update_cc')->getValue() && $billing ? 'display:none;' : ''; ?>">
+        <?php if ($billing) { ?>
+    	<legend><?php echo $this->translate('Update Credit Card'); ?></legend>
+    	<?php } ?>
+    	<?php echo $this->partial('billing-details-fieldset', array('form' => $form)) ?>
+    </fieldset>
+    
+    <fieldset>
+        <legend><?php echo $this->translate('Confirmation'); ?></legend>
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Password'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+                <?php echo $this->formpassword($form->get('password')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('password'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+    </fieldset>
+    <div class="form-group form-actions">
+        <div class="col-md-4 col-md-offset-3">
+            <button class="btn btn-sm btn-primary" type="submit" id="submitbutton"><i class="fa fa-check"></i> <?php echo $this->translate('Change Plan'); ?></button>
+            <a class="btn btn-sm btn-warning" href="<?php echo $this->url('application/default',array('controller'=>'organization','action'=>'manage-subscription'));?>"><i class="fa fa-repeat"></i> <?php echo $this->translate('Cancel'); ?></a>
+        </div>
+    </div>
+    <?php echo $this->form()->closeTag(); ?>
+    <!-- END Horizontal Form Content -->
+</div>
+
+<?php $this->inlineScript()->appendFile('/modules/application/js/billing.js'); ?>
+<?php $this->inlineScript()->appendFile('/modules/application/js/subscription.js'); ?>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function(){
+    $('ul.sidebar-nav li a.subscription-details').addClass('active');
+});
+<?php $this->inlineScript()->captureEnd(); ?>

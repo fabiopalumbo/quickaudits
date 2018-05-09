@@ -1,0 +1,121 @@
+<div class="block">
+    <div class="block-title">
+        <h2><?php echo sprintf($this->translate('Are you sure you want to <strong>%s</strong> this record?'), $this->entity->active ? $this->translate('disable') : $this->translate('enable')); ?></h2>
+    </div>
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Project'); ?></strong></td>
+                <td><?php echo $this->entity->project; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Channel'); ?></strong></td>
+                <td><?php echo $this->entity->channel; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('QA Agent'); ?></strong></td>
+                <td><?php echo $this->entity->qa_agent_fullname?:'N/A'; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Status'); ?></strong></td>
+                <td><?php echo $this->entity->active ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<div class="block full">
+    
+    <fieldset>
+        <legend><?php echo $this->translate('Questions'); ?></legend>
+
+        <?php $entity->listenings_answers->rewind(); ?>
+        
+        <table class="table table-vcenter table-striped">
+        <?php $count_groups=1; ?>
+        
+        <?php $newListeningAnswer = $entity->listenings_answers->current(); ?>
+        <?php while ($newListeningAnswer) { ?>
+        <?php $oldListeningAnswer = $newListeningAnswer; ?>
+        <thead class="group">
+            <tr class="info">
+                <th><?php echo $count_groups; ?></th>
+                <th class=""><?php echo $newListeningAnswer->question_group;?></th>
+                <th class="text-right" style="width: 100px;"><?php echo $this->translate('Score'); ?></th>
+                <th class="text-right" style="width: 100px;"><?php echo $this->translate('Weight'); ?></th>
+            </tr>
+            <tr class="info">
+                <th>&nbsp;</th>
+                <th><?php echo $this->translate('Questions'); ?></th>
+                <th class="text-right"><?php echo number_format($this->groupsScores[$newListeningAnswer->id_group], 2); ?>%</th>
+                <th class="text-right"><?php echo $this->groupsWeights[$newListeningAnswer->id_group]; ?>%</th>
+            </tr>
+        </thead>
+        <tbody data-group-id="<?php echo $newListeningAnswer->id_group; ?>">
+            <?php $count_questions=1;?>
+            <?php while ($newListeningAnswer && $newListeningAnswer->id_group==$oldListeningAnswer->id_group) { ?>
+            <tr>
+                <td><?php echo $count_groups.'.'.$count_questions; ?></td>
+                <td><?php
+                        $agentName = $this->entity->id_agent?$entity->agent->name:$this->translate('Anonymous');
+                        echo str_replace('{{agent}}', $agentName, $newListeningAnswer->question) ; ?></td>
+                <td class="text-right">
+                    <?php if ($newListeningAnswer->answers == 2) { ?>
+        			    <?php echo $newListeningAnswer->answer==='0' ? $this->translate('No') : $this->translate('Yes'); ?>
+        			<?php }else{ ?> 
+                        <?php echo $newListeningAnswer->answer; ?>
+        			<?php } ?>
+                    <?php //echo $newListeningAnswer->answer; ?>
+                </td>
+                <td class="text-right"><?php echo $newListeningAnswer->weight_percentage; ?>%</td>
+            </tr>
+            <?php $count_questions++; ?>
+            <?php $entity->listenings_answers->next(); ?>
+            <?php $newListeningAnswer = $entity->listenings_answers->current(); ?>
+            <?php } ?>
+        </tbody>
+        <?php $count_groups++; ?>
+        <?php } ?>
+        <tfoot>
+            <tr>
+                <th>&nbsp;</th>
+                <th><?php echo $this->translate('Total Quality Score'); ?></th>
+                <th class="text-right">
+                    <?php echo $entity->score; ?>%
+                </th>
+                <th>&nbsp;</th>
+            </tr>
+        </tfoot>
+    </table>
+    </fieldset>
+    
+    
+    <fieldset>
+        <legend><?php echo $this->translate('Comments'); ?></legend>
+        
+        <div class="form-group">
+            <div class="col-md-12">
+                <p class="form-control-static"><?php echo $this->entity->comments?nl2br($this->entity->comments):$this->translate('There are no comments for this evaluation.'); ?></p>
+            </div>
+        </div>
+        
+    </fieldset>
+    
+</div>
+
+<div class="block">
+    <form method="post" class="form-horizontal">
+        <div class="form-group form-actions">
+			<div class="col-md-12">
+                <?php if ($this->entity->active) { ?>
+                <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-times"></i> <?php echo $this->translate('Disable'); ?></button>
+                <?php } else { ?>
+				<button class="btn btn-sm btn-success" type="submit"><i class="fa fa-check"></i> <?php echo $this->translate('Enable'); ?></button>
+				<?php } ?>
+				<a href="<?php echo $rurl ?: $this->url('basic/default', array('controller'=>'listening','action'=>'index'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+			</div>
+		</div>
+    </form>        
+</div>

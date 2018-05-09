@@ -1,0 +1,111 @@
+<?php /* @var $projectsOverview \Zend\Paginator\Paginator */ ?>
+<div class="widget">
+    <div class="widget-advanced widget-advanced-alt">
+        <!-- Widget Header -->
+        <div class="widget-header text-center ">
+        <?php if ($this->layout()->getVariable('role')->hasPermission('organization_manage-dashboard')) {?>
+        <div class="widget-options">
+            <div class="btn-group btn-group-xs">
+                <a data-original-title="<?php echo $this->translate('Manage Dashboards'); ?>" href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-dashboard'));?>" class="btn btn-xs btn-default" data-toggle="tooltip" title="<?php echo $this->translate('Manage Dashboards'); ?>"><i class="fa fa-cog"></i></a>
+            </div>
+        </div>    
+        <?php } ?>
+            <h3 class="text-left pull-left animation-pullDown">
+                <strong>Nivel Socio Económico</strong><br>
+                <small>(Mensual)</small>
+            </h3>
+        </div>
+        <!-- END Widget Header -->
+        <?php if ($nes->count()) { ?>
+        <div id="nes-182" class="chart"></div>
+        <?php } else { ?>
+        <div class="row-fluid clearfix">
+        	<div class="col-md-12"><div class="alert alert-warning"><?php echo $this->translate('There is no data to display this report.'); ?></div></div>
+        </div>
+        <?php } ?>
+    </div>
+</div>
+
+<?php if ($nes->count()) { ?>
+<script type="text/javascript">
+<!--
+$(function(){
+    // NES (MTD)
+	<?php
+        $data = ["Bajo" => '["Bajo",0]', "Medio bajo" => '["Medio bajo",0]', "Medio típico" => '["Medio típico",0]', "Alto/Medio alto" => '["Alto/Medio alto",0]']; 
+
+        $data1 = ["Bajo" => '["Bajo",0]', "Medio bajo" => '["Medio bajo",0]', "Medio típico" => '["Medio típico",0]', "Alto/Medio alto" => '["Alto/Medio alto",0]']; 
+    
+        $cases = 0;
+
+        foreach ($nes as $item) {
+            $cases += $item['cases'];
+        }
+
+        foreach ($nes as $item) {
+            $por = $item['cases'] / $cases * 100;
+            $data[$item['score']] = '["'.$item['score'].'", '.$item['cases'].']';
+            $data1[$item['score']] = '["'.$item['score'].'", '.$por.']';
+        } 
+    ?>
+    
+    var data = [ <?php echo implode(', ', $data); ?> ];
+	var data1 = [ <?php echo implode(', ', $data1); ?> ];
+    
+	$.plot($('#nes-182'), 
+       [ 
+            {
+    	       //label: "Scores", 
+    	       data: data1,
+    	       bars: {
+                    show: true, 
+                    //barWidth: 0.6, 
+                    align: "center", 
+                    lineWidth: 1, 
+                    fillColor: {
+                       colors: [{opacity: 0.3}, {opacity: 0.3}]
+                    }
+                },
+                valueLabels: { show: true } 
+           },
+
+            {
+               //label: "Scores", 
+               data: data,
+               lines: {
+                    show: false, 
+                    align: "center", 
+                },
+                valueLabels: { show: true } 
+           } 
+
+       ], 
+       {
+    	grid: {borderWidth: 0},
+    	colors: ['#84BF4F'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	},
+    	yaxis: {show: false},
+        hooks: {
+            drawSeries: [function(plot, canvascontext, series){
+                console.log(series);
+                for(var i=0; i<4; i++){
+                    series.data[i][1] = Math.round(series.data[i][1]);    
+                };
+                
+            }]
+        }
+    });
+});
+//-->
+</script>
+<?php } ?>
+<script type="text/javascript">
+<!--
+$(function(){
+$('[data-toggle="tooltip"], .enable-tooltip').tooltip({container: 'body', animation: false});
+});
+//-->
+</script>

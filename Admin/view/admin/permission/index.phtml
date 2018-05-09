@@ -1,0 +1,64 @@
+<div class="block full block-alt-noborder">
+    <div class="block-title">
+        <div class="block-options pull-right">
+            <?php  if($this->layout()->getVariable('role')->hasPermission('permission_add')){?>
+            <a href="<?php echo $this->url('admin/default', array('controller'=>'permission','action'=>'add'));?>" class="btn btn-sm btn-default">add new permission</a>
+            <?php }?>
+        </div>
+        <h2>&nbsp;</h2>
+    </div>    
+        
+ <table class="table table-striped table-vcenter">
+     <thead>
+         <tr>
+             <th>Name</th>
+             <th>Category</th>
+             <th>Key</th>
+             <th>Controller</th>
+             <th>Action</th>
+             <th class="text-center" style="width: 150px;">Actions</th>
+         </tr>
+     </thead>
+     <tbody>
+         <?php foreach ($paginator as $permission) : ?>
+         <tr>
+             <td><?php echo $this->escapeHtml($permission->name);?></td>
+             <td><?php echo $this->escapeHtml($permission->category);?></td>
+             <td><?php echo $this->escapeHtml($permission->key);?></td>
+             <td><?php echo $this->escapeHtml($permission->controller);?></td>
+             <td><?php echo $this->escapeHtml($permission->action);?></td>
+             <td class="text-center">
+                <div class="btn-group btn-group-xs">
+                    <?php  if($this->layout()->getVariable('role')->hasPermission('permission_edit')){?>
+                   <a class="btn btn-default" title="" data-toggle="tooltip" href="<?php echo $this->url('admin/default',
+                    array('controller'=>'permission', 'action'=>'edit', 'id' => $permission->id));?>" data-original-title="Editar"><i class="fa fa-pencil"></i></a>
+                    <?php }?>
+                    <?php if($this->layout()->getVariable('role')->hasPermission('permission_view')){?>
+                   <a class="btn btn-primary" title="" data-toggle="tooltip" href="<?php echo $this->url('admin/default',
+                     array('controller'=>'permission', 'action'=>'view', 'id' => $permission->id));?>" data-original-title="Ver"><i class="fa fa-search"></i></a>
+                    <?php }?>
+                </div>
+             </td>
+         </tr>
+         <?php endforeach; ?>
+     </tbody>
+ </table>
+ 
+ <?php 
+  echo $this->paginationControl(
+     // the paginator object
+     $this->paginator,
+     // the scrolling style
+     'sliding',
+     // the partial to use to render the control
+     'partial/paginator.phtml',
+     // the route to link to when a user clicks a control link
+    array('route' => 'admin/default',
+        'options' => array(
+                'controller' => 'permission',
+                'action' => 'index'
+        )
+)
+ );
+?>
+</div>

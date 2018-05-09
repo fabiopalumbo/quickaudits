@@ -1,0 +1,99 @@
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li ul li a.perform-qa').addClass('active');
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>
+
+<div class="block">
+
+    <?php if ($m==1) { ?>
+        <div class="alert alert-success alert-dismissable">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <i class="fa fa-check-circle"></i> <?php echo $this->translate('Listening added successfully!'); ?>
+        </div>
+    <?php } ?>
+
+    <!-- Horizontal Form Content -->
+    <?php $form->prepare(); ?>
+    <?php echo $this->form()->openTag($form); echo $this->formHidden($form->get('id')); ?>
+        <fieldset>
+            <legend>General Information</legend>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->formlabel($form->get('id_project')); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-9">
+                    <?php echo $this->formselect($form->get('id_project')); ?>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('id_project'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->formlabel($form->get('id_channel')); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-9">
+                    <input type="hidden" id="selected_channel" value="<?php echo $form->get('id_channel')->getValue(); ?>" />
+                    <?php echo $this->formselect($form->get('id_channel')); ?>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('id_channel'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->formlabel($form->get('id_agent')); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-9">
+                    <input type="hidden" id="selected_agent" value="<?php echo $form->get('id_agent')->getValue(); ?>" />
+                    <?php echo $this->formselect($form->get('id_agent')); ?>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('id_agent'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->formlabel($form->get('id_language')); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-9">
+                    <input type="hidden" id="selected_language" value="<?php echo $form->get('id_language')->getValue(); ?>" />
+                    <?php echo $this->formselect($form->get('id_language')); ?>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('id_language'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+ 
+        <fieldset>
+            <legend>Questions <span class="pull-right text-primary collapse" id="loading-form-questions"><small><i class="fa fa-spin fa-spinner"></i> Loading form questions...</small></span></legend>
+
+            <div class="table-responsive" id="questions"></div>
+        </fieldset>
+        
+        
+        <fieldset>
+            <legend>Comments</legend>
+            
+            <div class="form-group">
+                <div class="col-md-12">
+                    <?php echo $this->formtextarea($form->get('comments'));?>
+                </div>
+            </div>
+            
+        </fieldset>
+        
+        <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3">
+                <button type="submit" id="submitbutton" class="btn btn-sm btn-primary" name="submit" data-addnew="1"><span class="main-text"><i class="fa fa-check"></i> Save Changes</span><span class="loading-text collapse"><i class="fa fa-spin fa-spinner"></i> Saving Changes...</span></button>
+                <a class="btn btn-sm btn-warning" href="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'index'));?>"><i class="fa fa-repeat"></i> Return</a>
+            </div>
+        </div>
+        
+    <?php echo $this->form()->closeTag(); ?>
+    <!-- END Horizontal Form Content -->
+</div>
+
+<?php $this->inlineScript()->appendFile('/modules/application/js/listening.js'); ?>

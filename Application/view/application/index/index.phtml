@@ -1,0 +1,555 @@
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li a.dashboard').addClass('active');
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>
+
+    <?php if ($scoresToTarget->count() > 0) { ?>
+    
+    
+    <div class="row">
+        <?php foreach ($scoresToTarget as $item) { ?>
+        <div class="col-md-6">
+            <div class="widget">
+                <div class="widget-extra text-center themed-background-dark-default">
+                    <h5 class="widget-content-light"><?php echo $item->project; ?></h5>
+                </div>
+                <div class="widget-extra-full text-center">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="pie-chart-performance-<?php echo $item->id_project; ?>" data-percent="<?php echo $item->min_performance_required; ?>" data-size="100" data-bar-color="#333333">
+                                <span><?php echo $item->min_performance_required; ?>%</span>
+                            </div>
+                            <h5 class="remove-margin-bottom">Performance Required</h5>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="pie-chart-today-<?php echo $item->id_project; ?>" data-percent="<?php echo $item->mtd_score; ?>" data-size="100" data-bar-color="<?php echo $item->mtd_score >= $item->min_performance_required ? '#27ae60' : '#e11b1b'; ?>">
+                                <span><?php echo $item->mtd_score; ?>%</span>
+                            </div>
+                            <h5 class="remove-margin-bottom">MTD Score</h5>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="pie-chart-target-<?php echo $item->id_project; ?>" data-percent="<?php echo $item->target_score; ?>" data-size="100" data-bar-color="<?php echo $item->target_score <= $item->min_performance_required ? '#27ae60' : '#e11b1b'; ?>">
+                                <span><?php echo $item->target_score; ?>%</span>
+                            </div>
+                            <h5 class="remove-margin-bottom">Score Needed</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+    </div>
+    <?php } ?>
+
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Widget -->
+            <a class="widget">
+                <div class="widget-simple">
+                    <div class="widget-icon pull-left themed-background-spring animation-fadeIn">
+                        <i class="gi gi-circle_arrow_top"></i>
+                    </div>
+                    <h3 class="widget-content text-right animation-pullDown">
+                        <strong class="text-success"><?php echo $highestIntraweekRiseOperator->current()->score; ?>%</strong><br>
+                        <small><?php echo $highestIntraweekRiseOperator->current()->user; ?></small>
+                    </h3>
+                </div>
+            </a>
+            <!-- END Widget -->
+        </div>
+    
+        <div class="col-md-6">
+            <!-- Widget -->
+            <a class="widget">
+                <div class="widget-simple">
+                    <div class="widget-icon pull-left themed-background-fire animation-fadeIn">
+                        <i class="gi gi-circle_arrow_down"></i>
+                    </div>
+                    <h3 class="widget-content text-right animation-pullDown">
+                        <strong class="text-danger"><?php echo $highestIntraweekDropOperator->current()->score; ?>%</strong><br>
+                        <small><?php echo $highestIntraweekDropOperator->current()->user; ?></small>
+                    </h3>
+                </div>
+            </a>
+            <!-- END Widget -->
+        </div>
+        
+        <div class="col-md-6">
+            <!-- Widget -->
+            <a class="widget">
+                <div class="widget-simple">
+                    <div class="widget-icon pull-left themed-background-spring animation-fadeIn">
+                        <i class="gi gi-circle_arrow_top"></i>
+                    </div>
+                    <h3 class="widget-content text-right animation-pullDown">
+                        <strong class="text-success"><?php echo $highestIntraweekRiseQuestion->current()->score; ?>%</strong><br>
+                        <small><?php echo $highestIntraweekRiseQuestion->current()->question; ?></small>
+                    </h3>
+                </div>
+            </a>
+            <!-- END Widget -->
+        </div>
+    
+        <div class="col-md-6">
+            <!-- Widget -->
+            <a class="widget">
+                <div class="widget-simple">
+                    <div class="widget-icon pull-left themed-background-fire animation-fadeIn">
+                        <i class="gi gi-circle_arrow_down"></i>
+                    </div>
+                    <h3 class="widget-content text-right animation-pullDown">
+                        <strong class="text-danger"><?php echo $highestIntraweekDropQuestion->current()->score; ?>%</strong><br>
+                        <small><?php echo $highestIntraweekDropQuestion->current()->question; ?></small>
+                    </h3>
+                </div>
+            </a>
+            <!-- END Widget -->
+        </div>
+    </div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Total Score per Project (MTD)</h2>
+    </div>
+    <div id="chart-total-score-per-project-mtd" class="chart"></div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Global Total Score per Week (last 12 weeks) & Sample Size</h2>
+    </div>
+    <div id="chart-total-score-per-week" class="chart"></div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Listenings per QA Agent (WTD)</h2>
+    </div>
+    <div id="chart-listenings-per-qa-agent" class="chart"></div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Total QA Hours (WTD)</h2>
+    </div>
+    <div id="chart-total-qa-hours-wtd" class="chart"></div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Bottom 10 Agents per Total Score (MTD)</h2>
+    </div>
+    <div id="chart-bottom-agents-total-score-mtd" class="chart"></div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Top 10 Agents per Total Score (MTD)</h2>
+    </div>
+    <div id="chart-top-agents-total-score-mtd" class="chart"></div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Projects Overview (Weekly)</h2>
+    </div>
+    <div id="chart-projects-overview-weekly" class="chart"></div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Personal Total QA Hours (WTD)</h2>
+    </div>
+    <div id="chart-personal-total-qa-hours-wtd" class="chart"></div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Top 5 Scoring Questions (Weekly)</h2>
+    </div>
+    <div id="chart-top-scoring-questions-weekly" class="chart"></div>
+</div>
+
+<div class="block full">
+    <div class="block-title">
+        <h2>Bottom 5 Scoring Questions (Weekly)</h2>
+    </div>
+    <div id="chart-bottom-scoring-questions-weekly" class="chart"></div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    // Total Score per Project (MTD)
+	<?php $data = array(); ?>
+    <?php foreach ($this->projectsScoresMTD as $item) { ?>
+    <?php array_push($data, '["'.$item->project.'", '.$item->score.']'); ?>
+    <?php } ?>
+	var data = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-total-score-per-project-mtd'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+});
+
+$(function(){
+    // Global Total Score per Week (last 12 weeks) & Sample Size
+	<?php $data = array(); ?>
+    <?php foreach ($globalTotalScorePerWeek as $item) { ?>
+    <?php array_push($data, '["'.$item->week.'", '.$item->score.']'); ?>
+    <?php } ?>
+	var data = [ <?php echo implode(', ', $data); ?> ];
+	<?php $data = array(); ?>
+    <?php foreach ($globalTotalScorePerWeek as $item) { ?>
+    <?php array_push($data, '["'.$item->week.'", '.$item->samples.']'); ?>
+    <?php } ?>
+	var data1 = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-total-score-per-week'), 
+	   [ 
+    	   {
+    	       label: "Total Score", 
+    	       data: data,
+    	       bars: {
+                    show: true, 
+                    barWidth: 0.6, 
+                    align: "center", 
+                    lineWidth: 0, 
+                    fillColor: {
+                       colors: [{opacity: 0.5}, {opacity: 0.5}]
+                    }
+                },
+                valueLabels: { show: true } 
+           }, 
+    	   { 
+    	       label: "Sample Size",
+    	       data: data1,
+    	       lines: {
+                    show: true, 
+                    align: "center", 
+                },
+                valueLabels: { show: true } 
+           } 
+	   ], 
+	   {
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: [ 0, 0 ]
+    	}
+    });
+});
+
+$(function(){
+    // Listenings per QA Agent (WTD)
+	<?php $data = array(); ?>
+    <?php foreach ($qaAgentsScoresWTD as $item) { ?>
+    <?php array_push($data, '["'.$item->qa_agent.'", '.$item->total_time.']'); ?>
+    <?php } ?>
+	var data = [ <?php echo implode(', ', $data); ?> ];
+	<?php $data = array(); ?>
+    <?php foreach ($qaAgentsScoresWTD as $item) { ?>
+    <?php array_push($data, '["'.$item->qa_agent.'", '.$item->samples.']'); ?>
+    <?php } ?>
+	var data1 = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-listenings-per-qa-agent'), 
+	   [ 
+    	   {
+    	       label: "Total Time", 
+    	       data: data,
+    	       bars: {
+                    show: true, 
+                    barWidth: 0.6, 
+                    align: "center", 
+                    lineWidth: 0, 
+                    fillColor: {
+                       colors: [{opacity: 0.5}, {opacity: 0.5}]
+                    }
+                },
+                valueLabels: { show: true } 
+           }, 
+    	   { 
+    	       label: "Sample Size",
+    	       data: data1,
+    	       lines: {
+                    show: true, 
+                    align: "center", 
+                },
+                valueLabels: { show: true } 
+           } 
+	   ], 
+	   {
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: [ 0, 0 ]
+    	}
+    });
+});
+
+$(function(){
+    // Total QA Hours (WTD)
+	<?php $data = array(); ?>
+    <?php foreach ($totalQAHoursWTD as $item) { ?>
+    <?php array_push($data, '["'.$item->created.'", '.$item->total_hours.']'); ?>
+    <?php } ?>
+	var data = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-total-qa-hours-wtd'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+});
+
+$(function(){
+    // Bottom 10 Agents per Total Score (MTD)
+	<?php $data = array(); ?>
+    <?php foreach ($bottomAgentsMTD as $item) { ?>
+    <?php array_push($data, '["'.$item->agent.'", '.$item->score.']'); ?>
+    <?php } ?>
+	var data = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-bottom-agents-total-score-mtd'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+});
+
+$(function(){
+    // Top 10 Agents per Total Score (MTD)
+	<?php $data = array(); ?>
+    <?php foreach ($topAgentsMTD as $item) { ?>
+    <?php array_push($data, '["'.$item->agent.'", '.$item->score.']'); ?>
+    <?php } ?>
+	var data = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-top-agents-total-score-mtd'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+});
+
+$(function(){
+    // Projects Overview (Weekly)
+	<?php $data = array(); ?>
+    <?php foreach ($projectsScoresWTD as $item) { ?>
+    <?php array_push($data, '["'.$item->project.'", '.$item->score.']'); ?>
+    <?php } ?>
+	var data = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-projects-overview-weekly'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+});
+
+$(function(){
+    // Personal Total QA Hours (WTD)
+	<?php $data = array(); ?>
+    <?php foreach ($personalQAHoursWTD as $item) { ?>
+    <?php array_push($data, '["'.$item->created.'", '.$item->total_hours.']'); ?>
+    <?php } ?>
+	var data = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-personal-total-qa-hours-wtd'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+});
+
+$(function(){
+    // Top 5 Scoring Questions (Weekly)
+	<?php $data = array(); ?>
+    <?php foreach ($this->topScoringQuestions as $item) { ?>
+    <?php array_push($data, '["'.$item->question.'", '.$item->score.']'); ?>
+    <?php } ?>
+	var data = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-top-scoring-questions-weekly'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+});
+
+$(function(){
+    // Bottom 5 Scoring Questions (Weekly)
+	<?php $data = array(); ?>
+    <?php foreach ($this->bottomScoringQuestions as $item) { ?>
+    <?php array_push($data, '["'.$item->question.'", '.$item->score.']'); ?>
+    <?php } ?>
+	var data = [ <?php echo implode(', ', $data); ?> ];
+    
+	$.plot($('#chart-bottom-scoring-questions-weekly'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+});
+
+$(function(){
+
+    <?php if ($scoresToTarget->count() > 0) { ?>
+        <?php foreach ($scoresToTarget as $item) { ?>
+        $('.pie-chart-performance-<?php echo $item->id_project; ?>').easyPieChart({
+            barColor: $(this).data('bar-color') ? $(this).data('bar-color') : '#777777',
+            trackColor: $(this).data('track-color') ? $(this).data('track-color') : '#eeeeee',
+            lineWidth: $(this).data('line-width') ? $(this).data('line-width') : 3,
+            size: $(this).data('size') ? $(this).data('size') : '80',
+            animate: 800,
+            scaleColor: false
+        });
+        $('.pie-chart-today-<?php echo $item->id_project; ?>').easyPieChart({
+            barColor: $(this).data('bar-color') ? $(this).data('bar-color') : '#777777',
+            trackColor: $(this).data('track-color') ? $(this).data('track-color') : '#eeeeee',
+            lineWidth: $(this).data('line-width') ? $(this).data('line-width') : 3,
+            size: $(this).data('size') ? $(this).data('size') : '80',
+            animate: 800,
+            scaleColor: false
+        });
+        $('.pie-chart-target-<?php echo $item->id_project; ?>').easyPieChart({
+            barColor: $(this).data('bar-color') ? $(this).data('bar-color') : '#777777',
+            trackColor: $(this).data('track-color') ? $(this).data('track-color') : '#eeeeee',
+            lineWidth: $(this).data('line-width') ? $(this).data('line-width') : 3,
+            size: $(this).data('size') ? $(this).data('size') : '80',
+            animate: 800,
+            scaleColor: false
+        });
+        <?php } ?>
+    <?php } ?>
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>

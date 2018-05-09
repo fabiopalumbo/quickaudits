@@ -1,0 +1,66 @@
+<div class="block">
+    <!-- Horizontal Form Content -->
+    <?php $form->prepare(); ?>
+    <?php echo $this->form()->openTag($form); echo $this->formHidden($form->get('id')); ?>
+        
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Question Group'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9 joyride-step1">
+                <?php echo $this->formInput($form->get('name')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('name'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Display order'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <?php echo $this->formtext($form->get('order')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('order'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+              
+        <?php if ($this->layout()->getVariable('role')->membership->package != 'basic') { ?>  
+        <div class="form-group">
+            <label class="col-md-3 control-label" for=""><?php echo $this->translate('Is fatal?'); ?></label>
+            <div class="col-md-9">
+                <label class="switch switch-primary"><?php echo $this->formcheckbox($form->get('is_fatal')); ?><span></span></label>
+                <span class="help-block"><?php echo $this->translate('If this set to true, any question under a fatal question group will set the lowest value to the form'); ?></span>
+            </div>
+        </div>
+        <div class="form-group" style="display: none">
+            <label class="col-md-3 control-label" for=""><?php echo $this->translate('Met Life fatal?'); ?></label>
+            <div class="col-md-9">
+                <label class="switch switch-primary"><?php echo $this->formcheckbox($form->get('ml_fatal')); ?><span></span></label>
+                <span class="help-block"><?php echo $this->translate('If this set to true, any question under a Met Life fatal question group will set the form efficiency to 60%'); ?></span>
+            </div>
+        </div>
+        <?php } ?>
+        
+        <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3">
+                <?php echo $this->formSubmit($form->get('submit'));?>
+                <a class="btn btn-sm btn-warning" href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'index'));?>"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+            </div>
+        </div>
+    <?php echo $this->form()->closeTag(); ?>
+    <!-- END Horizontal Form Content -->
+</div>
+
+<?php if ($this->layout()->getVariable('wizard') !== null) { ?>
+<?php $step=$this->layout()->getVariable('wizard')->getStepByKey('manage_question-group'); ?>
+<?php if (!$step->completed) { ?>
+<ol id="joyRideTipContent">
+  <li data-class="joyride-step1" data-button="<?php echo $this->translate('Close'); ?>" class="">
+    <p><?php echo $this->translate('Give your question group a name and click "Save Changes" to continue.'); ?></p>
+  </li>
+</ol>
+<?php } ?>
+<?php } ?>
+
+<?php $this->inlineScript()->appendFile('/modules/application/js/question_group.js'); ?>

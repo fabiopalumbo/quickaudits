@@ -1,0 +1,80 @@
+<div class="block full">
+    <form class="form-inline" method="get" action="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'index'));?>">
+        <div class="form-group">
+            <input type="text" placeholder="Enter keyword.." class="form-control input-sm" name="keyword" id="keyword" value="<?=$this->filter['keyword'] ?: ''?>">
+        </div>
+        <div class="form-group">
+            <select class="form-control input-sm" name="active">
+                <option value="">Status</option>
+                <option value="1" <?php echo $this->filter['active']==='1' ? 'selected' : ''; ?>>Enabled</option>
+                <option value="0" <?php echo $this->filter['active']==='0' ? 'selected' : ''; ?>>Disabled</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> Search</button>
+            <?php if($this->layout()->getVariable('role')->hasPermission('organization_add')){?>
+                <a class="btn btn-sm btn-success" href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'add'));?>"><i class="fa fa-plus"></i> Add New</a>
+            <?php }?>
+        </div>
+    </form>    
+</div>
+<div class="block">
+    <!-- Responsive Full Content -->
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped draggable-rows">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th class="text-center" style="width: 150px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->paginator as $item) { ?>
+                <tr class="draggable-row">
+                    <td><a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'view','id'=>$item->id));?>"><?php echo $this->escapeHtml($item->name);?></a></td>
+                    <td>
+                        <?php if ($item->active) { ?>
+                        <span class="label label-success">Enabled</span>
+                        <?php } else { ?>
+                        <span class="label label-default">Disabled</span>
+                        <?php } ?>
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-xs">
+                           <?php if($this->layout()->getVariable('role')->hasPermission('organization_view')){?>
+                            <a class="btn btn-default" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'view','id'=>$item->id));?>" data-original-title="View"><i class="fa fa-search"></i></a>
+                           <?php }?>
+                           <?php if($this->layout()->getVariable('role')->hasPermission('organization_edit')){?>
+                            <a class="btn btn-primary" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'edit','id'=>$item->id));?>" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                           <?php }?>
+                           <?php if($this->layout()->getVariable('role')->hasPermission('organization_change-status')){?>
+                                <?php if ($item->active) { ?>
+                                    <a class="btn btn-danger" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'change-status','id'=>$item->id));?>" data-original-title="Disable"><i class="fa fa-times"></i></a>
+                                <?php } else { ?>
+                                    <a class="btn btn-success" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'change-status','id'=>$item->id));?>" data-original-title="Enable"><i class="fa fa-check"></i></a>
+                                <?php } ?>
+                            <?php }?>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <!-- END Responsive Full Content -->
+    <div class="text-right">
+        <?php 
+            echo $this->paginationControl(
+                // the paginator object
+                $this->paginator,
+                // the scrolling style
+                'sliding',
+                // the partial to use to render the control
+                'partial/paginator.phtml',
+                // the route to link to when a user clicks a control link
+                array('query' => $this->filter)
+            );
+        ?>
+    </div>
+</div>

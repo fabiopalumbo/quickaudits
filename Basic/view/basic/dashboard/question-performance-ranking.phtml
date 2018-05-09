@@ -1,0 +1,51 @@
+<?php /* @var $questionsPerformanceRanking \Zend\Db\ResultSet\ResultSet */ ?>
+<div class="widget">
+    <div class="widget-advanced widget-advanced-alt">
+        <!-- Widget Header -->
+        <div class="widget-header text-center ">
+            <?php if ($this->layout()->getVariable('role')->hasPermission('organization_manage-dashboard')) {?>
+            <div class="widget-options">
+                <div class="btn-group btn-group-xs">
+                    <a data-original-title="<?php echo $this->translate('Manage Dashboards'); ?>" href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-dashboard'));?>" class="btn btn-xs btn-default" data-toggle="tooltip" title="<?php echo $this->translate('Manage Dashboards'); ?>"><i class="fa fa-cog"></i></a>
+                </div>
+            </div>    
+            <?php } ?>
+            <h3 class="text-left pull-left animation-pullDown">
+                <strong><?php echo $this->translate('Questions performance ranking'); ?> </strong><br>
+                <small><?php echo $this->translate('Last 7 Days'); ?></small>
+            </h3>
+        </div>
+        <!-- END Widget Header -->
+        <?php if ($questionsPerformanceRanking->count()>0) { ?>
+        <div class="table-responsive">
+            <table class="table table-vcenter table-borderless table-striped table-hover report">
+                <thead>
+                	<tr>
+                		<th><?php echo $this->translate('Question'); ?></th>
+                		<th class="text-right"><?php echo $this->translate('Score'); ?></th>
+                	</tr>
+                </thead> 
+                <tbody>
+                    <?php foreach ($questionsPerformanceRanking as $item) { ?>
+                    <tr>
+                    	<td><?php echo $item->question; ?></td>
+                    	<td class="text-right"><?php echo $item->score; ?>%</td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <?php } else { ?>
+        <div class="row-fluid clearfix">
+        	<div class="col-md-12"><div class="alert alert-warning"><?php echo $this->translate('There is no data to display this report.'); ?></div></div>
+        </div>
+        <?php } ?>
+    </div>
+</div>
+<script type="text/javascript">
+<!--
+$(function(){
+$('[data-toggle="tooltip"], .enable-tooltip').tooltip({container: 'body', animation: false});
+});
+//-->
+</script>

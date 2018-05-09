@@ -1,0 +1,86 @@
+<div class="block">
+
+    <?php if ($m=='1') { ?>
+        <div class="alert alert-success alert-dismissable">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <i class="fa fa-check-circle"></i> <?php echo $this->translate('Question added successfully!'); ?>
+        </div>
+    <?php } ?>
+    
+    <!-- Horizontal Form Content -->
+    <?php $form->prepare(); ?>
+    <?php echo $this->form()->openTag($form); echo $this->formHidden($form->get('id')); ?>
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Question'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9 joyride-step1">
+                <?php echo $this->formInput($form->get('name')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('name'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Question Type'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <?php echo $this->formselect($form->get('type')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('type'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none" id="questionOptionsDiv">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Options'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <?php echo $this->formHidden($form->get('options')); ?>
+                <div id="optionsPairEditor"></div>
+            </div>
+        </div>
+                        
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Question Group'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <?php echo $this->formselect($form->get('id_group')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('id_group'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+                
+        <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3 joyride-step2">
+                <?php echo $this->formSubmit($form->get('submit'));?>
+                <?php echo $this->formSubmit($form->get('submitandadd'));?>
+                <?php if ($this->questionGroup) { ?>
+                <a class="btn btn-sm btn-warning" href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'view','id'=>$this->questionGroup));?>"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+                <?php } else { ?>
+                <a class="btn btn-sm btn-warning" href="<?php echo $this->url('application/default', array('controller'=>'question','action'=>'index'));?>"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+                <?php } ?>
+            </div>
+        </div>
+    <?php echo $this->form()->closeTag(); ?>
+    <!-- END Horizontal Form Content -->
+</div>
+
+<?php if ($this->layout()->getVariable('wizard') !== null) { ?>
+<?php $step=$this->layout()->getVariable('wizard')->getStepByKey('manage_question'); ?>
+<?php if (!$step->completed) { ?>
+<ol id="joyRideTipContent">
+  <li data-class="joyride-step1" data-button="<?php echo $this->translate('Next'); ?>" class="">
+    <p><?php echo $this->translate('Type your question in the free text field.'); ?></p>
+  </li>
+  <li data-class="joyride-step2" data-button="<?php echo $this->translate('Close'); ?>" class="">
+    <p><?php echo $this->translate('Click "Save Changes & Add New" to continue on the next question or "Save Changes" on your last question.'); ?></p>
+  </li>
+</ol>
+<?php } ?>
+<?php } ?>
+
+<?php $this->inlineScript()->appendFile($this->basePath('/modules/application/js/question.js?'.microtime())); ?>

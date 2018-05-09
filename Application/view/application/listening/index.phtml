@@ -1,0 +1,126 @@
+<div class="block">
+    <form class="form-horizontal" method="get" action="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'index'));?>">
+        <div class="form-group">
+            <div class="col-md-3">
+            <select class="form-control input-sm select-chosen" name="project">
+                <option value="">All Projects</option>
+                <?php foreach ($projects as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo $this->filter['project']===$item->id ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-2">
+            <select class="form-control input-sm select-chosen" name="channel">
+                <option value="">All Channels</option>
+                <?php foreach ($channels as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo $this->filter['channel']===$item->id ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-2">
+            <select class="form-control input-sm select-chosen" name="language">
+                <option value="">All Languages</option>
+                <?php foreach ($languages as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo $this->filter['language']===$item->id ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-3">
+            <div class="input-group input-daterange" data-date-format="mm/dd/yyyy">
+                <input type="text" id="date_from" name="date_from" class="form-control text-center" placeholder="From" value="<?php echo $this->filter['date_from']; ?>">
+                <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+                <input type="text" id="date_to" name="date_to" class="form-control text-center" placeholder="To" value="<?php echo $this->filter['date_to']; ?>">
+            </div>
+            </div>
+
+            <div class="col-md-2">
+            <select class="form-control input-sm" name="active">
+                <option value="">Status</option>
+                <option value="1" <?php echo $this->filter['active']==='1' ? 'selected' : ''; ?>>Enabled</option>
+                <option value="0" <?php echo $this->filter['active']==='0' ? 'selected' : ''; ?>>Disabled</option>
+            </select>
+            </div>
+
+            
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> Search</button>
+            <?php if($this->layout()->getVariable('role')->hasPermission('listening_add')){?>
+                <a class="btn btn-sm btn-success" href="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'add'));?>"><i class="fa fa-plus"></i> Add New</a>
+            <?php }?>
+            </div>
+        </div>
+    </form>    
+</div>
+<div class="block">
+    <!-- Responsive Full Content -->
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped">
+            <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Channel</th>
+                    <th>QA Agent</th>
+                    <th>Agent</th>
+                    <th>Language</th>
+                    <th>Score</th>
+                    <th>Status</th>
+                    <th class="text-center" style="width: 150px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->paginator as $item) { ?>
+                <tr>
+                    <td><a href="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'view','id'=>$item->id));?>"><?php echo $this->escapeHtml($item->project);?></a></td>
+                    <td><?php echo $this->escapeHtml($item->channel);?></td>
+                    <td><?php echo $this->escapeHtml($item->qa_agent);?></td>
+                    <td><?php echo $this->escapeHtml($item->agent);?></td>
+                    <td><?php echo $this->escapeHtml($item->language);?></td>
+                    <td><?php echo $this->escapeHtml($item->score);?></td>
+                    <td>
+                        <?php if ($item->active) { ?>
+                        <span class="label label-success">Enabled</span>
+                        <?php } else { ?>
+                        <span class="label label-default">Disabled</span>
+                        <?php } ?>
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-xs">
+                        <?php if($this->layout()->getVariable('role')->hasPermission('listening_view')){?>
+                            <a class="btn btn-default" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'view','id'=>$item->id));?>" data-original-title="View"><i class="fa fa-search"></i></a>
+                        <?php }?>
+                        <?php if($this->layout()->getVariable('role')->hasPermission('listening_change-status')){?>
+                            <a class="btn btn-primary <?php echo $item->blocked ? 'disabled': ''?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'edit','id'=>$item->id));?>" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                            <?php if ($item->active) { ?>
+                                <a class="btn btn-danger" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'change-status','id'=>$item->id));?>" data-original-title="Disable"><i class="fa fa-times"></i></a>
+                            <?php } else { ?>
+                                <a class="btn btn-success" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'change-status','id'=>$item->id));?>" data-original-title="Enable"><i class="fa fa-check"></i></a>
+                            <?php } ?>
+                        <?php }?>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <!-- END Responsive Full Content -->
+    <div class="text-right">
+        <?php 
+            echo $this->paginationControl(
+                // the paginator object
+                $this->paginator,
+                // the scrolling style
+                'sliding',
+                // the partial to use to render the control
+                'partial/paginator.phtml',
+                // the route to link to when a user clicks a control link
+                array('query' => $this->filter)
+            );
+        ?>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+<section class="site-section site-section-light site-section-top themed-background-dark">
+    <div class="container">
+        <h1 class="text-center animation-slideDown"><i class="fa fa-arrow-right"></i> <strong><?php echo $this->translate('Login'); ?></strong></h1>
+        <h2 class="h3 text-center animation-slideUp"><?php echo $this->translate('Start working towards excellence!');?></h2>
+    </div>
+</section>            
+
+<section class="site-content site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4 site-block">
+                
+                <!-- Login Form -->
+                <?php $form->prepare(); echo $this->form()->openTag($form); ?>
+                    
+                    <?php if (!empty($messages)) { ?>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger alert-dismissable fade in">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <i class="fa fa-check-circle"></i> <?php echo $messages; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    
+                    <?php if ($m==='1') { ?>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <div class="alert alert-success alert-dismissable fade in">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <i class="fa fa-check-circle"></i> <?php echo $this->translate('Your subscription was updated!'); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for=""><?php echo $this->translate('Email'); ?></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
+                                <?php echo $this->formInput($form->get('email')); ?>
+                            </div>
+                            <div class="help-block"><?=$this->formElementErrors($form->get('email'), array('class'=>'list-unstyled text-danger'))?></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for=""><?php echo $this->translate('Password'); ?></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="gi gi-keys"></i></span>
+                                <?php echo $this->formInput($form->get('password')); ?>
+                            </div>
+                            <div class="help-block"><?=$this->formElementErrors($form->get('password'), array('class'=>'list-unstyled text-danger'))?></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-4">
+                            <label class="switch switch-primary" data-toggle="tooltip" title="<?php echo $this->translate('Remember Me?'); ?>">
+                                <input type="checkbox" id="login-remember-me" name="login-remember-me" value="1" checked>
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <?php echo $this->formsubmit($form->get('login')->setValue($this->translate('Login')));?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 text-center">
+                            <a href="javascript:void(0)" id="link-reminder-login"><small><?php echo $this->translate('Forgot password?'); ?></small></a>
+                            - 
+                            <a href="<?php echo $this->url('register');?>"><small><?php echo $this->translate('Create a new account'); ?></small></a>
+                        </div>
+                    </div>
+                <?php echo $this->form()->closeTag(); ?>
+                <!-- END Login Form -->
+                
+                <!-- Reminder Form -->
+                <?php $rememberForm->prepare(); echo $this->form()->openTag($rememberForm); ?>
+                    <?php if (!empty($rememberMessages)) { ?>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <div class="alert alert-success">
+                                <i class="fa fa-check-circle"></i> <?php echo $rememberMessages; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <?php if (!empty($rememberError)) { ?>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">
+                                <h4><i class="fa fa-times-circle"></i> <?php echo $this->translate('Error'); ?></h4> <?php echo $rememberError; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
+                                <?php echo $this->forminput($rememberForm->get('email')->setAttributes(array('placeholder'=>$this->translate('Enter your email'))));?>
+                            </div>
+                            <div class="help-block"><?=$this->formElementErrors($rememberForm->get('email'), array('class'=>'list-unstyled text-danger'))?></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <?php echo $this->formsubmit($rememberForm->get('remember')->setValue($this->translate('Reset Password')));?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 text-center">
+                            <small><?php echo $this->translate('Did you remember your password?'); ?></small> <a href="javascript:void(0)" id="link-reminder"><small><?php echo $this->translate('Login'); ?></small></a>
+                        </div>
+                    </div>
+                <!-- </form> -->
+                <?php echo $this->form()->closeTag(); ?>
+                <!-- END Reminder Form -->
+            </div>
+        </div>
+        <hr>
+    </div>
+</section>

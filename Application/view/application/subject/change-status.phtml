@@ -1,0 +1,38 @@
+<div class="block">
+    <div class="block-title">
+        <h2>Are you sure you want to <strong><?php echo $this->entity->active ? 'disable' : 'enable'; ?></strong> this record?</h2>
+    </div>
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong>Question</strong></td>
+                <td><?php echo $this->entity->name; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong>Status</strong></td>
+                <td><?php echo $this->entity->active ? 'Enabled' : 'Disabled'; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong>Blocked</strong></td>
+                <td><?php echo $this->entity->blocked ? 'Blocked' : 'Unblocked'; ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<div class="block">
+    <form method="post" class="form-horizontal">
+        <div class="form-group form-actions">
+			<div class="col-md-12">
+                <?php if ($this->entity->active) { ?>
+                <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-times"></i> Disable</button>
+                <?php } else { ?>
+				<button class="btn btn-sm btn-success" type="submit"><i class="fa fa-check"></i> Enable</button>
+				<?php } ?>
+				<a href="<?php echo $this->url('application/default', array('controller'=>'subject','action'=>'index'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Return</a>
+			</div>
+		</div>
+    </form>        
+</div>

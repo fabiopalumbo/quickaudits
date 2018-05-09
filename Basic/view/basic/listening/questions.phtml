@@ -1,0 +1,234 @@
+<?php if (!empty($this->forms_questions)) { ?>
+<input type="hidden" name="id_form" value="<?php echo $form->id; ?>" />
+<input type="hidden" name="score" id="score" value="0" />
+
+<table class="table table-vcenter table-striped">
+	<?php $i=0; ?>
+	<?php $count_groups=1; ?>
+	
+	<?php while ($i < count($this->forms_questions)) { ?>
+	<?php $form_question = $this->forms_questions[$i]; ?>
+	<thead class="group" data-group-id="<?php echo $form_question->id_group; ?>" data-is-fatal="<?php echo $form_question->is_fatal ? 1 : 0; ?>" data-ml-fatal="<?php echo $form_question->ml_fatal ? 1 : 0; ?>">
+		<tr class="info">
+			<th><?php echo $count_groups; ?></th>
+			<th class=""><?php echo $form_question->question_group;?></th>
+			<th class="text-right" style=""><?php echo $this->translate('Score'); ?></th>
+			<th class="text-right" style="width: 100px;"><?php echo $this->translate('Weight'); ?></th>
+		</tr>
+		<tr class="info">
+			<th>&nbsp;</th>
+			<th><?php echo $this->translate('Questions'); ?></th>
+			<th class="text-right">
+				<span class="score">0.00</span>%
+				<input type="hidden" name="listenings_group_scores[<?php echo $count_groups-1; ?>][id_question_group]" value="<?= $this->forms_questions[$i]->id_group ?>">
+				<input type="hidden" class="score" name="listenings_group_scores[<?php echo $count_groups-1; ?>][score]" value="0">
+				<input type="hidden" id="group_percentage_<?= $form_question->id_group ?>_weight" name="listenings_group_scores[<?php echo $count_groups-1; ?>][weight]" value="0">
+			</th>
+			<th class="text-right" id="group_percentage_<?= $form_question->id_group ?>" data-group-percentage="<?= $this->groupsWeights[$form_question->id_group] ?>"><?php echo number_format( $this->groupsWeights[$form_question->id_group],2); ?>%</th>
+
+		</tr>
+	</thead>
+	<tbody data-group-id="<?php echo $form_question->id_group; ?>">
+		<?php $count_questions=1;?>
+		<?php while ($i < count($this->forms_questions) && $this->forms_questions[$i]->id_group==$form_question->id_group) { ?>
+		<tr class="<?= in_array($this->forms_questions[$i]->question_type, ['closed', 'binary', 'inverted'])?'closed':'' ?>">
+			<td><?php echo $count_groups.'.'.$count_questions; ?></td>
+			<!-- KHB - Agregado class="col-xs-8"  en tarea NA -->
+			<td class="col-xs-8"><?php
+				echo str_replace('{{agent}}', $this->agent['name'], $this->translate($forms_questions[$i]->question)) ; 
+				?></td>
+			<td class="text-right">
+				<!-- KHB - Agregado class="question"  en tarea NA -->
+				<input type="hidden" name="listenings_answers[<?php echo $i; ?>][id_question]" value="<?php echo $this->forms_questions[$i]->id_question; ?>"  class="question<?= !in_array($this->forms_questions[$i]->question_type, ['closed', 'binary', 'inverted'])?'-free':'' ?>" />                
+				<div class="btn-group">
+<?php
+					$inputType = $this->forms_questions[$i]->question_type; 
+					switch ($inputType) {
+						case 'datetime':
+							$inputType = 'datetime-local';
+						case 'text':						
+						case 'email':						
+						case 'date':
+						case 'number':
+
+							if((int)$this->forms_questions[$i]->allow_na){
+?>
+							<input class="hidden"
+								type="checkbox"
+								value="-1"
+								id="listenings_answers_<?php echo $this->forms_questions[$i]->id_question; ?>_na" />
+							<div class="input-group">
+								<span class="input-group-btn">
+									<button class="btn btn-warning btn-free-na"
+										type="button"
+										data-for="listenings_answers_<?php echo $this->forms_questions[$i]->id_question; ?>_free_answer"
+										data-na="listenings_answers_<?php echo $this->forms_questions[$i]->id_question; ?>_na"
+										><?= $this->translate('NA')?></button>
+								</span>
+<?php
+							};
+?>
+								<input type="hidden"
+									name="listenings_answers[<?php echo $i; ?>][answer]"
+									value="0" />
+								<input type="<?= $inputType ?>"
+									class="form-control free-answer"
+									id="listenings_answers_<?php echo $this->forms_questions[$i]->id_question; ?>_free_answer"
+									name="listenings_answers[<?php echo $i; ?>][free_answer]" 	
+								/>
+<?php
+							if((int)$this->forms_questions[$i]->allow_na) {
+?>
+							</div>
+<?php
+							}
+
+							break;
+						case 'options':
+							if( (int)$this->forms_questions[$i]->allow_na ){
+?>
+							<input class="hidden"
+								type="checkbox"
+								value="-1"
+								id="listenings_answers_<?php echo $this->forms_questions[$i]->id_question; ?>_na" />
+							<div class="input-group">
+								<span class="input-group-btn">
+									<button class="btn btn-warning btn-free-na"
+										type="button"
+										data-for="listenings_answers_<?php echo $this->forms_questions[$i]->id_question; ?>_free_answer"
+										data-na="listenings_answers_<?php echo $this->forms_questions[$i]->id_question; ?>_na"
+										><?= $this->translate('NA')?></button>
+								</span>
+
+
+<?php
+							};
+?>
+
+								<input type="hidden"
+									name="listenings_answers[<?php echo $i; ?>][answer]"
+									value="0" />
+								<select class="form-control free-answer"
+									id="listenings_answers_<?php echo $this->forms_questions[$i]->id_question; ?>_free_answer"
+									name="listenings_answers[<?php echo $i; ?>][free_answer]" 	
+								>
+									<option value=""><?= $this->translate('Choose an option') ?></option>
+<?php
+								$opts = json_decode($this->forms_questions[$i]->question_options);
+								foreach ($opts as $opt) {
+									echo '<option value="'.$opt->key.'">'.$opt->value.'</option>';
+								}
+?>
+								</select>
+
+<?php
+							if( (int)$this->forms_questions[$i]->allow_na ) {
+?>
+							</div>
+<?php
+							};
+							break;
+
+						default:
+							// closed, binary and inverted
+
+							// KHB - Agregado <label ...> en tarea NA -->
+							if((int)$this->forms_questions[$i]->allow_na){ 
+?>
+								<label class="btn btn-warning" for="listenings_answers_<?php echo $this->forms_questions[$i]->id_question; ?>_na">
+									<input  type="radio"
+											id="listenings_answers_<?php echo $this->forms_questions[$i]->id_question; ?>_na" 
+											name="listenings_answers[<?php echo $i; ?>][answer]" 
+											value="-1" 
+											class="answer answer_na"
+											data-question="<?php echo $this->forms_questions[$i]->id_question; ?>" 
+											data-weight="<?php echo $this->forms_questions[$i]->weight; ?>" 
+											data-weight-percentage="<?php echo $this->forms_questions[$i]->weight_percentage; ?>"
+											data-allow-na="<?= $this->forms_questions[$i]->allow_na ?>" 
+											style="display:none;" />
+											<?php echo $this->translate('NA'); ?> 
+											
+								</label>
+<?php
+							}
+
+							for ($answer=0;$answer<$this->forms_questions[$i]->answers;$answer++) {
+								$binaryAnswer = $this->forms_questions[$i]->answers == 2; 
+
+								$answerValue = $binaryAnswer?$answer:$answer+1;
+								
+								if($inputType=='inverted') {
+									$answerValue = $this->forms_questions[$i]->answers - $answer;
+
+									if($binaryAnswer){
+										if($answer)
+											$answerValue = 0;
+										else
+											$answerValue = 1;
+									}
+
+								}
+?>
+								<label class="btn btn-info" for="listenings_answers_<?php echo $this->forms_questions[$i]->id_question; ?>_<?php echo $answer; ?>">
+									<!-- KHB - Agregados campos data allow-na y question por tarea NA -->
+									<input  type="radio" 
+											id="listenings_answers_<?php echo $this->forms_questions[$i]->id_question; ?>_<?php echo $answer; ?>" 
+											name="listenings_answers[<?php echo $i; ?>][answer]" 
+											value="<?php echo $answerValue; ?>" 
+											class="answer <?= $inputType ?>" 
+											data-question="<?php echo $this->forms_questions[$i]->id_question; ?>"
+											data-weight="<?php echo round($this->forms_questions[$i]->weight, 2); ?>" 
+											data-weight-percentage="<?php echo $this->forms_questions[$i]->weight_percentage;?>"
+											data-allow-na="<?= $this->forms_questions[$i]->allow_na ?>"
+											style="display:none;" />
+											<?php
+												if ($binaryAnswer) {
+													echo $answer===0 ? $this->translate('No') : $this->translate('Yes');
+												} else {
+													echo $answer+1;
+												}
+											?>
+								</label>
+<?php
+							   };
+						break; 
+		}
+?>
+				</div>  
+			</td>
+			<td class="text-right" id="listenings_answers_<?php echo $this->forms_questions[$i]->id_question; ?>_display"><?php echo in_array($this->forms_questions[$i]->question_type, ['closed','binary', 'inverted'])? $this->forms_questions[$i]->weight_percentage.'%':''; ?></td>
+		</tr>
+		<?php $count_questions++; ?>
+		<?php $i++; ?>
+		<?php } ?>
+	</tbody>
+	<?php $count_groups++; ?>
+	<?php } ?>
+	<tfoot>
+		<tr>
+			<th>&nbsp;</th>
+			<th><?php echo $this->translate('Total Quality Score'); ?></th>
+			<th class="text-right">
+				<span id="score"><?php echo number_format(0,2); ?></span>%
+			</th>
+			<th>&nbsp;</th>
+		</tr>
+	</tfoot>
+</table>
+<?php } ?>
+<script type="text/javascript">
+	$('.btn-free-na').click(function(){
+
+		inputVal = '#'+$(this).data('for');
+		inputNA =  '#'+$(this).data('na');
+
+		if($(this).hasClass('active')){
+			$(inputVal).attr('disabled', false);
+			$(inputNA).attr('checked', false);
+		} else {
+			$(inputVal).attr('disabled', true);
+			$(inputNA).attr('checked', true);
+		}
+		$(this).toggleClass('active');
+	})
+</script>

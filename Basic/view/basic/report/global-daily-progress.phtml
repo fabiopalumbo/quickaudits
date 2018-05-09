@@ -1,0 +1,106 @@
+<div class="block ">
+    <form class="form-horizontal clearfix" method="get" action="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'global-daily-progress'));?>">
+        <div class="form-group">
+            <div class="col-md-3">
+                <select class="form-control input-sm select-chosen" name="project[]" data-placeholder="<?php echo $this->translate('All Projects'); ?>" multiple>
+                    <?php foreach ($projects as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['project']) && in_array($item->id, $this->filter['project']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-control input-sm select-chosen" name="auditor[]" data-placeholder="<?php echo $this->translate('All Auditors'); ?>" multiple>
+                    <?php foreach ($auditors as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['auditor']) && in_array($item->id, $this->filter['auditor']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <?php if ($hasAgents) { ?>
+            <div class="col-md-3">
+                <select class="form-control input-sm select-chosen" name="operator[]" data-placeholder="<?php echo $this->translate('All Agents'); ?>" multiple>
+                    <?php foreach ($agents as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['operator']) && in_array($item->id, $this->filter['operator']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <?php } ?>
+            <div class="col-md-3">
+                <select class="form-control input-sm select-chosen" name="channel[]" data-placeholder="<?php echo $this->translate('All Channels'); ?>" multiple>
+                    <?php foreach ($channels as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['channel']) && in_array($item->id, $this->filter['channel']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> <?php echo $this->translate('Search'); ?></button>
+                <button class="btn btn-sm btn-info" type="submit" name="excel" value="1"><i class="fa fa-file-excel-o"></i> <?php echo $this->translate('Export to Excel'); ?></button>
+            </div>
+        </div>
+    </form>    
+</div>
+
+<div class="block full">
+    <!--
+    <form class="form-horizontal clearfix" method="get" action="<?php echo $this->url('basic/default', array('controller'=>'report','action'=>'global-daily-progress'));?>">
+        <div class="form-group pull-right">
+            <div class="col-md-6">
+            <button class="btn btn-sm btn-info" type="submit" name="excel" value="1"><i class="fa fa-file-excel-o"></i> <?php echo $this->translate('Export to Excel'); ?></button>
+            </div>
+        </div>
+    </form>
+    -->
+    <div class="table-responsive" style="overflow: auto;">
+        <table class="table table-vcenter table-stripped table-hover report">
+            <thead>
+                <tr>
+                    <th><?php echo $this->translate('Date'); ?></th>
+                    <?php foreach ($dailyGrandTotal as $date) { ?>
+                    <th style="white-space: nowrap;"><?php echo $this->dateFormat(strtotime($date->created), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE); ?></th>
+                    <?php } ?>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Samples'); ?></th>
+                    <?php foreach ($dailyGrandTotal as $date) { ?>
+                    <th class="text-right"><?php echo $date->samples?:0; ?></th>
+                    <?php } ?>
+                </tr>
+            </thead>
+            
+            <?php $newDailyQuestionScoreAvg = $dailyQuestionScoreAvg->current(); ?>
+            <?php while ($newDailyQuestionScoreAvg) { ?>
+            <?php $oldGroup = $newDailyQuestionScoreAvg->id_group; ?>
+            <tbody>
+                <?php while ($newDailyQuestionScoreAvg && $newDailyQuestionScoreAvg->id_group==$oldGroup) { ?>
+                <?php $oldQuestion = $newDailyQuestionScoreAvg->id_question; ?>
+                <tr>
+                    <td style="white-space: nowrap;"><?php echo $newDailyQuestionScoreAvg->question; ?></td>
+                    <?php while ($newDailyQuestionScoreAvg && $newDailyQuestionScoreAvg->id_group==$oldGroup && $newDailyQuestionScoreAvg->id_question==$oldQuestion) { ?>
+                    <td class="text-right"><?php echo $newDailyQuestionScoreAvg->score?:0; ?>%</td>                    
+                    <?php $dailyQuestionScoreAvg->next(); ?>
+                    <?php $newDailyQuestionScoreAvg = $dailyQuestionScoreAvg->current(); ?>
+                    <?php } ?>
+                </tr>
+                <?php } ?>
+            </tbody>
+            <?php } ?>
+        </table>
+    </div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li ul li a.global-daily-progress').addClass('active');
+    
+    $('table.table tbody').on('click', 'tr', function(event) {
+        if($(this).hasClass('info')){
+            $(this).removeClass('info'); 
+        } else {
+            $(this).addClass('info').siblings().removeClass('info');
+        }
+    });
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>

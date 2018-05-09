@@ -1,0 +1,198 @@
+<div class="block">
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Project'); ?></strong></td>
+                <td><?php echo $this->entity->project; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Channel'); ?></strong></td>
+                <td><?php echo $this->entity->channel; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('QA Agent'); ?></strong></td>
+                <td><?php echo $this->entity->qa_agent_fullname?:'N/A'; ?></td>
+            </tr>
+<?php if($this->entity->agent){ ?>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Agent'); ?></strong></td>
+                <td><?php echo $this->entity->agent->name; ?></td>
+            </tr>
+<?php } ?>
+<?php
+    if ($this->layout()->getVariable('role')->membership->package == 'contact_center') {
+?>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('TeamLead'); ?></strong></td>
+                <td><?php echo $this->entity->teamlead?nl2br($this->entity->teamlead):$this->translate('There are no teamlead for this evaluation.'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Case'); ?></strong></td>
+                <td><?php echo $this->entity->case?nl2br($this->entity->case):$this->translate('There are no case for this evaluation.'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Incident'); ?></strong></td>
+                <td><?php echo $this->entity->incident?nl2br($this->entity->incident):$this->translate('There are no incident for this evaluation.'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Status'); ?></strong></td>
+                <td><?php echo $this->entity->active ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+<?php 
+    };  
+?>
+
+        
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<div class="block full">
+    
+    <fieldset>
+        <legend><?php echo $this->translate('Questions'); ?></legend>
+	<div class="alert alert-info text-right hidden-print"><button onclick="javascript:window.print()"><?php echo $this->translate('Print'); ?></button></div>
+        <?php $entity->listenings_answers->rewind(); ?>
+            
+        <table class="table table-vcenter table-striped">
+            <?php $count_groups=1; ?>
+            
+            <?php $newListeningAnswer = $entity->listenings_answers->current(); ?>
+            <?php while ($newListeningAnswer) { ?>
+            <?php $oldListeningAnswer = $newListeningAnswer; ?>
+            <thead class="group">
+                <tr class="info">
+                    <th><?php echo $count_groups; ?></th>
+                    <th class=""><?php echo $newListeningAnswer->question_group;?></th>
+                    <th class="text-right" style="width: 100px;"><?php echo $this->translate('Score'); ?></th>
+                    <th class="text-right" style="width: 100px;"><?php echo $this->translate('Weight'); ?></th>
+                </tr>
+                <tr class="info">
+                    <th>&nbsp;</th>
+                    <th><?php echo $this->translate('Questions'); ?></th>
+                    <th class="text-right" id="group_score_<?= $newListeningAnswer->id_group ?>"><?php echo number_format($this->groupsScores[$newListeningAnswer->id_group], 2); ?>%</th>
+                    <th class="text-right" data-group-percentage="<?php echo $this->groupsWeights[$newListeningAnswer->id_group]; ?>" id="group_percentage_<?= $newListeningAnswer->id_group ?>"><?php echo $this->groupsWeights[$newListeningAnswer->id_group]; ?>%</th>
+                </tr>
+            </thead>
+            <!-- KHB Agregado class="question-group" en tarea NA -->
+            <tbody data-group-id="<?php echo $newListeningAnswer->id_group; ?>" class="question_group">
+                <?php $count_questions=1;?>
+                <?php while ($newListeningAnswer && $newListeningAnswer->id_group==$oldListeningAnswer->id_group) { ?>
+                <tr>
+                    <td><?php echo $count_groups.'.'.$count_questions; ?></td>
+                    <td><?php
+                        $agentName = $this->entity->id_agent?$entity->agent->name:$this->translate('Anonymous');
+                        echo str_replace('{{agent}}', $agentName, $newListeningAnswer->question) ; ?></td>
+                    <td class="<?= in_array($newListeningAnswer->question_type, ['text','email'])?'':'text-right' ?>">
+                        <!-- KHB Agregado control de answer < 0 para mostrar NA -->
+                        <?php
+                            if($newListeningAnswer->answer<0) { 
+                                echo $this->translate('N/A'); 
+                            } elseif (!in_array($newListeningAnswer->question_type, ['closed','binary','inverted'])) {
+                                //Formateamos la respuesta segun el tipo
+                                switch($newListeningAnswer->question_type) {
+                                    case 'date':
+                                        $fecha = new DateTime(trim($newListeningAnswer->free_answer));
+                                        echo $fecha->format('d/m/Y');
+                                        break;
+                                    case 'datetime':
+                                        $fecha = new DateTime(trim($newListeningAnswer->free_answer));
+                                        echo $fecha->format('d/m/Y H:i');
+                                        break;
+                                    case 'options':
+                                        $opts = json_decode($newListeningAnswer->question_options);
+                                        foreach ($opts as $opt) {
+                                            if($opt->key==trim($newListeningAnswer->free_answer)){
+                                                echo $opt->value;
+                                                break;
+                                            }
+                                        };
+                                        break;
+                                    default:
+                                        echo htmlentities(trim($newListeningAnswer->free_answer));
+                                };
+
+                            } elseif ($newListeningAnswer->answers == 2) { 
+                                echo $newListeningAnswer->answer==='0' ? $this->translate('No') : $this->translate('Yes');
+                            } else { 
+                                if($newListeningAnswer->question_type=='inverted')
+                                {
+                                    echo ($newListeningAnswer->answers+1)-$newListeningAnswer->answer;
+                                }
+                                else
+                                {
+                                    echo $newListeningAnswer->answer;
+                                }
+                                
+                            } 
+                        ?>
+                    </td>
+                    <!-- KHB Agregados clases answer y answer_na, campos data (todos) en tarea NA -->
+                    <?php if(in_array($newListeningAnswer->question_type, ['closed','binary','inverted'])) { ?>
+                    <td
+                        class="text-right answer <?= $newListeningAnswer->answer<0?'answer_na':'' ?>" 
+                        id="listening_answer_<?= $newListeningAnswer->id_question ?>_display"
+                        data-weight-percentage="<?= $newListeningAnswer->weight_percentage ?>"
+                        data-weight="<?= $newListeningAnswer->weight ?>"
+                        data-answer="<?= $newListeningAnswer->answer ?>"
+                        data-answers="<?= $newListeningAnswer->answers ?>"
+                        data-question-id="<?= $newListeningAnswer->id_question ?>"
+                        ><?php echo $newListeningAnswer->answer<0?'-':$newListeningAnswer->weight_percentage.'%'; ?></td>
+                    <?php } else {
+                        echo '<td>&nbsp;</td>';
+                    }; ?>
+                </tr>
+                <?php $count_questions++; ?>
+                <?php $entity->listenings_answers->next(); ?>
+                <?php $newListeningAnswer = $entity->listenings_answers->current(); ?>
+                <?php } ?>
+            </tbody>
+            <?php $count_groups++; ?>
+            <?php } ?>
+            <tfoot>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th><?php echo $this->translate('Total Quality Score'); ?></th>
+                    <!-- KHB Agregado id="form-score" en tarea NA -->
+                    <th class="text-right" id="form-score">
+                        <?php echo $entity->score; ?>%
+                    </th>
+                    <th>&nbsp;</th>
+                </tr>
+            </tfoot>
+        </table>
+    </fieldset>
+        
+        
+    <fieldset>
+        <legend><?php echo $this->translate('Comments'); ?></legend>
+        
+        <div class="form-group">
+            <div class="col-md-12">
+                <p class="form-control-static"><?php echo $this->entity->comments?nl2br($this->entity->comments):$this->translate('There are no comments for this evaluation.'); ?></p>
+            </div>
+        </div>
+        
+    </fieldset>
+    
+</div>
+
+<div class="block full hidden-print">
+	<div class="row">
+		<div class="col-md-12">
+		<?php if($this->layout()->getVariable('role')->hasPermission('listening_edit')){?>
+			<a href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'edit','id'=>$id));?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> <?php echo $this->translate('Edit'); ?></a>
+		<?php }?>
+		<?php if($this->layout()->getVariable('role')->hasPermission('listening_index')){?>
+			<a href="<?php echo $rurl ?: $this->url('basic/default', array('controller'=>'listening','action'=>'index'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+		<?php }?>
+		</div>
+	</div>
+</div>
+
+<?php
+    // KHB Agregado en tarea NA
+    $this->inlineScript()->appendFile($this->basePath('/modules/basic/js/listening_view.js?'.time()));
+?>

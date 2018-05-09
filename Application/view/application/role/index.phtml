@@ -1,0 +1,51 @@
+<div class="block full">
+    <form class="form-inline" method="get" action="<?php echo $this->url('application/default', array('controller'=>'role','action'=>'index'));?>">
+        <div class="form-group">
+            <input type="text" placeholder="Enter keyword.." class="form-control input-sm" name="keyword" id="keyword" value="<?=$this->filter['keyword'] ? $this->filter['keyword'] : ''?>">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> Search</button>
+            <a class="btn btn-sm btn-success" href="<?php echo $this->url('application/default', array('controller'=>'role','action'=>'add'));?>"><i class="fa fa-plus"></i> Add New</a>
+        </div>
+    </form>    
+</div>
+<div class="block">
+    <!-- Responsive Full Content -->
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th class="text-center" style="width: 150px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->paginator as $item) { ?>
+                <tr>
+                    <td><a href="<?php echo $this->url('application/default', array('controller'=>'role','action'=>'edit','id'=>$item->id));?>"><?php echo $this->escapeHtml($item->name);?></a></td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-xs">
+                            <a class="btn btn-primary <?php echo $item->blocked ? 'disabled': ''?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'role','action'=>'edit','id'=>$item->id));?>" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <!-- END Responsive Full Content -->
+    <div class="text-right">
+        <?php 
+            echo $this->paginationControl(
+                // the paginator object
+                $this->paginator,
+                // the scrolling style
+                'sliding',
+                // the partial to use to render the control
+                'partial/paginator.phtml',
+                // the route to link to when a user clicks a control link
+                array('query' => $this->filter)
+            );
+        ?>
+    </div>
+</div>

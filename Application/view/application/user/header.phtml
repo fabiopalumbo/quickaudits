@@ -1,0 +1,21 @@
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    $('ul.sidebar-nav li a.users').addClass('active');
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>
+
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="gi gi-nameplate"></i><?php echo $this->translate('Users'); ?><br>
+            <small><?php echo $this->viewmodel()->getCurrent()->getChildren()[0]->subtitle; ?></small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li><?php echo $this->translate('Home'); ?></li>
+    <li><a href=""><?php echo $this->translate('Users'); ?></a></li>
+    <li><a href=""><?php echo $this->viewmodel()->getCurrent()->getChildren()[0]->subtitle; ?></a></li>
+</ul>

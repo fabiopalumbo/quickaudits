@@ -1,0 +1,316 @@
+<!-- Clickable Wizard Block -->
+<div class="block">
+    <!-- Clickable Wizard Content -->
+    <?php $form->prepare(); ?>
+    <?php echo $this->form()->openTag($form); echo $this->formHidden($form->get('id')); ?>
+
+        <div id="rootwizard">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <ul class="nav nav-pills nav-justified clickable-steps">
+                       <li><a href="#tab1" data-toggle="tab"><strong>1. <?php echo $this->translate('General Information'); ?></strong></a></li>
+                       <li><a href="#tab2" data-toggle="tab"><strong>2. <?php echo $this->translate('Groups'); ?></strong></a></li>
+                       <li><a href="#tab3" data-toggle="tab"><strong>3. <?php echo $this->translate('Questions'); ?></strong></a></li>
+                       <li><a href="#tab4" data-toggle="tab"><strong>4. <?php echo $this->translate('Weight & Order'); ?></strong></a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Form Buttons -->
+            <div class="form-group form-actions">
+                <div class="col-md-12">
+                    <ul class="pager wizard">
+            			<li class="previous pull-left"><button type="button" class="btn btn-sm btn-warning"><?php echo $this->translate('Previous'); ?></button></li>
+            		  	<li class="next pull-right"><button type="button" class="btn btn-sm btn-primary"><?php echo $this->translate('Next'); ?></button></li>
+            			<li class="finish pull-right" style="display:none; ">
+            			     <button type="submit" class="btn btn-sm btn-success btn-submit">
+            			     <span class="main-text"><?php echo $this->translate('Save Changes'); ?></span>
+            			     <span class="loading-text collapse"><i class="fa fa-spin fa-spinner"></i> <?php echo $this->translate('Saving'); ?>...</span>
+            			     </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- END Form Buttons -->
+        
+            <div class="tab-content">
+                <!-- First Step -->
+                <div class="tab-pane" id="tab1">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for=""><?php echo $this->translate('QA Form'); ?></label>
+                        <div class="col-md-9 joyride-step1">
+                            <?php echo $this->formInput($form->get('name')); ?>
+                            <div class="help-block"><?=$this->formElementErrors($form->get('name'), array('class'=>'list-unstyled text-danger'))?></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END First Step -->
+                
+                <!-- Second Step -->
+                <div class="tab-pane" id="tab2">
+                    
+                    <?php $fieldsets = $form->get('questions_groups')->getFieldsets(); ?>
+                    <?php $selectedQuestionsGroups = array(); ?>
+                    <div class="table-responsive">
+                    	<table class="table table-vcenter table-striped">
+                    		<thead>
+                    			<tr>
+                    				<th class="text-center" style="width: 50px;">&nbsp;</th>
+                    				<th><?php echo $this->translate('Question Group'); ?></th>
+                    				<th class="text-center" style="width: 100px;"><?php echo $this->translate('Weight'); ?> (%)</th>
+                    			</tr>
+                    		</thead>
+                    		<tbody>                        
+                            <?php foreach ($fieldsets as $fieldset) { ?>
+                                <?php if ($fieldset->get('group')->getValue()) { ?>
+                                <?php array_push($selectedQuestionsGroups, $fieldset->get('id')->getValue()); ?>
+                                <?php } ?>
+                                <tr>
+                    				<td>
+                    				    <?php echo $this->formhidden($fieldset->get('id')); ?>
+                    				    <?php echo $this->formhidden($fieldset->get('name')); ?>
+                    				    <?php echo $this->formhidden($fieldset->get('is_fatal')); ?>
+                                        		<?php echo $this->formhidden($fieldset->get('ml_fatal')); ?>
+                    					<label for="group_<?php echo $fieldset->get('id')->getValue(); ?>" class="switch switch-primary joyride-step2">
+                                            <input type="hidden" value="0" name="<?php echo $fieldset->get('group')->getName(); ?>" />
+                                            <input id="group_<?php echo $fieldset->get('id')->getValue(); ?>" name="<?php echo $fieldset->get('group')->getName(); ?>" class="group" type="checkbox" value="1" <?php echo $fieldset->get('group')->getValue() ? 'checked' : ''; ?> data-group-id="<?php echo $fieldset->get('id')->getValue(); ?>" />
+                                            <span title="" data-toggle="tooltip" data-original-title="<?php echo $this->translate('Include Question Group'); ?>"></span>
+                    					</label>
+                    				</td>
+                    				<td>
+                    				    <label for="group_<?php echo $fieldset->get('id')->getValue(); ?>" class="switch">
+                    				    <?php echo $fieldset->get('name')->getValue(); ?>
+                    				    </label>
+                				    </td>
+                    				<td class="text-center joyride-step3">
+                    					<?php echo $this->forminput($fieldset->get('group_weight')->setAttributes(array('readonly'=>$fieldset->get('is_fatal')->getValue())));?>
+                                        <?php //echo $this->forminput($fieldset->get('group_weight')->setAttributes(array('readonly'=>$fieldset->get('ml_fatal')->getValue())));?>
+                    				</td>
+                    			</tr>
+                			 <?php } ?>
+                            </tbody>
+                    	</table>
+                    </div>        
+                </div>
+                <!-- END Second Step -->
+                
+                <!-- Third Step -->
+                <div class="tab-pane" id="tab3">
+                    <?php $fieldsets = $form->get('forms_questions')->getFieldsets(); ?>
+                    <?php $selectedQuestions = array(); ?>
+                    <table class="table table-vcenter table-striped">
+                        <?php $i=0; ?>
+                        <?php while ($i < count($fieldsets)) { ?>
+                        <?php $fieldset = $fieldsets[$i]; ?>
+                        <!-- <thead class="<?php echo !in_array($fieldset->get('id_group')->getValue(), $selectedQuestionsGroups) ? 'collapse' : ''; ?>" data-group-id="<?php echo $fieldset->get('id_group')->getValue(); ?>"> -->
+                        <thead data-group-id="<?php echo $fieldset->get('id_group')->getValue(); ?>">
+                            <tr>
+                                <th class="text-center" style="width: 50px;"><a data-toggle="collapse" href="#collapse<?php echo $fieldset->get('id_group')->getValue(); ?>" data-parent="#tab3"><i class="fa fa-filter fa-2x"></i></a></th>
+                                <th class=""><?php echo $fieldset->get('question_group')->getValue(); ?></th>
+                                <th class=""><?php echo $this->translate('Type'); ?></th>
+                                <!-- KHB - Agregado <th...> en tarea NA -->
+                                <th class="" style="width: 100px;"><?php echo $this->translate('Allow NA'); ?></th>
+                                <th class="" style="width: 120px;"><?php echo $this->translate('Total Answers'); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody data-group-id="<?php echo $fieldset->get('id_group')->getValue(); ?>" id="collapse<?php echo $fieldset->get('id_group')->getValue(); ?>" class="panel-collapse collapse in" >
+                            <?php while ($i < count($fieldsets) && $fieldset->get('id_group')->getValue() == $fieldsets[$i]->get('id_group')->getValue()) { ?>
+                            <?php if ($fieldsets[$i]->get('question_checked')->getValue()) { ?>
+                            <?php array_push($selectedQuestions, $fieldsets[$i]->get('id_question')->getValue()); ?>
+                            <?php } ?>
+                            <tr data-question-id="<?php echo $fieldsets[$i]->get('id_question')->getValue(); ?>">
+                                <td>
+                                    <?php echo $this->formhidden($fieldsets[$i]->get('id_group')); ?>
+                                    <?php echo $this->formhidden($fieldsets[$i]->get('question_group')); ?>
+                                    <?php echo $this->formhidden($fieldsets[$i]->get('id_question')); ?>
+                                    <?php echo $this->formhidden($fieldsets[$i]->get('question')); ?>
+                                    <?php echo $this->formhidden($fieldsets[$i]->get('is_fatal')); ?>
+                                    <?php echo $this->formhidden($fieldsets[$i]->get('ml_fatal')); ?>
+                                    <?php echo $this->formhidden($fieldsets[$i]->get('question_type')); ?>
+                					<label for="question_<?php echo $fieldsets[$i]->get('id_question')->getValue(); ?>" class="switch switch-primary joyride-step4">
+                                        <input type="hidden" value="0" name="<?php echo $fieldsets[$i]->get('question_checked')->getName(); ?>" />
+                                        <input  id="question_<?php echo $fieldsets[$i]->get('id_question')->getValue(); ?>" 
+                                                name="<?php echo $fieldsets[$i]->get('question_checked')->getName(); ?>" 
+                                                class="question" 
+                                                type="checkbox" 
+                                                value="1" 
+                                                data-question-id="<?php echo $fieldsets[$i]->get('id_question')->getValue(); ?>" 
+                                                <?php echo $fieldsets[$i]->get('question_checked')->getValue() ? 'checked' : ''; ?> />
+                                        <span title="" data-toggle="tooltip" data-original-title="<?php echo $this->translate('Include Question'); ?>"></span>
+                					</label>
+                                </td>
+                                <td>
+                                    <label for="question_<?php echo $fieldsets[$i]->get('id_question')->getValue(); ?>" class="switch">
+                                    <?php echo $fieldsets[$i]->get('question')->getValue(); ?>
+                                    </label>
+                                </td>
+                                <td class="">
+                                    <span class="label label-info"><?= ucfirst($this->translate($fieldsets[$i]->get('question_type')->getValue())) ?></span>
+                                </td>
+                                <!-- KHB - Agregado <td...> en tarea NA -->
+                                <td class="joyride-step5">
+                                    <label for="question_allow_na_<?= $i ?>" class="switch switch-info">
+                                        <input type="hidden" value="0" name="<?php echo $fieldsets[$i]->get('allow_na')->getName(); ?>" />
+                                        <input  id="question_allow_na_<?= $i ?>" 
+                                            name="<?php echo $fieldsets[$i]->get('allow_na')->getName(); ?>" 
+                                            class="allow_na" 
+                                            type="checkbox" 
+                                            value="1" 
+                                            <?php echo $fieldsets[$i]->get('allow_na')->getValue() ? 'checked' : ''; ?> />
+                                        <span title="" data-toggle="tooltip" data-original-title="<?php echo $this->translate('Allow NA'); ?>"></span>
+                                    </label>
+                                </td>
+                                <!-- KHB - Pasa de step 5 a step6 en tarea NA -->
+                                <td class="joyride-step6">
+                                <?php
+                                    if ((!$fieldsets[$i]->get('is_fatal')->getValue()) || (!$fieldsets[$i]->get('ml_fatal')->getValue())) {
+
+                                        switch ($fieldsets[$i]->get('question_type')->getValue()) {
+                                            case 'inverted':
+                                            case 'closed':
+                                                echo $this->forminput($fieldsets[$i]->get('answers'));
+                                                break;
+                                            
+                                            case 'binary':
+                                                echo $this->forminput($fieldsets[$i]->get('answers')->setValue(2)->setAttributes(array('readonly'=>true)));
+                                                break;
+                                            
+                                            default:
+                                                echo $this->forminput($fieldsets[$i]->get('answers')->setValue(1)->setAttributes(array('readonly'=>true)));
+                                                break;
+                                        }
+
+                                    } else {
+                                        echo $this->forminput($fieldsets[$i]->get('answers')->setValue(2)->setAttributes(array('readonly'=>true)));
+                                    }
+
+                                    ?>
+
+
+                                </td>
+                            </tr>
+                            <?php $i++; ?>
+                            <?php } ?>
+                        </tbody>                
+                        <?php } ?>
+                    </table>
+                </div>
+                <!-- END Third Step -->
+                
+                <!-- Fourth Step -->
+                <div class="tab-pane" id="tab4">
+<!--                     <table class="table table-vcenter"> -->
+                    
+                        <?php $i=0; ?>
+                        <?php while ($i < count($fieldsets)) { ?>
+                        <?php $fieldset = $fieldsets[$i]; ?>
+                        <table class="table table-vcenter">
+                        <thead data-group-id="<?php echo $fieldset->get('id_group')->getValue(); ?>">
+                            <tr>
+                                <th class="text-center" style="width: 50px;"><a data-toggle="collapse" href="#collapse1<?php echo $fieldset->get('id_group')->getValue(); ?>" data-parent="#tab4"><i class="fa fa-filter fa-2x"></i></a></th>
+                                <th class=""><?php echo $fieldset->get('question_group')->getValue(); ?></th>
+                                <th class="text-right" style="width: 150px;"><?php if ((!$fieldset->get('is_fatal')->getValue()) || (!$fieldset->get('ml_fatal')->getValue())) { ?><span class="group_weight" data-group-id="<?php echo $fieldset->get('id_group')->getValue(); ?>"></span><?php }else{?>0<?php }?>%</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="sortable panel-collapse collapse in" data-group-id="<?php echo $fieldset->get('id_group')->getValue(); ?>" id="collapse1<?php echo $fieldset->get('id_group')->getValue(); ?>">
+                            <?php while ($i < count($fieldsets) && $fieldset->get('id_group')->getValue() == $fieldsets[$i]->get('id_group')->getValue()) { ?>
+                            <tr class="" data-question-id="<?php echo $fieldsets[$i]->get('id_question')->getValue(); ?>">
+                                <td class="text-center"><a href="javascript:void(0)" class="sortable-handle joyride-step6"><i class="gi gi-sorting"></i></a></td>
+                                <td><?php echo $fieldsets[$i]->get('question')->getValue(); ?></td>
+                                <td class="joyride-step7">
+                                    <?php
+                                    if ((!$fieldsets[$i]->get('is_fatal')->getValue()) || (!$fieldsets[$i]->get('ml_fatal')->getValue())) {
+                                        if(in_array($fieldsets[$i]->get('question_type')->getValue(), ['closed', 'inverted', 'binary'])) {
+                                            echo $this->forminput($fieldsets[$i]->get('weight_percentage'));
+                                        } else {
+                                            echo $this->forminput($fieldsets[$i]->get('weight_percentage')->setAttributes(array('readonly'=>'readonly'))->setValue('0'));                                            
+                                        }
+
+                                        echo $this->formhidden($fieldsets[$i]->get('weight'));
+                                    } else {
+                                        echo $this->forminput($fieldsets[$i]->get('weight_percentage')->setAttributes(array('readonly'=>'readonly'))->setValue('0'));
+                                        echo $this->formhidden($fieldsets[$i]->get('weight')->setValue(0));
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                            <?php $i++; ?>
+                            <?php } ?>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th><?php echo $this->translate('Total'); ?></th>
+                                <th class="text-right"><span class="total">0</span>%</th>
+                            </tr>
+                        </tbody>
+                        <tfoot data-group-id="<?php echo $fieldset->get('id_group')->getValue(); ?>">
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th><?php echo $this->translate('Total'); ?></th>
+                                <th class="text-right"><span class="total">0</span>%</th>
+                            </tr>
+                        </tfoot>
+                        </table>
+                        <?php } ?>
+                        
+<!--                     </table>         -->
+                </div>
+                <!-- END Step -->
+                
+                <!-- Form Buttons -->
+                <div class="form-group form-actions">
+                    <div class="col-md-12">
+                        <ul class="pager wizard">
+                			<li class="previous pull-left"><button type="button" class="btn btn-sm btn-warning"><?php echo $this->translate('Previous'); ?></button></li>
+                		  	<li class="next pull-right"><button type="button" class="btn btn-sm btn-primary"><?php echo $this->translate('Next'); ?></button></li>
+                			<li class="finish pull-right" style="display:none; ">
+                                <button type="submit" class="btn btn-sm btn-success btn-submit joyride-step8">
+                			     <span class="main-text"><?php echo $this->translate('Save Changes'); ?></span>
+                			     <span class="loading-text collapse"><i class="fa fa-spin fa-spinner"></i> <?php echo $this->translate('Saving'); ?>...</span>
+                			     </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END Form Buttons -->
+            </div>
+        </div>        
+    
+    <?php echo $this->form()->closeTag(); ?>
+    <!-- END Clickable Wizard Content -->
+</div>
+<!-- END Clickable Wizard Block -->
+
+<?php if ($this->layout()->getVariable('wizard') !== null) { ?>
+<?php $step=$this->layout()->getVariable('wizard')->getStepByKey('manage_form'); ?>
+<?php if (!$step->completed) { ?>
+<ol id="joyRideTipContent">
+  <li data-class="joyride-step1" data-button="<?php echo $this->translate('Next'); ?>" class="">
+    <p><?php echo $this->translate('Give to your evaluation form a name.'); ?></p>
+  </li>
+  <li data-class="joyride-step2" data-button="<?php echo $this->translate('Next'); ?>" class="">
+    <p><?php echo $this->translate('Enable the question group you just created.'); ?></p>
+  </li>
+  <li data-class="joyride-step3" data-button="<?php echo $this->translate('Next'); ?>" class="" data-options="tipLocation:left">
+    <p><?php echo $this->translate('Assign a weight of 100% to the question group.'); ?></p>
+  </li>
+  <li data-class="joyride-step4" data-button="<?php echo $this->translate('Next'); ?>" class="">
+    <p><?php echo $this->translate('Select which questions you would like to enable in this question form by clicking on the left.'); ?></p>
+  </li>
+  <li data-class="joyride-step5" data-button="<?php echo $this->translate('Next'); ?>" class="" data-options="tipLocation:left">
+    <p><?php echo $this->translate('Select the number of answers for each question (e.g. 2 for yes/no, or 5 to rate from 1 to 5).'); ?></p>
+  </li>
+  <li data-class="joyride-step6" data-button="<?php echo $this->translate('Next'); ?>" class="">
+    <p><?php echo $this->translate('Drag the question to the order in which you prefer to formulate them.'); ?></p>
+  </li>
+  <li data-class="joyride-step7" data-button="<?php echo $this->translate('Next'); ?>" class="" data-options="tipLocation:left">
+    <p><?php echo $this->translate('Assign each question the weight you would like them to carry. Note that it must add 100%.'); ?></p>
+  </li>
+  <li data-class="joyride-step8" data-button="<?php echo $this->translate('Close'); ?>" class="" data-options="tipLocation:left">
+    <p><?php echo $this->translate('Click "Save Changes" to complete your evaluation form set up.'); ?></p>
+  </li>
+</ol>
+<?php } ?>
+<?php } ?>
+
+<?php $this->inlineScript()->appendFile($this->basePath('/modules/application/js/form.js')); ?>

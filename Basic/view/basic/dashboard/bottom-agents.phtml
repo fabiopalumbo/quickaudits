@@ -1,0 +1,91 @@
+<?php /* @var $projectsOverview \Zend\Paginator\Paginator */ ?>
+<div class="widget">
+    <div class="widget-advanced widget-advanced-alt">
+        <!-- Widget Header -->
+        <div class="widget-header text-center ">
+        <?php if ($this->layout()->getVariable('role')->hasPermission('organization_manage-dashboard')) {?>
+        <div class="widget-options">
+            <div class="btn-group btn-group-xs">
+                <a data-original-title="<?php echo $this->translate('Manage Dashboards'); ?>" href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-dashboard'));?>" class="btn btn-xs btn-default" data-toggle="tooltip" title="<?php echo $this->translate('Manage Dashboards'); ?>"><i class="fa fa-cog"></i></a>
+            </div>
+        </div>    
+        <?php } ?>
+            <h3 class="text-left pull-left animation-pullDown">
+                <strong><?php echo $this->translate('Bottom 10 Agents'); ?></strong><br>
+            </h3>
+        </div>
+        <!-- END Widget Header -->
+        <?php if ($projectsOverview->count()) { ?>
+        <div id="chart-bottom-agents" class="chart"></div>
+        <?php } else { ?>
+        <div class="row-fluid clearfix">
+        	<div class="col-md-12"><div class="alert alert-warning"><?php echo $this->translate('There is no data to display this report.'); ?></div></div>
+        </div>
+        <?php } ?>
+    </div>
+</div>
+
+<?php if ($projectsOverview->count()) { ?>
+<script type="text/javascript">
+<!--
+$(function(){
+    // Projects Overview (MTD)
+	<?php $data = array(); ?>
+    <?php foreach ($projectsOverview as $item) { ?>
+    <?php array_push($data, '["'.$item->agent.'", '.$item->score.']'); ?>
+    <?php } ?>
+    
+    <?php $data1 = array(); ?>
+    <?php foreach ($projectsOverview as $item) { ?>
+    <?php array_push($data1, '["'.$item->agent.'", '.$item->samples.']'); ?>
+    <?php } ?>
+	    
+	var data = [ <?php echo implode(', ', $data); ?> ];
+	var data1 = [ <?php echo implode(', ', $data1); ?> ];
+    
+	$.plot($('#chart-bottom-agents'), 
+       [ 
+            {
+    	       //label: "Scores", 
+    	       data: data,
+    	       bars: {
+                    show: true, 
+                    barWidth: 0.6, 
+                    align: "center", 
+                    lineWidth: 1, 
+                    fillColor: {
+                       colors: [{opacity: 0.3}, {opacity: 0.3}]
+                    }
+                },
+                valueLabels: { show: true } 
+           }, 
+    	   { 
+    	       //label: "Sample Size",
+    	       data: data1,
+    	       lines: {
+                    show: true, 
+                    align: "center", 
+                },
+                valueLabels: { show: true } 
+           } 
+       ], 
+       {
+    	grid: {borderWidth: 0},
+    	colors: ['#84BF4F'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	},
+    	yaxis: {show: false},
+    });
+});
+//-->
+</script>
+<?php } ?>
+<script type="text/javascript">
+<!--
+$(function(){
+$('[data-toggle="tooltip"], .enable-tooltip').tooltip({container: 'body', animation: false});
+});
+//-->
+</script>

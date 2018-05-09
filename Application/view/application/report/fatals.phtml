@@ -1,0 +1,251 @@
+<div class="block ">
+    <form class="form-horizontal" method="get" action="<?php echo $this->url('application/default', array('controller'=>'report','action'=>'fatals'));?>" id="filter">
+        <div class="form-group">
+            <div class="col-md-3">
+            <select class="form-control input-sm select-chosen" name="project[]" data-placeholder="All Projects" multiple>
+                <?php foreach ($projects as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['project']) && in_array($item->id, $this->filter['project']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-2">
+            <select class="form-control input-sm select-chosen" name="channel[]" data-placeholder="All Channels" multiple>
+                <?php foreach ($channels as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['channel']) && in_array($item->id, $this->filter['channel']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-2">
+            <select class="form-control input-sm select-chosen" name="language[]" data-placeholder="All Languages" multiple>
+                <?php foreach ($languages as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['language']) && in_array($item->id, $this->filter['language']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-3">
+            <div class="input-group input-daterange" data-date-format="mm/dd/yyyy">
+                <input type="text" id="date_from" name="date_from" class="form-control text-center" placeholder="From" value="<?php echo $this->filter['date_from']; ?>">
+                <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+                <input type="text" id="date_to" name="date_to" class="form-control text-center" placeholder="To" value="<?php echo $this->filter['date_to']; ?>">
+            </div>
+            </div>
+
+            <div class="col-md-1">
+            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> Search</button>
+            </div>
+
+            
+        </div>
+    </form>    
+</div>
+
+
+<div class="block full">
+    <div class="block-title"><h2>Top 10 Fatal Questions</h2></div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div id="piechart" class="chart"></div>
+        </div>
+        <div class="col-md-6">
+            <p id="piechart-legends"></p>
+        </div>
+    </div>
+    <!-- 
+    <div>&nbsp;</div>
+    <div class="row">
+        <div class="col-md-9 col-md-offset-3">
+            <p id="piechart-legends"></p>
+        </div>
+    </div>
+     -->
+</div>
+
+<div class="block full">
+    <div class="block-title"><h2>Total Fatals per Agent</h2></div>
+    
+    <div class="row">
+        <div class="col-md-12" id="total-fatals-per-agent">
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="block full">
+    <div class="block-title"><h2>Listenings with Fatals</h2></div>
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th nowrap="nowrap">Project</th>
+                    <th nowrap="nowrap">Channel</th>
+                    <th nowrap="nowrap">QA Agent</th>
+                    <th nowrap="nowrap">Agent</th>
+                    <th nowrap="nowrap">Language</th>
+                    <th nowrap="nowrap">Fatal Questions</th>
+                    <th class="text-center" style="width: 50px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->listenings as $item) { ?>
+                <tr>
+                    <td nowrap="nowrap"><?php echo $item->project; ?></td>
+                    <td nowrap="nowrap"><?php echo $item->channel; ?></td>
+                    <td nowrap="nowrap"><?php echo $item->qa_agent; ?></td>
+                    <td nowrap="nowrap"><?php echo $item->agent; ?></td>
+                    <td nowrap="nowrap"><?php echo $item->language; ?></td>
+                    <td><?php echo $item->questions; ?></td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-xs">
+                            <a class="btn btn-default" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'listening','action'=>'view','id'=>$item->id));?>" data-original-title="View"><i class="fa fa-search"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-right">
+        <?php 
+            echo $this->paginationControl(
+                // the paginator object
+                $this->listenings,
+                // the scrolling style
+                'sliding',
+                // the partial to use to render the control
+                'partial/paginator.phtml',
+                // the route to link to when a user clicks a control link
+                array('query' => $this->filter)
+            );
+        ?>
+    </div>
+</div>
+
+<div class="block full">
+    <div class="block-title"><h2>Last 12 Weeks Rolling</h2></div>
+    
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th>Project / Week</th>
+                    <?php $date = new DateTime(date('Y-m-d')); ?>
+                    <?php for ($i=($date->format('W')-12);$i<$date->format('W');$i++) { ?>
+                    <th><?php echo $i; ?></th>
+                    <?php } ?>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <?php $newWeeksProjectsFatalsTotals = $weeksProjectsFatalsTotals->current(); ?>
+                
+                <?php while ($newWeeksProjectsFatalsTotals) { ?>
+                <?php $oldWeeksProjectsFatalsTotals = $newWeeksProjectsFatalsTotals; ?>
+                <tr>
+                    <td><?php echo $newWeeksProjectsFatalsTotals->project; ?></td>
+                    <?php while ($newWeeksProjectsFatalsTotals && $newWeeksProjectsFatalsTotals->id_project==$oldWeeksProjectsFatalsTotals->id_project) { ?>
+                    <td><?php echo $newWeeksProjectsFatalsTotals->total; ?></td>
+                    <?php $weeksProjectsFatalsTotals->next(); ?>
+                    <?php $newWeeksProjectsFatalsTotals = $weeksProjectsFatalsTotals->current(); ?>
+                    <?php } ?>                    
+                </tr>
+                <?php } ?>
+                
+            </tbody>
+        </table>
+                
+    </div>
+    
+</div>
+
+
+<div class="block full">
+    <div class="block-title"><h2>Last 6 Months Rolling</h2></div>
+    
+    <div class="table-responsive">
+        <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th>Project / Month</th>
+                    <?php for ($i=0;$i<6;$i++) {?>
+                    <th><?php echo DateTime::createFromFormat('!m', $monthsProjectsFatalsTotals->current()->month)->format('F');?></th>
+                    <?php $monthsProjectsFatalsTotals->next();?>              
+                    <?php } ?>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <?php $monthsProjectsFatalsTotals->rewind(); ?>
+                <?php $newMonthsProjectsFatalsTotals = $monthsProjectsFatalsTotals->current(); ?>
+                
+                <?php while ($newMonthsProjectsFatalsTotals) { ?>
+                <?php $oldMonthsProjectsFatalsTotals = $newMonthsProjectsFatalsTotals; ?>
+                <tr>
+                    <td><?php echo $newMonthsProjectsFatalsTotals->project; ?></td>
+                    <?php while ($newMonthsProjectsFatalsTotals && $newMonthsProjectsFatalsTotals->id_project==$oldMonthsProjectsFatalsTotals->id_project) { ?>
+                    <td><?php echo $newMonthsProjectsFatalsTotals->total; ?></td>
+                    <?php $monthsProjectsFatalsTotals->next(); ?>
+                    <?php $newMonthsProjectsFatalsTotals = $monthsProjectsFatalsTotals->current(); ?>
+                    <?php } ?>                    
+                </tr>
+                <?php } ?>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+
+function labelFormatter(label, series) {
+    return Math.round(series.percent) + "%";
+}
+
+$(function(){
+    $('ul.sidebar-nav li ul li a.fatals-report').addClass('active');
+    
+    <?php $data = array(); ?>
+    <?php foreach ($topFatalQuestions as $item) { ?>
+    <?php array_push($data, '{label:"'.$item->question.' ('.$item->total.')'.'", data:'.$item->total.'}'); ?>
+    <?php } ?>
+    
+	    
+	var data = [ <?php echo implode(', ', $data); ?> ];
+
+    $.plot($("#piechart"), data,{
+        series: {
+            pie: {
+                show: true,
+                radius: 1,
+                label: {
+                    show: true,
+                    radius: 2/3,
+                    formatter: labelFormatter,
+                    threshold: 0.1
+                },
+                combine: {
+                    color: '#999',
+                    threshold: 0.1
+                }
+            }
+        },
+        grid: {
+            hoverable: true
+        },
+        legend: {
+          show: true,
+          container: '#piechart-legends'
+        }
+    });
+    
+    $( "div#total-fatals-per-agent" ).load( baseUrl + "application/report/total-fatals-per-agent", $('form#filter').serialize(), function() {
+
+	});
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>

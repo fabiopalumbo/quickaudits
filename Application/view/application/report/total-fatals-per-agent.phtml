@@ -1,0 +1,61 @@
+<div id="chart-bars" class="chart"></div>
+
+<div class="text-right fatals-per-agent-paginator">
+    <?php 
+        echo $this->paginationControl(
+            // the paginator object
+            $this->paginator,
+            // the scrolling style
+            'sliding',
+            // the partial to use to render the control
+            'partial/paginator.phtml',
+            // the route to link to when a user clicks a control link
+            array('query' => $this->filter)
+        );
+    ?>
+</div>
+
+<script type="text/javascript">
+<!--
+
+$(function(){
+    <?php $data = array(); ?>
+    <?php foreach ($this->paginator as $item) { ?>
+    <?php array_push($data, '["'.$item->agent.'", '.$item->total.']'); ?>
+    <?php } ?>
+	    
+	var data = [ <?php echo implode(', ', $data); ?> ];
+	
+    $.plot($('#chart-bars'), [ data ], {
+    	series: {
+            bars: {
+                show: true, 
+                barWidth: 0.6, 
+                align: "center", 
+                lineWidth: 0, 
+                fillColor: {
+                   colors: [{opacity: 0.5}, {opacity: 0.5}]
+                }
+            },
+            valueLabels: { show: true }
+    	},
+    	grid: {borderWidth: 0},
+    	colors: ['#9b59b6'],
+    	xaxis: {
+    		mode: "categories",
+    		tickLength: 0
+    	}
+    });
+
+    $('div.fatals-per-agent-paginator a').click(function(e){
+
+        e.preventDefault();
+
+        $( "div#total-fatals-per-agent" ).load( $(this).attr('href'), function() {
+
+    	});
+    });
+});
+
+//-->
+</script>

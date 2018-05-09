@@ -1,0 +1,309 @@
+<?php
+namespace Application\Model;
+
+class FormQuestion
+{
+    /**
+     * 
+     * @var nunmber
+     */
+    public $id_form;
+    /**
+     * @var string
+     */
+    public $form;
+    /**
+     * 
+     * @var unknown
+     */
+    public $id_question;
+    /**
+     * 
+     * @var string
+     */
+    public $question;
+    /**
+     * 
+     * @var number
+     */
+    public $id_group;
+    /**
+     * 
+     * @var string
+     */
+    public $question_group;
+    /**
+     * 
+     * @var boolean
+     */
+    public $is_fatal;    
+    /**
+     * @var boolean
+     */
+    public $ml_fatal;    
+    /**
+     * 
+     * @var number
+     */
+    public $answers;
+    /**
+     * 
+     * @var number
+     */
+    public $weight;
+    /**
+     * 
+     * @var number
+     */
+    public $weight_percentage;
+    /**
+     * 
+     * @var number
+     */
+    public $order;
+    /**
+     * 
+     * @var bool
+     */
+    public $question_checked;
+    
+    /**
+     * @return the $question_checked
+     */
+    public function getQuestion_checked()
+    {
+        return $this->question_checked;
+    }
+
+	/**
+     * @param boolean $question_checked
+     */
+    public function setQuestion_checked($question_checked)
+    {
+        $this->question_checked = $question_checked;
+    }
+
+	/**
+     * @return the $id_form
+     */
+    public function getId_form()
+    {
+        return $this->id_form;
+    }
+
+	/**
+     * @return the $form
+     */
+    public function getForm()
+    {
+        return $this->form;
+    }
+
+	/**
+     * @return the $id_question
+     */
+    public function getId_question()
+    {
+        return $this->id_question;
+    }
+
+	/**
+     * @return the $question
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+
+	/**
+     * @return the $id_group
+     */
+    public function getId_group()
+    {
+        return $this->id_group;
+    }
+
+	/**
+     * @return the $question_group
+     */
+    public function getQuestion_group()
+    {
+        return $this->question_group;
+    }
+
+	/**
+     * @return the $is_fatal
+     */
+    public function getIs_fatal()
+    {
+        return $this->is_fatal;
+    }
+
+    /**
+     * @return the $ml_fatal
+     */
+    public function getMl_fatal()
+    {
+        return $this->ml_fatal;
+    }
+
+	/**
+     * @return the $weight
+     */
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+	/**
+     * @return the $weight_percentage
+     */
+    public function getWeight_percentage()
+    {
+        return $this->weight_percentage;
+    }
+
+	/**
+     * @return the $order
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+	/**
+     * @param \Application\Model\nunmber $id_form
+     */
+    public function setId_form($id_form)
+    {
+        $this->id_form = $id_form;
+    }
+
+	/**
+     * @param string $form
+     */
+    public function setForm($form)
+    {
+        $this->form = $form;
+    }
+
+	/**
+     * @param \Application\Model\unknown $id_question
+     */
+    public function setId_question($id_question)
+    {
+        $this->id_question = $id_question;
+    }
+
+	/**
+     * @param string $question
+     */
+    public function setQuestion($question)
+    {
+        $this->question = $question;
+    }
+
+	/**
+     * @param number $id_group
+     */
+    public function setId_group($id_group)
+    {
+        $this->id_group = $id_group;
+    }
+
+	/**
+     * @param string $question_group
+     */
+    public function setQuestion_group($question_group)
+    {
+        $this->question_group = $question_group;
+    }
+
+	/**
+     * @param boolean $is_fatal
+     */
+    public function setIs_fatal($is_fatal)
+    {
+        $this->is_fatal = $is_fatal;
+    }
+
+    /**
+     * @param boolean $ml_fatal
+     */
+    public function setMl_fatal($ml_fatal)
+    {
+        $this->ml_fatal = $ml_fatal;
+    }
+
+	/**
+     * @param number $weight
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+    }
+
+	/**
+     * @param number $weight_percentage
+     */
+    public function setWeight_percentage($weight_percentage)
+    {
+        $this->weight_percentage = $weight_percentage;
+    }
+
+	/**
+     * @param number $order
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+    }
+
+	public function __construct()
+    {
+//         $this->form = new Form();
+//         $this->question = new Question();
+    }
+    
+    public function exchangeArray($data)
+    {
+        $this->id_form = (!empty($data['id_form'])) ? $data['id_form'] : null;
+        $this->form = (!empty($data['form'])) ? $data['form'] : null;
+        
+        $this->id_question = (!empty($data['id_question'])) ? $data['id_question'] : null;
+        $this->question = (!empty($data['question'])) ? $data['question'] : null;
+        
+        $this->id_group = (!empty($data['id_group'])) ? $data['id_group'] : null;
+        $this->question_group = (!empty($data['question_group'])) ? $data['question_group'] : null;
+//         $this->form->id = (!empty($data['id_form'])) ? $data['id_form'] : null;
+//         $this->form->name = (!empty($data['form'])) ? $data['form'] : null;
+        
+//         $question = array();
+//         $question['id'] = (!empty($data['id_question'])) ? $data['id_question'] : null;
+//         $question['name'] = (!empty($data['question'])) ? $data['question'] : null;
+//         $question['id_group'] = (!empty($data['id_group'])) ? $data['id_group'] : null;
+//         $question['question_group'] = (!empty($data['question_group'])) ? $data['question_group'] : null;
+//         $this->question->exchangeArray($question);
+        
+        $this->answers = (is_numeric($data['answers'])) ? $data['answers'] : null;
+        $this->weight = (is_numeric($data['weight'])) ? $data['weight'] : null;
+        $this->weight_percentage = (is_numeric($data['weight_percentage'])) ? $data['weight_percentage'] : null;
+        $this->order = (is_numeric($data['order'])) ? $data['order'] : null;
+        $this->question_checked = (!empty($data['question_checked'])) ? $data['question_checked'] : null;
+    }
+    
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
+    
+    public function setAnswers($answers)
+    {
+        $this->answers = $answers;
+    } 
+    
+    public function getAnswers()
+    {
+        return $this->answers;
+    }
+}

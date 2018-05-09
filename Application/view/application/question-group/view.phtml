@@ -1,0 +1,156 @@
+<div class="block">
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Question Group'); ?></strong></td>
+                <td><?php echo $this->entity->name; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Display Order'); ?></strong></td>
+                <td><?php echo number_format($this->entity->order); ?></td>
+            </tr>
+            <?php if ($this->layout()->getVariable('role')->membership->package != 'basic') { ?>            
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Is Fatal'); ?></strong></td>
+                <td><?php echo $this->entity->is_fatal ? $this->translate('Yes') : $this->translate('No'); ?></td>
+            </tr> 
+            <tr style="display: none">
+                <td style="width: 20%;"><strong><?php echo $this->translate('Met Life fatal'); ?></strong></td>
+                <td><?php echo $this->entity->ml_fatal ? $this->translate('Yes') : $this->translate('No'); ?></td>
+            </tr>               
+            <?php } ?>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Status'); ?></strong></td>
+                <td><?php echo $this->entity->active ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Blocked'); ?></strong></td>
+                <td><?php echo $this->entity->blocked ? $this->translate('Blocked') : $this->translate('Unblocked'); ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<div class="block full">
+	<div class="row">
+		<div class="col-md-12">
+		<?php if($this->layout()->getVariable('role')->hasPermission('question-group_edit')){?>
+			<a href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'edit','id'=>$this->entity->id));?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> <?php echo $this->translate('Edit'); ?></a>
+	   <?php }?>
+	   <?php if($this->layout()->getVariable('role')->hasPermission('question-group_add')){?>
+			<a href="<?php echo $this->url('application/default', array('controller'=>'question','action'=>'add'), array('query'=>array('question_group'=>$this->entity->id)));?>" class="btn btn-sm btn-success joyride-step1"><i class="fa fa-plus"></i> <?php echo $this->translate('Add New Question'); ?></a>
+	   <?php }?>
+	   <?php if($this->layout()->getVariable('role')->hasPermission('question-group_index')){?>
+			<a href="<?php echo $this->url('application/default', array('controller'=>'question-group','action'=>'index'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+		<?php }?>
+		</div>
+	</div>
+</div>
+
+<div class="block full">
+	<div class="block-title">
+		<h2><?php echo $this->translate('Questions'); ?></h2>
+	</div>
+	<?php if ($this->questions->count()>0) { ?>
+	<div class="table-responsive">
+        <table id="example-datatable" class="table table-vcenter table-striped">
+            <thead>
+                <tr>
+                    <th><?php echo $this->translate('Name'); ?></th>
+                    <th><?php echo $this->translate('Status'); ?></th>
+                    <th><?php echo $this->translate('Blocked'); ?></th>
+                    <th class="text-center" style="width: 150px;">&nbsp;</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->questions as $item) { ?>
+                <tr>
+                    <td><a href="<?php echo $this->url('application/default', array('controller'=>'question','action'=>'view','id'=>$item->id));?>"><?php echo $this->escapeHtml($item->name);?></a></td>
+                    <td>
+                        <?php if ($item->active) { ?>
+                        <span class="label label-success"><?php echo $this->translate('Enabled'); ?></span>
+                        <?php } else { ?>
+                        <span class="label label-default"><?php echo $this->translate('Disabled'); ?></span>
+                        <?php } ?>
+                    </td>
+                    <td>
+                        <?php if ($item->blocked) { ?>
+                        <span class="label label-success"><?php echo $this->translate('Blocked'); ?></span>
+                        <?php } else { ?>
+                        <span class="label label-default"><?php echo $this->translate('Unblocked'); ?></span>
+                        <?php } ?>
+                    </td>
+                    <td class="text-center joyride-step2">
+                        <div class="btn-group btn-group-xs">
+                            <?php if($this->layout()->getVariable('role')->hasPermission('question_view')){?>
+                                 <a class="btn btn-default btn-sm" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question','action'=>'view','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('View'); ?>"><i class="fa fa-search"></i></a>
+                            <?php }?>
+                            <?php if($this->layout()->getVariable('role')->hasPermission('question_edit')){?>
+                                <a class="btn btn-primary btn-sm <?php echo $item->blocked ? 'disabled': ''?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question','action'=>'edit','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Edit'); ?>"><i class="fa fa-pencil"></i></a>
+                            <?php }?>
+                            <?php if($this->layout()->getVariable('role')->hasPermission('question_change-status')){?>
+                                <?php if ($item->active) { ?>
+                                    <a class="btn btn-danger btn-sm <?php echo $item->blocked ? 'disabled' : ''; ?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question','action'=>'change-status','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Disable'); ?>"><i class="fa fa-times"></i></a>
+                                <?php } else { ?>
+                                    <a class="btn btn-success btn-sm <?php echo $item->blocked ? 'disabled' : ''; ?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'question','action'=>'change-status','id'=>$item->id));?>" data-original-title="<?php echo $this->translate('Enable'); ?>"><i class="fa fa-check"></i></a>
+                                <?php } ?>
+                            <?php }?>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <?php } else { ?>
+    <?php echo $this->translate('There are no questions added in this question group.')?>
+    <?php } ?>
+</div>
+
+<?php if ($this->layout()->getVariable('wizard') !== null) { ?>
+<?php $step=$this->layout()->getVariable('wizard')->getStepByKey('manage_question'); ?>
+<?php if (!$step->completed) { ?>
+<ol id="joyRideTipContent">
+  <li data-class="joyride-step1" data-button="<?php echo $this->translate('Next'); ?>" class="">
+    <p><?php echo $this->translate('You can now create up to 10 questions by clicking "Add New Question".'); ?></p>
+  </li>
+  <li data-class="joyride-step2" data-button="<?php echo $this->translate('Close'); ?>" class="" data-options="tipLocation:left">
+    <p><?php echo $this->translate('Or you can edit existing and "unblocked" questions by clicking on the edit pencil.'); ?></p>
+  </li>
+</ol>
+<?php } ?>
+<?php } ?>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function(){
+    
+    /* Initialize Bootstrap Datatables Integration */
+    //App.datatables();
+
+    /*
+    $('#example-datatable').dataTable({
+        "aoColumnDefs": [ { "bSortable": false, "aTargets": [ 3 ] } ],
+        "iDisplayLength": 10,
+        "aLengthMenu": [[10, 20, 30, -1], [10, 20, 30, "All"]]
+    });
+    */
+    
+    /* Add placeholder attribute to the search input */
+    //$('.dataTables_filter input').attr('placeholder', 'Search');
+    
+    <?php if ($this->layout()->getVariable('wizard') !== null) { ?>
+    <?php $step=$this->layout()->getVariable('wizard')->getStepByKey('manage_question'); ?>
+    <?php if (!$step->completed) { ?>
+    $(window).load(function() {
+        $('#joyRideTipContent').joyride({
+            autoStart : true,
+            modal:true,
+            expose: false
+        });
+    });
+    <?php } ?>
+    <?php } ?>
+});
+<?php $this->inlineScript()->captureEnd(); ?>

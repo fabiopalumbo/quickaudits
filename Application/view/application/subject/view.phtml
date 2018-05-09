@@ -1,0 +1,33 @@
+<div class="block">
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong>Question</strong></td>
+                <td><?php echo $this->entity->name; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong>Status</strong></td>
+                <td><?php echo $this->entity->active ? 'Enabled' : 'Disabled'; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong>Blocked</strong></td>
+                <td><?php echo $this->entity->blocked ? 'Blocked' : 'Unblocked'; ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<div class="block full">
+	<div class="row">
+		<div class="col-md-12">
+		<?php if($this->layout()->getVariable('role')->hasPermission('subject_edit')){?>
+			<a href="<?php echo $this->url('application/default', array('controller'=>'subject','action'=>'edit','id'=>$this->entity->id));?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
+	    <?php }?>
+	    <?php if($this->layout()->getVariable('role')->hasPermission('subject_index')){?>
+		  <a href="<?php echo $this->url('application/default', array('controller'=>'subject','action'=>'index'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Return</a>
+		<?php }?>
+		</div>
+	</div>
+</div>

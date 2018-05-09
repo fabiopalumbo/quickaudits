@@ -1,0 +1,90 @@
+<div class="block">
+
+    <?php if ($m==1) { ?>
+        <div class="alert alert-success alert-dismissable fade in">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <h4><i class="fa fa-check-circle"></i> <?php echo $this->translate('Success');?></h4> <?php echo $this->translate('Form was added successfully'); ?>
+        </div>
+    <?php } ?>
+    
+    <!-- Info Content -->
+    <table class="table table-borderless table-striped">
+        <tbody>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Form'); ?></strong></td>
+                <td><?php echo $this->entity->name; ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Status'); ?></strong></td>
+                <td><?php echo $this->entity->active ? $this->translate('Enabled') : $this->translate('Disabled'); ?></td>
+            </tr>
+            <tr>
+                <td style="width: 20%;"><strong><?php echo $this->translate('Blocked'); ?></strong></td>
+                <td><?php echo $this->entity->blocked ? $this->translate('Blocked') : $this->translate('Unblocked'); ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- END Info Content -->
+</div>
+
+<div class="block">
+    <div class="block-title"><h2><?php echo $this->translate('Form Questions'); ?></h2></div>
+    <?php if (!empty($this->entity->forms_questions)) { ?>
+    <table class="table table-vcenter table-striped">
+        <?php $i=0; ?>
+        <?php $count_groups=1; ?>
+        
+        <?php while ($i < count($this->entity->forms_questions)) { ?>
+        <?php $form_question = $this->entity->forms_questions[$i]; ?>
+        <thead style="" >
+            <tr>
+                <th><?php echo $count_groups; ?></th>
+                <th class="" colspan="4"><?php echo $form_question->question_group;?></th>
+                <th class="text-right" style="width: 150px;"><?php echo number_format($this->groupsWeights[$form_question->id_group], 2); ?>%</th>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <th><?php echo $this->translate('Questions'); ?></th>
+                <th class="text-right"><?php echo $this->translate('Answers'); ?></th>
+                <!-- KHB - Agregado en tarea NA -->
+                <th class="text-right"><?php echo $this->translate('Type'); ?></th>
+                <th class="text-right"><?php echo $this->translate('Allow NA'); ?></th>
+                <th class="text-right"><?php echo $this->translate('Scores'); ?></th>
+            </tr>
+        </thead>
+        <tbody style="">
+            <?php $count_questions=1;?>
+            <?php while ($i < count($this->entity->forms_questions) && $this->entity->forms_questions[$i]->id_group==$form_question->id_group) { ?>
+            <tr>
+                <td><?php echo $count_groups.'.'.$count_questions; ?></td>
+                <td><?php echo $this->entity->forms_questions[$i]->question; ?></td>
+                <td class="text-right"><?php echo $this->entity->forms_questions[$i]->answers; ?></td>
+                <!-- KHB - Agregado en tarea NA -->
+                <td class="text-right"><span class="label label-info"><?php echo ucfirst($this->translate($this->entity->forms_questions[$i]->question_type)); ?></span></td>
+                <td class="text-right"><?php echo $this->entity->forms_questions[$i]->allow_na?$this->translate('Yes'):$this->translate('No'); ?></td>
+                <td class="text-right"><?php echo in_array($this->entity->forms_questions[$i]->question_type, ['binary','closed','inverted'])?$this->entity->forms_questions[$i]->weight_percentage.'%':''; ?></td>
+            </tr>
+            <?php $count_questions++; ?>
+            <?php $i++; ?>
+            <?php } ?>
+        </tbody>
+        <?php $count_groups++; ?>
+        <?php } ?>
+    </table>
+    <?php } else { ?>
+    <p><?php echo sprintf($this->translate('We couldn\'t find any question attached to this form. Press <a href="%s" class="text-info">here</a> to build your form.'),$this->url('application/default', array('controller'=>'form','action'=>'edit','id'=>$id))); ?></p>
+    <?php } ?>
+</div>
+
+<div class="block full">
+	<div class="row">
+		<div class="col-md-12">
+		<?php if($this->layout()->getVariable('role')->hasPermission('form_edit')){?>
+			<a href="<?php echo $this->url('application/default', array('controller'=>'form','action'=>'edit','id'=>$id));?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> <?php echo $this->translate('Edit'); ?></a>
+		<?php }?>
+		<?php if($this->layout()->getVariable('role')->hasPermission('form_index')){?>
+			<a href="<?php echo $this->url('application/default', array('controller'=>'form','action'=>'index'));?>" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+		<?php }?>
+		</div>
+	</div>
+</div>

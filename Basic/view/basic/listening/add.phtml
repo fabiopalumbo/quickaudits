@@ -1,0 +1,211 @@
+<?php /*@var $form \Basic\Form\ListeningForm */ ?>
+<?php $org_id_test = $this->layout()->getVariable('subscription')->id_organization; ?>
+<?php $this->inlineScript()->captureStart(); ?>
+$(function(){
+    $('ul.sidebar-nav li ul li a.perform-qa').addClass('active');
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<div class="block">
+
+    <?php if ($m==1) { ?>
+        <div class="alert alert-success alert-dismissable">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <i class="fa fa-check-circle"></i> <?php echo $this->translate('Evaluation added successfully!'); ?>
+        </div>
+    <?php } ?>
+
+    <!-- Horizontal Form Content -->
+    <?php $form->prepare(); ?>
+    <?php echo $this->form()->openTag($form); echo $this->formHidden($form->get('id')); ?>
+    <input type="hidden" id="id_organization" value="<?= $org_id_test ?>" />
+        <fieldset>
+            <legend><?php echo $this->translate('General Information'); ?></legend>
+<?php if($org_id_test != 177) { ?>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->formlabel($form->get('id_project')); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-9">
+                    <?php echo $this->formselect($form->get('id_project')); ?>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('id_project'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+<?php }; ?>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $org_id_test==177?$this->translate('Region'):$this->formlabel($form->get('id_channel')); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-9">
+                    <input type="hidden" id="selected_channel" value="<?php echo $form->get('id_channel')->getValue(); ?>" />
+                    <?php echo $this->formselect($form->get('id_channel')); ?>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('id_channel'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+
+<?php if($org_id_test==177) { ?>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $this->translate('Store'); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-9">
+                    <?php echo $this->formselect($form->get('id_project')); ?>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('id_project'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+<?php }; ?>
+
+
+
+ <?php if ($this->layout()->getVariable('role')->membership->package == 'contact_center') { echo "
+
+	<div class='form-group'>
+                <label for='case' class='col-md-3 control-label'>Team Lead</label>  
+                <div class='col-md-9'>
+		<fieldset> "
+                    . $this->formtextarea($form->get('teamlead')) . "
+		</fieldset>   
+                </div>
+	</div>
+"; }
+        ?>
+
+            <?php if ($form->has('id_agent')) { ?>
+            <div class="form-group">
+                <label for="" class="col-md-3 control-label">
+                    <?php echo $org_id_test==177?$this->translate('Technician'):$this->formlabel($form->get('id_agent')); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-9">
+                    <input type="hidden" id="selected_agent" value="<?php echo $form->get('id_agent')->getValue(); ?>" />
+                    <?php echo $this->formselect($form->get('id_agent')); ?>
+                    <div class="help-block"><?=$this->formElementErrors($form->get('id_agent'), array('class'=>'list-unstyled text-danger'))?></div>
+                </div>
+            </div>
+            <?php } ?>
+        </fieldset>
+
+ <?php if ($this->layout()->getVariable('role')->membership->package == 'contact_center') { echo "
+	<div class='form-group'>
+
+                <label for='case' class='col-md-3 control-label'>Case</label>    
+                <div class='col-md-3'>
+		<fieldset>"
+		. $this->formtextarea($form->get('case')) . "
+	        </fieldset>
+		</div>
+	</div>
+"; }
+        ?>
+            
+<?php if ($this->layout()->getVariable('role')->membership->package == 'contact_center') { echo "
+	<div class='form-group'>
+                <label for='case' class='col-md-3 control-label'>Incident Date</label>    
+                <div class='col-md-3'>
+		<fieldset>
+            <div class='input-group input-daterange'
+                data-date-format='mm/dd/yyyy'>
+                <input type='text' id='incident' name='incident'
+                    class='form-control text-center'
+                    placeholder=''
+                    value=''> <span
+                    class='input-group-addon'><i class='fa fa-angle-right'></i></span>
+            </div>
+	        </fieldset>
+		</div>
+	</div>
+"; }
+        ?>
+                        <input type="hidden" name="pnorte_radio1" value="-" />
+                        <input type="hidden" name="pnorte_radio2" value="-" />
+
+<?php if($org_id_test == 180) { ?>
+<?php echo "
+<div class='form-group'>
+
+                <label for='case' class='col-md-3 control-label'>Room Number</label>    
+                <div class='col-md-3'>
+		<fieldset>"
+		. $this->formtextarea($form->get('pnorte_room')) . "
+	        </fieldset>
+		</div>
+	</div>
+"; ?>
+<?php echo "
+	<div class='form-group'>
+                <label for='case' class='col-md-3 control-label'>Arrival</label>    
+                <div class='col-md-3'>
+		<fieldset>
+            <div class='input-group input-daterange'
+                data-date-format='mm/dd/yyyy'>
+                <input type='text' id='pnorte_arrival' name='pnorte_arrival'
+                    class='form-control text-center'
+                    placeholder=''
+                    value=''> <span
+                    class='input-group-addon'><i class='fa fa-angle-right'></i></span>
+            </div>
+	        </fieldset>
+		</div>
+	</div>
+"; ?>
+
+<?php echo "
+	<div class='form-group'>
+                <label for='case' class='col-md-3 control-label'>Departure</label>    
+                <div class='col-md-3'>
+		<fieldset>
+            <div class='input-group input-daterange'
+                data-date-format='mm/dd/yyyy'>
+                <input type='text' id='pnorte_departure' name='pnorte_departure'
+                    class='form-control text-center'
+                    placeholder=''
+                    value=''> <span
+                    class='input-group-addon'><i class='fa fa-angle-right'></i></span>
+            </div>
+	        </fieldset>
+		</div>
+	</div>
+";
+
+
+} ?>
+
+
+
+        <fieldset>
+            <legend><?php echo $this->translate('Questions'); ?> <span class="label label-primary" id="loading-form-questions" style="display:none;"><small><i class="fa fa-spin fa-spinner"></i> <?php echo $this->translate('Loading form questions'); ?>...</small></span></legend>
+
+            <div class="table-responsive" id="questions"></div>
+        </fieldset>
+        
+        
+        <fieldset>
+            <legend><?php echo $this->translate('Comments'); ?></legend>
+            
+            <div class="form-group">
+                <div class="col-md-12">
+                    <?php echo $this->formtextarea($form->get('comments'));?>
+                </div>
+            </div>
+            
+        </fieldset>
+        
+        <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3">
+                <button type="submit" id="submitbutton" class="btn btn-sm btn-primary" name="submit" data-addnew="1"><span class="main-text"><i class="fa fa-check"></i> <?php echo $this->translate('Save Changes'); ?></span><span class="loading-text collapse"><i class="fa fa-spin fa-spinner"></i> <?php echo $this->translate('Saving Changes'); ?>...</span></button>
+                <a class="btn btn-sm btn-warning" href="<?php echo $this->url('basic/default', array('controller'=>'listening','action'=>'index'));?>"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+            </div>
+        </div>
+        
+    <?php echo $this->form()->closeTag(); ?>
+    <!-- END Horizontal Form Content -->
+</div>
+
+<?php
+    if($org_id_test!=177)
+        $this->inlineScript()->appendFile($this->basePath('/modules/basic/js/listening.js?'.time()));
+    else
+        $this->inlineScript()->appendFile($this->basePath('/modules/basic/js/listening_177.js?'.time())); 
+?>

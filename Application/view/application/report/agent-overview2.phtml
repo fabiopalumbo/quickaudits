@@ -1,0 +1,113 @@
+<div class="block">
+    <form class="form-horizontal" method="get" action="<?php echo $this->url('application/default', array('controller'=>'report','action'=>'agent-overview'));?>">
+        <div class="form-group">
+            <div class="col-md-12">
+           <select class="form-control input-sm select-chosen" name="agent[]" data-placeholder="<?php echo $this->translate('All Agents'); ?>" multiple>
+                <option value="">Select an Agent</option>
+			<?php foreach ($agents as $item) { ?>
+                    <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['agent']) && in_array($item->id, $this->filter['agent']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                    <?php } ?>
+            </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+            <select class="form-control input-sm select-chosen" name="project[]" data-placeholder="All Projects" multiple>
+                <?php foreach ($projects as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['project']) && in_array($item->id, $this->filter['project']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-2">
+            <select class="form-control input-sm select-chosen" name="channel[]" data-placeholder="All Channels" multiple>
+                <?php foreach ($channels as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['channel']) && in_array($item->id, $this->filter['channel']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-2">
+            <select class="form-control input-sm select-chosen" name="language[]" data-placeholder="All Languages" multiple>
+                <?php foreach ($languages as $item) { ?>
+                <option value="<?php echo $item->id; ?>" <?php echo isset($this->filter['language']) && in_array($item->id, $this->filter['language']) ? 'selected' : ''; ?>><?php echo $item->name; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            
+            <div class="col-md-3">
+            <div class="input-group input-daterange" data-date-format="mm/dd/yyyy">
+                <input type="text" id="date_from" name="date_from" class="form-control text-center" placeholder="From" value="<?php echo $this->filter['date_from']; ?>">
+                <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+                <input type="text" id="date_to" name="date_to" class="form-control text-center" placeholder="To" value="<?php echo $this->filter['date_to']; ?>">
+            </div>
+            </div>
+
+            <div class="col-md-1">
+            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> Search</button>
+            </div>
+        </div>
+    </form>    
+</div>
+
+<?php $data = array(); ?>
+    <?php foreach ($projectsOverview as $item) { ?>
+    <?php array_push($data, '["'.$item->agent.'", '.$item->score.']'); ?>
+    <?php } ?>
+
+		<?php var_dump($data); ?>
+    
+    <?php $data1 = array(); ?>
+<?php foreach ($projectsOverview as $item) { ?>
+    <?php array_push($data1, '["'.$item->agent.'", '.$item->samples.']'); ?>
+    <?php } ?>
+
+		<?php var_dump($data1); ?>
+
+
+<?php if ($this->filter['agent']) { ?>
+
+		<?php var_dump($agents->name); ?>
+
+
+<?php echo '$filter <br />'; ?>
+<?php var_dump($filter); ?>
+<?php echo '<br />'; ?>
+<?php echo '$agentProjectsScores <br />'; ?>
+<?php var_dump($agentProjectsScores); ?>
+<?php echo '<br />'; ?>
+<?php echo '$agentProjectsScores <br />'; ?>
+<?php var_dump($projectsGroupsScores); ?>
+<?php echo '<br />'; ?>
+<?php echo '$questionsGroups<br />'; ?>
+<?php var_dump($questionsGroups); ?>
+<?php echo '<br />'; ?>
+<?php echo '$projects<br />'; ?>
+<?php var_dump($projects); ?>
+<?php echo '<br />'; ?>
+<?php echo '$channels<br />'; ?>
+<?php var_dump($channels); ?>
+<?php echo '<br />'; ?>
+<?php echo '$languages<br />'; ?>
+<?php var_dump($languages); ?>
+<?php echo '<br />'; ?>
+<?php echo '$agents<br />'; ?>
+<?php var_dump($agents); ?>
+<?php echo '<br />'; ?>
+<?php echo '$weeksGrandTotal<br />'; ?>
+<?php var_dump($weeksGrandTotal); ?>
+<?php echo '<br />'; ?>
+<?php echo '$weekGroupScoreAvg<br />'; ?>
+<?php var_dump($weekGroupScoreAvg); ?>
+<?php echo '<br />'; ?>
+<?php echo '$groupScoreTotal<br />'; ?>
+<?php var_dump($groupScoreTotal); ?>
+<?php echo '<br />'; ?>
+<?php echo '$groupScoreGrandTotal<br />'; ?>
+<?php var_dump($groupScoreGrandTotal); ?>
+<?php echo '<br />'; ?>
+<?php echo '$questionScoreTotal<br />'; ?>
+<?php var_dump($questionScoreTotal); ?>
+<?php echo '<br />'; ?>
+
+<?php } ?>

@@ -1,0 +1,116 @@
+<?php /* @var $globalDailyProgress \Zend\Db\ResultSet\ResultSet */ ?>
+<div class="widget">
+    <div class="widget-advanced widget-advanced-alt widget-extra-full clearfix">
+    <!-- Widget Header -->
+    <div class="widget-header text-center ">
+        <?php if ($this->layout()->getVariable('role')->hasPermission('organization_manage-dashboard')) {?>
+        <div class="widget-options">
+            <div class="btn-group btn-group-xs">
+                <a data-original-title="<?php echo $this->translate('Manage Dashboards'); ?>" href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'manage-dashboard'));?>" class="btn btn-xs btn-default" data-toggle="tooltip" title="<?php echo $this->translate('Manage Dashboards'); ?>"><i class="fa fa-cog"></i></a>
+            </div>
+        </div>    
+        <?php } ?>
+        <h3 class="text-left pull-left animation-pullDown">
+            <strong><?php echo $this->translate('Samples'); ?></strong> &amp; <strong><?php echo $this->translate('Scores'); ?></strong><br>
+            <small><?php echo $this->translate('Global daily progress'); ?><br/><?php echo $this->translate('Last 7 Days'); ?></small>
+        </h3>
+    </div>
+    <?php if ($globalDailyProgress->count()>0) { ?>
+    <div id="dash-widget-chart" class="chart"></div>
+    <?php } else { ?>
+    <div class="row-fluid clearfix">
+        	<div class="col-md-12"><div class="alert alert-warning"><?php echo $this->translate('There is no data to display this report.'); ?></div></div>
+        </div>
+    <?php } ?>
+    <!-- END Widget Header -->
+    </div>
+</div>
+
+<?php if ($globalDailyProgress->count()>0) { ?>
+<script type="text/javascript">
+<!--
+$(function(){
+    var dashWidgetChart = $('#dash-widget-chart');
+    <?php 
+    $samples = array();
+    $scores = array();
+    $dates = array();
+    foreach ($globalDailyProgress as $key=>$item) { 
+        array_push($samples, '['.$key.', '.$item->samples.']');
+        array_push($scores, '['.$key.', '.$item->score.']');
+        array_push($dates, '['.$key.', \''.$this->dateFormat(strtotime($item->created), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE).'\']');
+    } 
+    ?>
+
+    // Random data for the chart
+    var dataSamples = [<?php echo implode(',', $samples); ?>];
+    var dataScores = [<?php echo implode(',', $scores); ?>];
+
+    // Array with month labels used in chart
+    var chartDates = [<?php echo implode(',', $dates); ?>];
+
+    // Initialize Dash Widget Chart
+    $.plot(dashWidgetChart,
+        [
+            {
+                data: dataSamples,
+                lines: {show: true, fill: false},
+                points: {show: true, radius: 6, fillColor: '#cccccc'},
+                valueLabels: { show: true } 
+            },
+            {
+                data: dataScores,
+                lines: {show: true, fill: false},
+                points: {show: true, radius: 6, fillColor: '#ffffff'},
+                valueLabels: { show: true } 
+            }
+        ],
+        {
+            colors: ['#ffffff', '#353535'],
+            legend: {show: true},
+            grid: {borderWidth: 0, hoverable: true, clickable: true},
+            yaxis: {show: false},
+            xaxis: {show: true, ticks: chartDates, tickLength: 0}
+        }
+    );
+
+    // Creating and attaching a tooltip to the widget
+    var previousPoint = null, ttlabel = null;
+    dashWidgetChart.bind('plothover', function(event, pos, item) {
+
+        if (item) {
+            if (previousPoint !== item.dataIndex) {
+                previousPoint = item.dataIndex;
+
+                $('#chart-tooltip').remove();
+                var x = item.datapoint[0], y = item.datapoint[1];
+
+                // Get xaxis label
+                var monthLabel = item.series.xaxis.options.ticks[item.dataIndex][1];
+
+                if (item.seriesIndex === 1) {
+                    ttlabel = '<strong>' + y + '%</strong> score in <strong>' + monthLabel + '</strong>';
+                } else {
+                    ttlabel = '<strong>' + y + '</strong> samples in <strong>' + monthLabel + '</strong>';
+                }
+
+                $('<div id="chart-tooltip" class="chart-tooltip">' + ttlabel + '</div>')
+                    .css({top: item.pageY - 50, left: item.pageX - 50}).appendTo("body").show();
+            }
+        }
+        else {
+            $('#chart-tooltip').remove();
+            previousPoint = null;
+        }
+    });
+});
+//-->
+</script>
+<?php } ?>
+<script type="text/javascript">
+<!--
+$(function(){
+$('[data-toggle="tooltip"], .enable-tooltip').tooltip({container: 'body', animation: false});
+});
+//-->
+</script>

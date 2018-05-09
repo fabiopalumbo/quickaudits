@@ -1,0 +1,120 @@
+<?php /* @var $entity \Application\Model\OrganizationSubscription */ ?>
+<div class="block">
+    <!-- 
+    <div class="block-title">
+        <h2><?php echo $this->translate('Current Plan Details'); ?></h2>
+    </div>
+    -->
+    <?php if ($m==1 || $m==20) { ?>
+        <div class="alert alert-success alert-dismissable fade in">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <i class="fa fa-check-circle"></i>
+            <?php if ($m==1) { ?> 
+            <?php echo $this->translate('Plan details updated successfully!'); ?>
+            <?php } ?>
+            <?php if ($m==20) { ?>
+            <?php echo $this->translate('Subscription cancelled successfully!'); ?>
+            <?php } ?>
+        </div>
+    <?php } ?>
+    
+    <div class="row">
+
+        <div class="col-sm-6">
+            <table class="table table-borderless table-pricing table-featured">
+                <thead>
+                    <tr>
+                        <th><?php echo $entity->membership; ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><?php echo $entity->max_users; ?></strong> <?php echo $this->translate('Users'); ?></td>
+                    </tr>
+                    <tr>
+                        <td class="table-price">
+                            <?php if (!$entity->in_trial) { ?>
+                            <h1>
+                            <?php if ($entity->total_price>0) { ?>$<?php echo $entity->total_price; ?><?php }else{ ?>-- <?php echo $this->translate('FREE')?> --<?php }?>
+                            <br>
+                            <small><?php echo sprintf($this->translate('per %s'), ($entity->billing_period=='month'?$this->translate('month'):$this->translate('year'))); ?></small>
+                            </h1>
+                            <?php }else{?>
+                            <h1>
+                            -- <?php echo $this->translate('FREE TRIAL')?> --
+                            </h1>
+                            <?php }?>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4 col-sm-offset-1">
+            <div class="block-section">
+                <h3 class="sub-header text-center"><strong><i class="fa fa-info-circle text-primary"></i> <?php echo $this->translate('Current Subscription Details'); ?></strong></h3>
+                <div class="clearfix">
+                    <dl class="dl-horizontal">
+                        <?php if ($entity->next_billing_date && !$entity->end_date && !$entity->in_trial) { ?>
+                        <dt><?php echo $this->translate('Next billing'); ?></dt>
+                        <dd><?php echo $this->dateFormat(strtotime($entity->next_billing_date), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE); ?></dd>
+                        <?php } ?>
+                        <?php if ($entity->end_date) { ?>
+                        <dt><?php echo $this->translate('End date'); ?></dt>
+                        <dd><?php echo $this->dateFormat(strtotime($entity->end_date), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE); ?></dd>
+                        <?php } ?>
+                        <?php if ($entity->in_trial) { ?>
+                        <dt><?php echo $this->translate('Trial ends on'); ?></dt>
+                        <dd><?php echo $this->dateFormat(strtotime($entity->getTrialExpirationDate()), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE); ?></dd>
+                        <?php } ?>
+                        <dt><?php echo $this->translate('Status'); ?></dt>
+                        <dd class="<?php echo $entity->end_date ? 'text-danger' : 'text-success'; ?>"><?php echo $entity->end_date ? $this->translate('Cancelled') : $this->translate('Active'); ?></dd>
+                    </dl>
+                </div>
+                <p>
+                <?php if($this->layout()->getVariable('role')->hasPermission('organization_edit-subscription')){?>
+                    <a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'edit-subscription'));?>" class="btn btn-success btn-lg btn-block">
+                    <i class="fa fa-angle-right"></i> <?php echo !$entity->end_date && !$this->layout()->getVariable('trial_expired') ? $this->translate('Change Plan') : $this->translate('Renew Subscription'); ?> <i class="fa fa-angle-left"></i>
+                    </a>
+                <?php }?>
+                </p>
+                <?php if($this->layout()->getVariable('role')->membership->package !=  'basic' && $this->layout()->getVariable('role')->hasPermission('organization_cancel-subscription') && !$entity->end_date){?>
+                <p class="text-center"><a href="<?php echo $this->url('application/default', array('controller'=>'organization','action'=>'cancel-subscription'));?>" class="text-danger" style="margin-left:10px;"><?php echo $this->translate('Cancel Subscription'); ?></a></p>
+                <?php }?>
+            </div>
+        </div>
+            
+    </div>
+    <?php if ($this->oldSubscriptions->count()>0) { ?>
+    <h4 class="sub-header"><?php echo $this->translate('Active subscriptions with end date'); ?></h4>
+    <div class="row">        
+        <?php foreach ($this->oldSubscriptions as $item) { ?>
+        <div class="col-sm-3">
+            <table class="table table-borderless table-pricing">
+                <thead>
+                    <tr>
+                        <th><?php echo $item->membership; ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><?php echo $item->max_users; ?></strong> <?php echo $this->translate('Users'); ?></td>
+                    </tr>
+                    <tr>
+                        <td class="table-price">
+                            <h1>$<?php echo $item->total_price; ?><br><small><?php echo sprintf($this->translate('per %s'), $item->billing_period); ?></small></h1>
+                            <p class="text-warning"><?php echo $this->translate('Available until')?><br/><?php echo $this->dateFormat(strtotime($item->end_date), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE); ?></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <?php } ?>
+    </div>
+    <?php } ?>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function(){
+    $('ul.sidebar-nav li a.subscription-details').addClass('active');
+});
+<?php $this->inlineScript()->captureEnd(); ?>

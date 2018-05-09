@@ -1,0 +1,131 @@
+<div class="block">
+    <!-- Horizontal Form Content -->
+    <?php $form->prepare(); ?>
+    <?php 
+    echo $this->form()->openTag($form); 
+    echo $this->formHidden($form->get('id'));
+    ?>
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Name'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <?php echo $this->formInput($form->get('name')->setAttributes(array('placeholder'=>$this->translate('Enter user full name')))); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('name'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+                
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                <?php echo $this->translate('Email'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <?php echo $this->formInput($form->get('email')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('email'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label"><?php echo $this->translate('Role'); ?> <span class="text-danger">*</span></label>
+            <div class="col-md-9">
+                <?php echo $this->formselect($form->get('id_role')->setOptions(array('empty_option'=>$this->translate('Select a Role')))); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('id_role'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        <!-- 
+        <div class="form-group">
+            <label class="col-md-3 control-label">Languages <span class="text-danger">*</span></label>
+            <div class="col-md-9">
+                <?php echo $this->formselect($form->get('id_language')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('id_language'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        -->
+        <div class="form-group">
+            <label class="col-md-3 control-label"><?php echo $this->translate('Password'); ?></label>
+            <div class="col-md-9">
+                <p class="form-control-static"><a href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'change-password','id'=>$this->id));?>"><?php echo $this->translate('Change Password'); ?></a></p>
+            </div>
+        </div>
+        
+        <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3">
+                <?php echo $this->formSubmit($form->get('submit'));?>
+                <a class="btn btn-sm btn-warning" href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'index'));?>"><i class="fa fa-repeat"></i> <?php echo $this->translate('Return'); ?></a>
+            </div>
+        </div>
+    <?php echo $this->form()->closeTag(); ?>
+    <!-- END Horizontal Form Content -->
+</div>
+
+<div class="block">
+    <!-- Horizontal Form Title -->
+    <div class="block-title">
+        <?php if($this->layout()->getVariable('role')->hasPermission('user_add-user-project')){ ?>
+        <div class="block-options pull-right">
+            <a data-original-title="<?php echo $this->translate('Add Project'); ?>" href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'add-user-project','id'=>$id));?>" class="btn btn-sm btn-success" data-toggle="tooltip" title=""><i class="gi gi-plus"></i></a>
+        </div>
+        <?php } ?>
+        <h2><i class="fa fa-pencil"></i> <?php echo $this->translate('Manage User Projects'); ?></h2>
+    </div>
+    <!-- END Horizontal Form Title -->
+    
+    <?php if ($userProjects->count()>0) { ?>
+    
+    <div class="table-responsive">
+        
+            
+            <?php $newUserProjects = $userProjects->current(); ?>
+            
+            <?php while ($newUserProjects) { ?>
+            <?php $oldUserProjects = $newUserProjects; ?>
+            <table class="table table-vcenter table-striped report">
+            <thead>
+                <tr>
+                    <th colspan="100%"><?php echo $oldUserProjects->project; ?></th>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Role'); ?></th>
+                    <th><?php echo $this->translate('Enabled'); ?></th>
+                    <th><?php echo $this->translate('Blocked'); ?></th>
+                    <th style="width:150px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>                
+                <?php while ($newUserProjects && $newUserProjects->id_project==$oldUserProjects->id_project) { ?>
+                <tr>
+                    <td><?php echo $newUserProjects->project_role; ?></td>
+                    <td><?php echo $newUserProjects->active?$this->translate('Yes'):$this->translate('No'); ?></td>
+                    <td><?php echo $newUserProjects->blocked?$this->translate('Yes'):$this->translate('No'); ?></td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-xs">
+                            <?php if($this->layout()->getVariable('role')->hasPermission('user_change-status-user-project')){ ?>
+                                <?php if ($newUserProjects->active) { ?>
+                                    <a class="btn btn-danger" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'change-status-user-project'),array('query'=>array('user'=>$newUserProjects->id_user,'project'=>$newUserProjects->id_project,'project_role'=>$newUserProjects->id_project_role)));?>" data-original-title="<?php echo $this->translate('Disable'); ?>"><i class="fa fa-times"></i></a>
+                                <?php } else { ?>
+                                    <a class="btn btn-success" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'change-status-user-project'),array('query'=>array('user'=>$newUserProjects->id_user,'project'=>$newUserProjects->id_project,'project_role'=>$newUserProjects->id_project_role)));?>" data-original-title="<?php echo $this->translate('Enable'); ?>"><i class="fa fa-check"></i></a>
+                                <?php } ?>
+                            <?php } ?>
+                            <?php if($this->layout()->getVariable('role')->hasPermission('user_delete-user-project')){ ?>
+                            <a class="btn btn-warning <?php echo $newUserProjects->blocked?'disabled':''; ?>" title="" data-toggle="tooltip" href="<?php echo $this->url('application/default', array('controller'=>'user','action'=>'delete-user-project','id'=>$item->id),array('query'=>array('user'=>$newUserProjects->id_user,'project'=>$newUserProjects->id_project,'project_role'=>$newUserProjects->id_project_role)));?>" data-original-title="<?php echo $this->translate('Delete'); ?>"><i class="fa fa-trash-o"></i></a>
+                            <?php } ?>
+                        </div>
+                    </td>                    
+                </tr>
+                <?php $userProjects->next(); ?>
+                <?php $newUserProjects = $userProjects->current(); ?>
+                <?php } ?>                    
+            </tbody>
+            </table>
+            <?php } ?>
+            
+        
+                
+    </div>
+    
+    <?php } else { ?>    
+    <div class="alert alert-info"><?php echo $this->translate('User is not assigned to any project.'); ?></div>
+    <?php } ?>
+</div>

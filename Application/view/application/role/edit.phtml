@@ -1,0 +1,84 @@
+<div class="block">
+    <!-- Horizontal Form Title -->
+    <div class="block-title">
+        <h2><strong>Role</strong> Form</h2>
+    </div>
+    <!-- END Horizontal Form Title -->
+    
+    <?php if ($this->error) { ?>
+    <div class="alert alert-danger alert-dismissable">
+        <button data-dismiss="alert" class="close" type="button">&times;</button>
+        <h4><i class="fa fa-times-circle"></i> Error</h4> <?php echo $this->error?>
+    </div>
+    <?php } ?>
+
+    <!-- Horizontal Form Content -->
+    <?php $form->prepare(); ?>
+    <?php echo $this->form()->openTag($form); echo $this->formHidden($form->get('id')); ?>
+        <div class="form-group">
+            <label for="" class="col-md-3 control-label">
+                Role
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-9">
+                <?php echo $this->formInput($form->get('name')); ?>
+                <div class="help-block"><?=$this->formElementErrors($form->get('name'), array('class'=>'list-unstyled text-danger'))?></div>
+            </div>
+        </div>
+        
+        <fieldset>
+        <legend>Permissions</legend>
+        <div class="container panels-holder">
+        <div class="row flex">
+        <?php $fieldsets = $form->get('permissions')->getFieldsets(); ?>
+        <?php $i=0; ?>
+        <?php while ($i<count($fieldsets)) { ?>
+            <?php $category = $fieldsets[$i]->get('category')->getValue(); ?>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="panel panel-default permission-list">
+                <div class="panel-heading"><i class="fa fa-cogs"></i> <?php echo $category; ?></div>
+                <div class="panel-body">
+                <?php while ($i<count($fieldsets) && $category == $fieldsets[$i]->get('category')->getValue()) { ?>
+                    <div class="checkbox">
+                        <?php echo $this->formhidden($fieldsets[$i]->get('id')); ?>
+                        <?php echo $this->formhidden($fieldsets[$i]->get('name')); ?>
+                        <?php echo $this->formhidden($fieldsets[$i]->get('category')); ?>
+                        
+                        <label for="permission<?php echo $fieldsets[$i]->get('id')->getValue(); ?>">
+                            <?php echo $this->formcheckbox($fieldsets[$i]->get('checked')->setAttribute('id','permission'.$fieldsets[$i]->get('id')->getValue())); ?>
+                            <?php echo $fieldsets[$i]->get('name')->getValue(); ?>
+                        </label>
+                    </div>
+                <?php $i++; ?>
+                <?php } ?>
+                </div>
+            </div>
+            </div>
+        <?php } ?>
+        </div>
+        </div>
+                
+        </fieldset>
+        
+        <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3">
+                <?php echo $this->formSubmit($form->get('submit'));?>
+                <a class="btn btn-sm btn-warning" href="<?php echo $this->url('application/default', array('controller'=>'role','action'=>'index'));?>"><i class="fa fa-repeat"></i> Return</a>
+            </div>
+        </div>
+    <?php echo $this->form()->closeTag(); ?>
+    <!-- END Horizontal Form Content -->
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(function(){
+    var maxHeight = Math.max.apply(null, $("div.permission-list").map(function ()
+    {
+        return $(this).height();
+    }).get());
+    
+    $("div.permission-list").height(maxHeight);
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>
